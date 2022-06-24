@@ -1,0 +1,38 @@
+{
+    "workbench.colorTheme": "GitHub Dark",
+    "window.menuBarVisibility": "toggle",
+    "go.toolsManagement.autoUpdate": true,
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'mononoki Nerd Font',monospace",
+    "editor.letterSpacing": 0.21,
+    "prettier.quoteProps": "as-needed",
+    "prettier.singleQuote": true,
+    "yaml.format.singleQuote": true,
+    "prettier.jsxSingleQuote": true,
+    "editor.formatOnSave": true,
+    "[vue-directives]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.productIconTheme": "icons-octicons",
+    "workbench.iconTheme": "eq-material-theme-icons-darker",
+    "workbench.startupEditor": "none",
+    "deno.lint": true,
+    "deno.suggest.imports.hosts": {
+      "https://deno.land": true,
+      "https://x.nest.land": true,
+      "https://crux.land": true
+    },
+    "security.workspace.trust.untrustedFiles": "newWindow",
+   
+  }
+  
