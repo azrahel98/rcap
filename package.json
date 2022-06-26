@@ -3,16 +3,29 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "@apollo/client": "^3.6.5",
+    "graphql": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "jwt-decode": "^3.1.2",
+    "path": "^0.12.7",
+    "pinia": "^2.0.14",
+    "react": "^18.1.0",
+    "v-calendar": "^3.0.0-alpha.8",
+    "vue": "^3.2.25",
+    "vue-mapbox-ts": "^0.8.1",
+    "vue-router": "^4.1.0-c113369"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
-    "typescript": "^4.5.4",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "sass": "^1.52.1",
+    "typescript": "^4.8.0-dev.20220626",
     "vite": "^2.9.9",
     "vue-tsc": "^0.34.7"
   }
