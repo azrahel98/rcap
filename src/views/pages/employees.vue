@@ -5,7 +5,7 @@
 				<p class="control has-icons-right">
 					<input
 						class="input is-rounded is-medium"
-						type="email"
+						type="text"
 						v-model="nombre"
 						placeholder="Email"
 						:disable="isloading"
