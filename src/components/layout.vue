@@ -51,7 +51,7 @@
 		color: white;
 	}
 	.app {
-		display: flex;
+		min-width: 28vh;
 		height: 100vh !important;
 	}
 
@@ -110,7 +110,7 @@
 	.sidebar {
 		flex: 1 1 0;
 		padding: 2rem 1rem;
-		width: 22vh !important;
+		min-width: max-content;
 		background: #f6f7fc;
 		backdrop-filter: blur(24px);
 		z-index: 1;

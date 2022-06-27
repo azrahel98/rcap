@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<h3>{{ propr.dni }}</h3>
-		<p class="title is-4">{{ propr.nombre }}</p>
+		<p class="title is-5">{{ propr.nombre }}</p>
 		<div class="icons">
 			<button class="button" @click="() => (showmodal = true)">
 				<span class="icon is-small">
@@ -50,7 +50,7 @@
 		justify-content: center;
 		padding-top: 1vh;
 		padding-bottom: 1vh;
-		min-height: 20vh;
+		min-height: 30vh;
 		h3 {
 			min-height: 4vh;
 		}
