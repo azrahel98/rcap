@@ -33,7 +33,6 @@
 	import { ref } from 'vue'
 	import LoginImp from '../../app/implement/login'
 	import router from '../router/router'
-
 	const isExpanded = ref(true)
 	const e = defineEmits(['change'])
 	const click = () => {
@@ -51,10 +50,9 @@
 		color: white;
 	}
 	.app {
-		min-width: 28vh;
+		display: flex;
 		height: 100vh !important;
 	}
-
 	.menu-toggle {
 		display: none;
 		position: fixed;
@@ -66,7 +64,6 @@
 		background-color: #2e3047;
 		cursor: pointer;
 	}
-
 	.hamburger {
 		position: relative;
 		top: calc(50% - 2px);
@@ -74,7 +71,6 @@
 		transform: translate(-50%, -50%);
 		width: 32px;
 	}
-
 	.hamburger > span,
 	.hamburger > span::before,
 	.hamburger > span::after {
@@ -86,7 +82,6 @@
 		background-color: #fff;
 		transition-duration: 0.25s;
 	}
-
 	.hamburger > span::before {
 		content: '';
 		top: -8px;
@@ -106,11 +101,10 @@
 		top: 0;
 		transform: rotate(90deg);
 	}
-
 	.sidebar {
 		flex: 1 1 0;
 		padding: 2rem 1rem;
-		min-width: max-content;
+		width: 22vh !important;
 		background: #f6f7fc;
 		backdrop-filter: blur(24px);
 		z-index: 1;
@@ -125,21 +119,18 @@
 			transition: 0.2s linear;
 		}
 	}
-
 	.sidebar h3 {
 		color: #707793;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		margin-bottom: 0.5em;
 	}
-
 	.sidebar .menu {
 		margin: 0 -1rem;
 		i {
 			color: black;
 		}
 	}
-
 	.sidebar .menu .menu-item:hover,
 	.sidebar .menu .menu-item.is-active {
 		color: #623ce7;
@@ -150,20 +141,17 @@
 			color: #623ce7;
 		}
 	}
-
 	.sidebar .menu .menu-item:hover {
 		border-right: 5px solid #623ce7;
 		i {
 			color: #623ce7;
 		}
 	}
-
 	@media (max-width: 1024px) {
 		.sidebar {
 			max-width: 200px;
 		}
 	}
-
 	@media (max-width: 768px) {
 		.menu-toggle {
 			display: block;
@@ -180,7 +168,6 @@
 			max-width: 300px;
 			transition: 0.2s linear;
 		}
-
 		.sidebar.is-active {
 			left: 0;
 		}

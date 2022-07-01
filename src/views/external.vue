@@ -8,11 +8,11 @@
 <script lang="ts" setup>
 	import { onMounted, ref } from 'vue'
 	import AuthImpl from '../../app/implement/auth'
-	import { AsistenciaDetalle } from '../../app/models/asistencia'
 	import { Employ } from '../../app/models/employ'
 	import router from '../router/router'
 	import Detalle from '../components/pages/auth/detalle.vue'
 	import Tabasis from '../components/pages/auth/tabasis.vue'
+	import jwtDecode from 'jwt-decode'
 
 	const auth = new AuthImpl()
 
@@ -22,6 +22,9 @@
 		employ.value = await auth.detalles_employ(
 			router.currentRoute.value.params.dni.toString()
 		)
+		console.log(
+			jwtDecode(router.currentRoute.value.params.dni.toString())['mes']
+		)
 	})
 </script>
 
@@ -30,12 +33,13 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		justify-content: start;
+		justify-content: center;
 		align-items: center;
-		gap: 5vh;
-
+		.detalle {
+			height: max-content;
+		}
 		.asiste {
-			height: 100%;
+			height: max-content;
 			max-width: max-content;
 		}
 	}

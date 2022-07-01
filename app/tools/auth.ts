@@ -11,7 +11,7 @@ function AgregarDias(l: AsistenciaDetalle[]): Array<Object> {
 			key: i,
 			customData: {
 				title: `${l[i].marca}`,
-				class: 'bg-pink-500 text-white',
+				class: 'vc-detalle',
 			},
 			dates: n,
 		})
