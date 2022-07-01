@@ -8,6 +8,11 @@
 					<i class="fa-solid fa-file-circle-plus"></i>
 				</span>
 			</button>
+			<button class="button" @click="() => (showmodal = true)">
+				<span class="icon is-small">
+					<i class="fa-solid fa-file-lines"></i>
+				</span>
+			</button>
 		</div>
 	</div>
 	<Teleport to="#resultado" v-if="showmodal">
@@ -42,7 +47,8 @@
 <style lang="scss" scoped>
 	.card {
 		max-width: 19vh;
-		max-height: 50%;
+		min-height: 15vh;
+		max-height: 20vh;
 		background-color: #f6f7fc;
 		border-radius: 10.9322px;
 		display: grid;
@@ -50,7 +56,7 @@
 		justify-content: center;
 		padding-top: 1vh;
 		padding-bottom: 1vh;
-		min-height: 30%;
+
 		h3 {
 			min-height: 4vh;
 		}
@@ -61,7 +67,8 @@
 		}
 		.icons {
 			display: flex;
-			justify-content: center;
+			justify-content: space-evenly;
+
 			.button {
 				height: 4vh;
 			}

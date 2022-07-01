@@ -33,7 +33,7 @@
 	import { ref } from 'vue'
 	import LoginImp from '../../app/implement/login'
 	import router from '../router/router'
-	const isExpanded = ref(true)
+	const isExpanded = ref(false)
 	const e = defineEmits(['change'])
 	const click = () => {
 		isExpanded.value = !isExpanded.value
