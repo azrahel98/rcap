@@ -7,7 +7,7 @@
 						class="input is-rounded is-medium"
 						type="text"
 						v-model="nombre"
-						placeholder="Email"
+						placeholder="Nombre"
 						:disable="isloading"
 						:class="isloading ? 'is-loading' : ''"
 					/>

@@ -42,7 +42,7 @@
 <style lang="scss" scoped>
 	.card {
 		max-width: 19vh;
-		max-height: 25vh;
+		max-height: 50%;
 		background-color: #f6f7fc;
 		border-radius: 10.9322px;
 		display: grid;
@@ -50,7 +50,7 @@
 		justify-content: center;
 		padding-top: 1vh;
 		padding-bottom: 1vh;
-		min-height: 30vh;
+		min-height: 30%;
 		h3 {
 			min-height: 4vh;
 		}

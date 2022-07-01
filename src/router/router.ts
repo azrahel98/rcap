@@ -17,6 +17,12 @@ const routes: RouteRecordRaw[] = [
 		},
 	},
 	{
+		component: () => import('../views/external.vue'),
+		name: 'external',
+		path: '/:dni/t',
+		props: true,
+	},
+	{
 		component: () => import('../views/dash.vue'),
 		name: 'dash',
 		path: '/',

@@ -11,7 +11,7 @@
     "isolatedModules": false,
     "esModuleInterop": true,
     "allowJs": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true
   },
