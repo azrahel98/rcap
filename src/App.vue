@@ -6,6 +6,7 @@
 	#app {
 		font-family: 'Ubuntu Mono', sans-serif;
 		text-align: center;
+		background-color: $background;
 	}
 	* {
 		margin: 0;

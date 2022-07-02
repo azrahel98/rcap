@@ -2,17 +2,16 @@
 	<div class="app">
 		<div class="search">
 			<div class="field">
-				<p class="control has-icons-right">
+				<p class="control has-icons-left">
 					<input
-						class="input is-rounded is-medium"
+						class="input is-medium"
 						type="text"
 						v-model="nombre"
-						placeholder="Nombre"
 						:disable="isloading"
 						:class="isloading ? 'is-loading' : ''"
 					/>
-					<span class="icon is-small is-right">
-						<i class="fa-solid fa-users-viewfinder"></i>
+					<span class="icon is-small is-left">
+						<i class="fa-brands fa-searchengin"></i>
 					</span>
 				</p>
 			</div>
@@ -47,35 +46,60 @@
 </script>
 <style lang="scss" scoped>
 	input {
-		text-align: center;
-		font-family: 'Fira Sans';
-		font-weight: 400;
+		text-align: left;
+		font-family: 'Fira Sans' !important;
+		font-weight: 600 !important;
+		border: none;
+		background-color: $primary;
+		border-radius: 10px;
+		color: $bsidebar;
 	}
 	.app {
-		padding-top: 8vh;
 		width: 100%;
 		height: 100vh;
 		display: grid;
-		grid-template-rows: 10vh auto;
+		gap: 5vh;
+		grid-template-rows: 5vh auto;
 
 		.search {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			i {
-				color: black;
+				color: $bsidebar;
+			}
+			.input {
+				box-shadow: none;
+				font-weight: 400;
+			}
+			@media (max-width: 1024px) {
+				width: 85%;
+				.input {
+					text-align: center;
+				}
 			}
 		}
 		.resultados {
 			width: 100%;
-			// overflow-y: scroll !important;
-			max-height: 70vh;
+			height: 100%;
+			padding-bottom: 4vh;
 			display: flex;
-			justify-content: center;
+			justify-content: space-evenly;
+			overflow: scroll !important;
 			gap: 2vh;
 			flex-wrap: wrap;
-			@media (max-width: 1024px) {
-				overflow-y: scroll !important;
+			word-wrap: normal;
+
+			&::-webkit-scrollbar {
+				width: 0.15rem;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background: $primary;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: $background;
 			}
 		}
 	}

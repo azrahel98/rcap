@@ -105,17 +105,19 @@
 		flex: 1 1 0;
 		padding: 2rem 1rem;
 		width: 22vh !important;
-		background: #f6f7fc;
+		background: $bsidebar;
 		backdrop-filter: blur(24px);
 		z-index: 1;
 		.menu .menu-item {
 			display: flex;
 			padding: 1em;
-			color: black;
+			color: $primary;
 			padding-left: 2vh;
 			gap: 2vh;
+			font-weight: 400;
+			font-size: 0.92rem;
 			text-decoration: none;
-			justify-content: space-evenly;
+			justify-content: space-between;
 			transition: 0.2s linear;
 		}
 	}
@@ -128,23 +130,23 @@
 	.sidebar .menu {
 		margin: 0 -1rem;
 		i {
-			color: black;
+			color: $primary;
 		}
 	}
 	.sidebar .menu .menu-item:hover,
 	.sidebar .menu .menu-item.is-active {
-		color: #623ce7;
-		border-right: 5px solid #623ce7;
+		color: $accent;
+		border-right: 5px solid $accent;
 	}
 	.menu-item.is-active {
 		i {
-			color: #623ce7;
+			color: $accent;
 		}
 	}
 	.sidebar .menu .menu-item:hover {
-		border-right: 5px solid #623ce7;
+		border-right: 5px solid $accent;
 		i {
-			color: #623ce7;
+			color: $accent;
 		}
 	}
 	@media (max-width: 1024px) {

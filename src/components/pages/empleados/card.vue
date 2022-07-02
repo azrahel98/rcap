@@ -3,12 +3,12 @@
 		<h3>{{ propr.dni }}</h3>
 		<p class="title is-5">{{ propr.nombre }}</p>
 		<div class="icons">
-			<button class="button" @click="() => (showmodal = true)">
+			<button class="button papeleta" @click="() => (showmodal = true)">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-circle-plus"></i>
 				</span>
 			</button>
-			<button class="button" @click="() => (showmodal = true)">
+			<button class="button memo" @click="() => (showmodal = true)">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-lines"></i>
 				</span>
@@ -49,7 +49,7 @@
 		max-width: 19vh;
 		min-height: 15vh;
 		max-height: 20vh;
-		background-color: #f6f7fc;
+		background-color: $primary;
 		border-radius: 10.9322px;
 		display: grid;
 		grid-template-rows: 3vh auto auto;
@@ -61,15 +61,21 @@
 			min-height: 4vh;
 		}
 		p {
-			text-align: center;
 			word-wrap: break-word;
 			height: 100%;
+			color: $bsidebar;
 		}
 		.icons {
 			display: flex;
 			justify-content: space-evenly;
-
+			.papeleta {
+				color: $alternative;
+			}
+			.memo {
+				color: $secundary;
+			}
 			.button {
+				border: none;
 				height: 4vh;
 			}
 		}
