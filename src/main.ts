@@ -3,10 +3,13 @@ import App from './App.vue'
 import routes from './router/router'
 import Mapbox from 'vue-mapbox-ts'
 import Vcalendar from 'v-calendar'
+import Vue3Lottie from 'vue3-lottie'
+import 'vue3-lottie/dist/style.css'
 
 createApp(App)
 	.use(routes)
 	.use(Mapbox)
+	.use(Vue3Lottie)
 	.use(Vcalendar, {})
 	.directive('click-outside', {
 		beforeMount: function (el, binding) {

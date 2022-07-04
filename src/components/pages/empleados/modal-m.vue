@@ -7,32 +7,63 @@
 					<h4 class="name">{{ prop.nombre }}</h4>
 					<h4>{{ prop.cargo }}</h4>
 				</div>
-				<p class="subtitle is-6">PAPELETA</p>
+				<p class="subtitle is-6">MEMORANDOOO</p>
 				<button class="delete" aria-label="close" @click="close"></button>
 			</div>
 			<div class="form">
 				<div class="left">
 					<div class="permisos">
 						<label class="select" for="slct"
+							><select id="slct" v-model="tipodoc">
+								<option value="RESOLUCION">Resolucion</option>
+								<option value="CARTA">Carta</option>
+								<option value="INFORME">Informe</option>
+								<option value="RENUNCIA">Renuncia</option>
+								<option value="SOLICITUD">Solicitud</option>
+								<option value="MEMORANDO">Memorando</option>
+							</select></label
+						><svg class="sprites"></svg>
+						<label class="select" for="slct"
 							><select id="slct" v-model="tipoper">
-								<option value="JUSTIFICIADO">Justificado</option>
 								<option value="DF">Descanso Fisico</option>
 								<option value="AC">A cuenta</option>
-								<option value="DFXHEL">Por horas Extras</option>
-								<option value="OMISION">Omision</option>
+								<option value="JUSTIFICADO">Justificado</option>
+								<option value="XHEL">Por horas Extras</option>
 								<option value="ONOMASTICO">Onomastico</option>
+								<option value="ADELANTO">Adelanto</option>
+								<option value="SANSION">Sansion</option>
+								<option value="LICENCIA">Licencia</option>
+								<option value="HORASEXTRAS">Horas Extras</option>
+								<option value="OMISION">Omision</option>
+								<option value="OTROS">Otros</option>
 							</select></label
 						><svg class="sprites"></svg>
 					</div>
-					<v-date-picker mode="date" v-model="date" />
+					<div class="times">
+						<div class="fecha-doc">
+							<label class="checkbox">
+								<input type="checkbox" v-model="docwithrange" />
+								Rango
+							</label>
+							<v-date-picker v-model="date" mode="date">
+								<template v-slot="{ inputValue, inputEvents }">
+									<input
+										class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
+										:value="inputValue"
+										v-on="inputEvents"
+									/>
+								</template>
+							</v-date-picker>
+						</div>
+						<v-date-picker is-range v-if="docwithrange" v-model="rangedates" />
+					</div>
 				</div>
 				<div class="other">
 					<input
-						class="input is-small is-rounded papeleta"
-						type="number"
-						min="4000"
-						v-model="papeleta"
-						placeholder="# PAPELETA"
+						class="input is-small is-rounded memorando"
+						type="text"
+						v-model="memorando"
+						placeholder="###"
 					/>
 					<div class="field">
 						<div class="control">
@@ -47,23 +78,16 @@
 						<input
 							class="input is-small details"
 							type="text"
-							v-model="detalle"
-							placeholder="Detalle"
+							v-model="referencia"
+							placeholder="Ref"
 						/>
-						<label class="checkbox">
-							<input
-								type="checkbox"
-								v-model="conretorno"
-								@keyup.enter="clickRetorno"
-							/>
-							Regreso?
-						</label>
 					</div>
 					<div class="botones">
 						<button
 							class="button"
 							@click="guardar"
 							:class="isLoading ? 'is-loding' : ''"
+							:disabled="isLoading"
 						>
 							Guardar
 						</button>
@@ -94,30 +118,47 @@
 	const isLoading = ref(false)
 	const isError = ref(false)
 	const message = ref<string>('')
+	const docwithrange = ref(false)
 
 	const tipoper = ref<string>('JUSTIFICADO')
+	const tipodoc = ref<string>('MEMORANDO')
 	const date = ref<Date>(new Date())
-	const papeleta = ref<number>(4000)
+	const memorando = ref<string>()
 	const descrip = ref<string>('')
-	const detalle = ref<string>('')
-	const conretorno = ref(false)
+	const referencia = ref<string>('')
+	const rangedates = ref(false)
 
 	const guardar = async () => {
-		if (CheckIsEmpty(descrip.value, detalle.value)) {
+		if (CheckIsEmpty(descrip.value, referencia.value)) {
 			isLoading.value = true
-			var id = await doc.creaer_papeleta({
-				nombre: papeleta.value.toString(),
-				descrip: descrip.value,
-				dni: prop.dni,
-				fecha: ConverDateToString(date.value),
-				retorno: conretorno.value ? 'Y' : 'N',
-				tipoP: tipoper.value,
-				detalle: detalle.value,
-			})
-			isLoading.value = false
-			isError.value = false
-			if (isNumber(id)) {
-				message.value = `El ultimo registro Guardado fue ${id}`
+			try {
+				var id = await doc.crear_docs(
+					{
+						tipo: tipodoc.value,
+						Ref: referencia.value,
+						descrip: descrip.value,
+						dni: prop.dni,
+						doc: memorando.value,
+						fecha: ConverDateToString(date.value),
+						permiso: tipoper.value,
+						Fin: docwithrange.value
+							? ConverDateToString(rangedates.value['end'] as Date)
+							: '',
+						Inicio: docwithrange.value
+							? ConverDateToString(rangedates.value['start'] as Date)
+							: '',
+					},
+					docwithrange.value
+				)
+				isLoading.value = false
+				console.log(rangedates.value)
+				isError.value = false
+				if (isNumber(id)) {
+					message.value = `El ultimo registro Guardado fue ${id}`
+				}
+			} catch (error) {
+				isError.value = true
+				message.value = error
 			}
 		} else {
 			isError.value = true
@@ -130,10 +171,6 @@
 			outclick.value = false
 		}
 	})
-
-	const clickRetorno = () => {
-		conretorno.value = !conretorno.value
-	}
 
 	var clickz: number = 0
 	const e = defineEmits(['change'])
@@ -161,9 +198,11 @@
 		margin: 0;
 	}
 	.modal-content {
+		// min-height: 60vh;
+		min-width: 70vh;
 		background-color: white;
 		border-radius: 15px;
-
+		padding-bottom: 6vh;
 		.form {
 			display: flex;
 			align-items: center;
@@ -178,6 +217,28 @@
 				gap: 3vh;
 				height: 100%;
 				width: 100%;
+				.permisos {
+					padding-left: 1vh;
+					padding-right: 1vh;
+					gap: 1vh;
+					display: flex;
+					padding-bottom: 2vh;
+					height: max-content;
+				}
+				.times {
+					width: 100%;
+					height: max-content;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					gap: 25px;
+					.fecha-doc {
+						display: flex;
+						justify-content: center;
+						gap: 2vh;
+					}
+				}
 			}
 			.other {
 				display: flex;
@@ -185,27 +246,25 @@
 				align-items: center;
 				gap: 3vh;
 				height: 100%;
-				width: 100%;
+				min-width: 45%;
 				.detalle {
+					width: 80%;
 					display: flex;
 					justify-content: space-around;
-					gap: 2vh;
 					align-items: center;
 				}
 				.field {
 					width: 80%;
 				}
-				.details {
-					width: max-content;
-				}
-				.papeleta {
+
+				.memorando {
 					text-align: center;
-					width: 40%;
+					width: 70%;
 				}
 			}
 			.select {
 				position: relative;
-				min-width: 200px;
+				min-width: min-content;
 				svg {
 					position: absolute;
 					right: 12px;
@@ -266,6 +325,7 @@
 			display: flex;
 			width: 100%;
 			padding: 1vh 2vh 0 2vh;
+
 			justify-content: space-between;
 			align-items: center;
 			.nombre {

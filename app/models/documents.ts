@@ -8,5 +8,17 @@ interface Papeleta {
 	retorno?: string | null
 	tipoP?: string | null
 }
+interface Doc {
+	id?: String | null
+	dni?: String
+	doc?: String
+	fecha?: String
+	tipo?: String
+	permiso?: String
+	descrip?: String
+	Ref?: String
+	Inicio?: String
+	Fin?: String
+}
 
-export { Papeleta }
+export { Papeleta, Doc }

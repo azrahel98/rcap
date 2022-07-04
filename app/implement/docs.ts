@@ -1,9 +1,42 @@
+import { GraphQLError } from 'graphql'
 import gql from 'graphql-tag'
-import { Papeleta } from '../models/documents'
+import { Doc, Papeleta } from '../models/documents'
 import { DocsRep } from '../repository/docs'
 import { Client } from '../service/graphl'
 
 export default class DocsImpl implements DocsRep {
+	async crear_docs(memo: Doc, isrange: boolean): Promise<string> {
+		try {
+			var query = gql`
+				mutation {
+					crear_doc(
+						input: {
+							dni: "${memo.dni}"
+							descrip: "${memo.descrip}"
+							doc: "${memo.doc}"
+							fecha: "${memo.fecha}"
+							permiso: ${memo.permiso}
+							range: ${isrange.toString()}
+							Ref: "${memo.Ref}"
+							tipo: ${memo.tipo}
+							Fin: "${memo.Fin}"
+							Inicio: "${memo.Inicio}"
+						}
+					) {
+						id
+					}
+				}
+			`
+
+			var data = await Client.mutate({
+				mutation: query,
+				fetchPolicy: 'no-cache',
+			})
+			return data.data.crear_doc.id
+		} catch (error) {
+			throw new Error((error as GraphQLError).message)
+		}
+	}
 	async creaer_papeleta(papeleta: Papeleta): Promise<string | null> {
 		try {
 			var query = gql`

@@ -3,33 +3,40 @@
 		<h3>{{ propr.dni }}</h3>
 		<p class="title is-5">{{ propr.nombre }}</p>
 		<div class="icons">
-			<button class="button papeleta" @click="() => (showmodal = true)">
+			<button class="button papeleta" @click="openmemo(true)">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-circle-plus"></i>
 				</span>
 			</button>
-			<button class="button memo" @click="() => (showmodal = true)">
+			<button class="button memo" @click="openmemo(false)">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-lines"></i>
 				</span>
 			</button>
 		</div>
 	</div>
-	<Teleport to="#resultado" v-if="showmodal">
+	<Teleport to="#resultado" v-if="showp">
 		<Modal
 			@change="close"
 			:cargo="propr.cargo"
 			:dni="propr.dni"
 			:nombre="propr.nombre"
-		>
-			<h2>Hola</h2>
-		</Modal>
+			v-if="ispape"
+		/>
+		<ModalM
+			@change="close"
+			:cargo="propr.cargo"
+			:dni="propr.dni"
+			:nombre="propr.nombre"
+			v-else
+		/>
 	</Teleport>
 </template>
 
 <script lang="ts" setup>
 	import Modal from './modal.vue'
 	import { ref } from 'vue'
+	import ModalM from './modal-m.vue'
 
 	const propr = defineProps({
 		nombre: { required: true, type: String },
@@ -37,10 +44,12 @@
 		cargo: { required: true, type: String },
 	})
 
-	const showmodal = ref(false)
-	const close = (e) => (showmodal.value = e)
-	const out = (e) => {
-		console.log(e)
+	const showp = ref(false)
+	const ispape = ref(true)
+	const close = (e) => (showp.value = e)
+	const openmemo = (memo: boolean) => {
+		ispape.value = memo
+		showp.value = true
 	}
 </script>
 

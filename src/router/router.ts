@@ -1,3 +1,4 @@
+import path from 'path'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import LoginImp from '../../app/implement/login'
@@ -51,6 +52,11 @@ const routes: RouteRecordRaw[] = [
 				path: '/memo',
 			},
 		],
+	},
+	{
+		component: () => import('../views/error.vue'),
+		path: '/:pathMatch(.*)*',
+		name: 'notfound',
 	},
 ]
 
