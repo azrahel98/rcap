@@ -56,8 +56,6 @@
 <style lang="scss" scoped>
 	.card {
 		max-width: 19vh;
-		min-height: 15vh;
-		max-height: 20vh;
 		background-color: $primary;
 		border-radius: 10.9322px;
 		display: grid;

@@ -7,8 +7,9 @@
 			:minDate="mindate"
 			:maxDate="maxdate"
 			:minDateExact="mindate"
+			class="calendar"
 		>
-			<template v-slot:day-content="{ day, attributes }" class="dia">
+			<template v-slot:day-content="{ day, attributes }"  class="template">
 				<div class="dia">
 					<span>{{ day.day }}</span>
 					<div class="vc-contenido">
@@ -60,18 +61,15 @@
 </script>
 <style lang="scss" scoped>
 	.section {
-		width: 100%;
-		.dia {
-			padding-left: 2vh;
-			padding-right: 1vh;
-		}
+		width: min-content;
+	
+
 		.vc-contenido {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
 			.vc-detalle {
-				width: 100%;
 				font-size: 0.75rem;
 				background-color: #623ce7;
 				border-radius: 15px;

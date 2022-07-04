@@ -104,7 +104,7 @@
 	.sidebar {
 		flex: 1 1 0;
 		padding: 2rem 1rem;
-		width: 22vh !important;
+		width: 25vh !important;
 		background: $bsidebar;
 		backdrop-filter: blur(24px);
 		z-index: 1;

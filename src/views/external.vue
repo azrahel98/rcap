@@ -1,7 +1,11 @@
 <template>
 	<div class="app">
 		<Detalle :empleado="employ" class="detalle"></Detalle>
-		<Tabasis class="asiste"></Tabasis>
+		<div class="tablas">
+			<Tabasis class="asiste"></Tabasis>
+			<Tabasis class="asiste"></Tabasis>
+				<Tabasis class="asiste"></Tabasis>
+		</div>
 	</div>
 </template>
 
@@ -19,12 +23,15 @@
 	const employ = ref<Employ>({})
 
 	onMounted(async () => {
-		employ.value = await auth.detalles_employ(
+		var jwt = jwtDecode(router.currentRoute.value.params.dni.toString())
+		if (new Date(jwt['exp'] * 1000) < new Date()){
+			router.push('notfound')
+		}else{
+				employ.value = await auth.detalles_employ(
 			router.currentRoute.value.params.dni.toString()
-		)
-		console.log(
-			jwtDecode(router.currentRoute.value.params.dni.toString())['mes']
-		)
+			)
+		}
+
 	})
 </script>
 
@@ -33,14 +40,16 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		justify-content: flex-start;
 		.detalle {
-			height: max-content;
+			height: min-content;
 		}
-		.asiste {
-			height: max-content;
-			max-width: max-content;
+		.tablas{
+			display: flex;
+			.asiste {
+			width: 100%;
+			height: min-content;
+		}
 		}
 	}
 </style>
