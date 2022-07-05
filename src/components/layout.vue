@@ -18,9 +18,12 @@
 					exact-active-class="is-active"
 					><i class="fa-solid fa-book-medical"></i> Papeletas</router-link
 				>
-				<router-link to="/memo" class="menu-item" exact-active-class="is-active"
+				<!-- <router-link
+					to="/asistencia"
+					class="menu-item"
+					exact-active-class="is-active"
 					><i class="fa-regular fa-building"></i> Trabajadores</router-link
-				>
+				> -->
 				<a @click="exit" class="menu-item"
 					><i class="fa-solid fa-feather"></i
 				></a>

@@ -47,9 +47,10 @@ const routes: RouteRecordRaw[] = [
 				path: '/employees',
 			},
 			{
-				component: () => import('../views/pages/memorando.vue'),
-				name: 'memo',
-				path: '/memo',
+				component: () => import('../views/pages/asistencia.vue'),
+				name: 'asistencia',
+				path: '/asistencia/:dni',
+				props: true,
 			},
 		],
 	},

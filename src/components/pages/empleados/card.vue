@@ -13,6 +13,11 @@
 					<i class="fa-solid fa-file-lines"></i>
 				</span>
 			</button>
+			<button class="button" @click="getEmploy">
+				<span class="icon is-small">
+					<i class="fa-solid fa-share"></i>
+				</span>
+			</button>
 		</div>
 	</div>
 	<Teleport to="#resultado" v-if="showp">
@@ -37,12 +42,17 @@
 	import Modal from './modal.vue'
 	import { ref } from 'vue'
 	import ModalM from './modal-m.vue'
+	import router from '../../../router/router'
 
 	const propr = defineProps({
 		nombre: { required: true, type: String },
 		dni: { required: true, type: String },
 		cargo: { required: true, type: String },
 	})
+
+	const getEmploy = async () => {
+		await router.push(`/asistencia/${propr.dni}`)
+	}
 
 	const showp = ref(false)
 	const ispape = ref(true)
