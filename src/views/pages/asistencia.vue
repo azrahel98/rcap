@@ -1,25 +1,24 @@
 <template>
 	<div class="appi">
-		<div class="detalle">
-			<div class="name">
-				<h3 class="title is-5">{{ employ.nombre }}</h3>
-				<h5 class="subtitle is-5">
-					{{ router.currentRoute.value.params.dni.toString() }}
-				</h5>
-			</div>
-			<div class="informacion">
-				<p>{{ employ.area }}</p>
-				<p>{{ employ.cargo }}</p>
-				<p>{{ employ.ingreso }}</p>
+		<div class="profile">
+			<div class="face">
+				<div class="avatar">
+					<div class="av">
+
+					</div>
+				</div>
+				<div class="details">
+					<h1>{{employ.nombre}}</h1>
+					<div class="aditionals">
+						<p>{{employ.ingreso}}</p>
+						<p>{{employ.cargo}}</p>
+						<p>{{employ.area}}</p>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="asistencias">
-			<Calasiste
-				class="calendar"
-				:dni="router.currentRoute.value.params.dni.toString()"
-				:mes="6"
-			></Calasiste>
-			<Calendar></Calendar>
+		<div class="calendar">
+
 		</div>
 	</div>
 </template>
@@ -44,52 +43,54 @@
 
 <style lang="scss" scoped>
 	.appi {
-		height: 100vh;
-		margin: 0 !important;
+		height: 100%;
 		padding-bottom: 10%;
-		display: grid !important;
-		padding: 0 !important;
-		grid-template-rows: 0.5fr 4fr;
-		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 		gap: 2vh;
-		.detalle {
-			height: 100%;
+		.profile{
+			height: max-content;
 			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			.name {
+			flex-direction: column;
+			.face{
 				display: flex;
-				flex-direction: column;
-				justify-content: flex-start;
-			}
-			.informacion {
-				display: flex;
-				height: max-content;
-				flex-direction: column;
-				align-items: flex-end;
-				p {
-					font-weight: 500;
+				justify-content: space-around;
+				align-items: center;
+				gap: 3vh;
+				width: 100%;
+				.avatar{
+
+						.av{
+							border-radius: 100px;
+						}
+				}
+				.details{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					
+					h1{
+						font-weight: 500;
+					}
+					.aditionals{
+						display: flex;
+						font-size: 0.65rem;
+						justify-content: space-evenly;
+						align-items: flex-start;
+						gap: 0.5vh;
+						flex-wrap: wrap;
+						p{
+							color: $opaque;
+							font-weight: 600 ;
+						}
+					}
 				}
 			}
 		}
-		.asistencias {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-			gap: 2vh;
-			.calendar {
-				width: 12vh !important;
-			}
-			// .calendarios {
-			// 	gap: 2vh;
-			// 	display: flex;
-			// 	flex-direction: column;
-			// 	justify-content: space-around;
-			// }
-			// .tabla {
-			// 	width: 20vh;
-			// 	height: 50vh;
-			// }
+		.calendar{
+			background-color: red;
+			height: 100%;
 		}
 	}
 </style>

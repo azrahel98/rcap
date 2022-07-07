@@ -15,7 +15,7 @@
 					<div class="permisos">
 						<label class="select" for="slct"
 							><select id="slct" v-model="tipoper">
-								<option value="JUSTIFICIADO">Justificado</option>
+								<option value="JUSTIFICADO">Justificado</option>
 								<option value="DF">Descanso Fisico</option>
 								<option value="AC">A cuenta</option>
 								<option value="DFXHEL">Por horas Extras</option>
