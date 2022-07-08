@@ -34,7 +34,6 @@
 	import AuthImpl from '../../../../app/implement/auth'
 	import { AsistenciaDetalle } from '../../../../app/models/asistencia'
 	import router from '../../../router/router'
-	import { AgregarDias } from '../../../../app/tools/auth'
 	import jwtDecode from 'jwt-decode'
 
 	const asist = ref<AsistenciaDetalle[]>([])
@@ -54,7 +53,6 @@
 		asist.value = await auth.buscar_asistencia(
 			router.currentRoute.value.params.dni.toString()
 		)
-		attributes.value = AgregarDias(asist.value)
 		var dat = asist.value[0].fecha.split('-')
 		date.value = new Date(parseInt(dat[0]), parseInt(dat[1]), parseInt(dat[2]))
 	})

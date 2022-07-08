@@ -2,7 +2,6 @@ import { AsistenciaDetalle } from '../models/asistencia'
 import { Papeleta } from '../models/documents'
 import { Employ } from '../models/employ'
 import { AuthRepo } from '../repository/auth'
-import {} from '../tools/auth'
 
 export default class AuthImpl implements AuthRepo {
 	async detalles_employ(token: string): Promise<Employ> {
@@ -30,10 +29,7 @@ export default class AuthImpl implements AuthRepo {
 			data.push({
 				fecha: e.fecha,
 				marca: e.hora,
-				dni: e.dni,
-				reloj: e.reloj,
-				marca3: e.hora3,
-				marca2: e.hora2,
+				
 			})
 		})
 

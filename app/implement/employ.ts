@@ -9,7 +9,7 @@ export default class EmployImpl implements EmployRep {
 	async buscar_asistencia(
 		dni: string,
 		mes: string
-	): Promise<AsistenciaDetalle[]> {
+	): Promise<AsistenciaDetalle[] | null> {
 		try {
 			var query = gql`
 				query  {
@@ -25,10 +25,6 @@ export default class EmployImpl implements EmployRep {
 				data.push({
 					fecha: e.fecha,
 					marca: e.hora,
-					dni: null,
-					marca3: null,
-					reloj: null,
-					marca2: null,
 				})
 			})
 			return data
@@ -37,7 +33,7 @@ export default class EmployImpl implements EmployRep {
 			return null
 		}
 	}
-	async buscar_pordni(dni: string): Promise<Employ> {
+	async buscar_pordni(dni: string): Promise<Employ | null> {
 		try {
 			var query = gql`
 				query {
@@ -58,6 +54,7 @@ export default class EmployImpl implements EmployRep {
 			}
 		} catch (error) {
 			await router.push({ name: 'notfound' })
+			return null
 		}
 	}
 	async buscar_nombre(nombre: string): Promise<Employ[] | null> {

@@ -17,9 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="calendar">
-
-		</div>
+		<Dash :dni="router.currentRoute.value.params.dni.toString()" mes="6"/>
 	</div>
 </template>
 
@@ -28,8 +26,7 @@
 	import EmployImpl from '../../../app/implement/employ'
 	import router from '../../router/router'
 	import { Employ } from './../../../app/models/employ'
-	import Calendar from '../../components/pages/asist/calendar.vue'
-	import Calasiste from '../../components/pages/asist/calasiste.vue'
+	import Dash from '../../components/pages/asist/dash.vue'
 
 	const employ = ref<Employ>({})
 	const impl = new EmployImpl()
@@ -44,7 +41,6 @@
 <style lang="scss" scoped>
 	.appi {
 		height: 100%;
-		padding-bottom: 10%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
@@ -60,7 +56,6 @@
 				gap: 3vh;
 				width: 100%;
 				.avatar{
-
 						.av{
 							border-radius: 100px;
 						}
@@ -87,10 +82,6 @@
 					}
 				}
 			}
-		}
-		.calendar{
-			background-color: red;
-			height: 100%;
 		}
 	}
 </style>

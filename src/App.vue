@@ -7,6 +7,7 @@
 		font-family: 'Ubuntu Mono', sans-serif;
 		text-align: center;
 		background-color: $background;
+		height: 100vh;
 	}
 	* {
 		margin: 0;

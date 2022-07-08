@@ -5,6 +5,26 @@ import { DocsRep } from '../repository/docs'
 import { Client } from '../service/graphl'
 
 export default class DocsImpl implements DocsRep {
+	async buscar_papeletas(dni: string, mes: number): Promise<Papeleta[] | null> {
+		try {
+			var query = gql`
+				query{
+					buscar_papeleta (dni:"${dni}",mes: ${mes}) {
+						descrip
+				  }
+				}
+			  `
+			  var data = await Client.query({query,fetchPolicy:'no-cache'})
+			  const result = [] as Papeleta[]
+			  data.data.buscar_papeleta.forEach(e => {
+				result.push({})
+			  });
+			  return null; 
+			  //pendiente
+		} catch (error) {
+			return null;
+		}
+	}
 	async crear_docs(memo: Doc, isrange: boolean): Promise<string> {
 		try {
 			var query = gql`
