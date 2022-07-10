@@ -5,24 +5,62 @@ import { DocsRep } from '../repository/docs'
 import { Client } from '../service/graphl'
 
 export default class DocsImpl implements DocsRep {
+	async buscar_docs(dni: string, mes: number): Promise<Doc[]> {
+		try {
+			var query = gql`
+				query{
+					buscar_docs(mes: ${mes},dni: "${dni}") {
+						doc
+						descrip
+						fecha
+						Inicio
+						Fin
+					}
+				}
+			  `
+			var data = await Client.query({ query, fetchPolicy: 'no-cache' })
+			const result = [] as Doc[]
+			data.data.buscar_docs.forEach((e) => {
+				result.push({
+					fecha: e.fecha,
+					descrip: e.descrip,
+					doc: e.doc,
+					Inicio: e.Inicio,
+					Fin: e.Fin,
+				})
+			})
+			return result
+		} catch (error) {
+			return []
+		}
+	}
 	async buscar_papeletas(dni: string, mes: number): Promise<Papeleta[] | null> {
 		try {
 			var query = gql`
 				query{
 					buscar_papeleta (dni:"${dni}",mes: ${mes}) {
+						nombre
 						descrip
+						fecha
+						detalle
+						tipoper
 				  }
 				}
 			  `
-			  var data = await Client.query({query,fetchPolicy:'no-cache'})
-			  const result = [] as Papeleta[]
-			  data.data.buscar_papeleta.forEach(e => {
-				result.push({})
-			  });
-			  return null; 
-			  //pendiente
+			var data = await Client.query({ query, fetchPolicy: 'no-cache' })
+			const result = [] as Papeleta[]
+			data.data.buscar_papeleta.forEach((e) => {
+				result.push({
+					nombre: e.nombre,
+					fecha: e.fecha,
+					descrip: e.descrip,
+					detalle: e.detalle,
+					tipoP: e.tipoper,
+				})
+			})
+			return result
 		} catch (error) {
-			return null;
+			return []
 		}
 	}
 	async crear_docs(memo: Doc, isrange: boolean): Promise<string> {

@@ -41,7 +41,6 @@ export default class LoginImp implements LoginRep {
 		try {
 			if (localStorage.getItem('auth')) {
 				var token = localStorage.getItem('auth')
-				jwtDecode(token!, { header: true })
 				var jwt: any = jwtDecode(token!)
 				var expir = new Date(jwt['exp'] * 1000)
 				if (expir < new Date()) {

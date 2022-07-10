@@ -1,87 +1,165 @@
 <template>
 	<div class="appi">
-		<div class="profile">
-			<div class="face">
-				<div class="avatar">
-					<div class="av">
-
-					</div>
-				</div>
-				<div class="details">
-					<h1>{{employ.nombre}}</h1>
-					<div class="aditionals">
-						<p>{{employ.ingreso}}</p>
-						<p>{{employ.cargo}}</p>
-						<p>{{employ.area}}</p>
+		<div class="asist" v-if="!isLoading">
+			<div class="employ">
+				<i class="fa-solid fa-person-circle-check"></i>
+				<div class="informacion">
+					<div class="nombre">{{ employ.nombre }}</div>
+					<div class="cargos">
+						<p>{{ employ.ingreso }}</p>
+						<p>{{ employ.area }}</p>
+						<p>{{ employ.cargo }}</p>
 					</div>
 				</div>
 			</div>
+			<div class="dash">
+				<Meses class="mes" @change="(x) => (mesSeleccionado = x)" />
+				<div class="tablaas" v-if="mesSeleccionado != null">
+					<Vue3Lottie
+						class="nullable"
+						v-if="searching"
+						animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
+					/>
+					<Taback
+						v-else
+						:mes="mesSeleccionado"
+						class="back"
+						:papeletas="papeletas"
+						:marcaciones="marcaciones"
+						:docs="docss"
+					/>
+				</div>
+				<Vue3Lottie
+					v-else
+					animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
+				/>
+			</div>
 		</div>
-		<Dash :dni="router.currentRoute.value.params.dni.toString()" mes="6"/>
+		<Loading v-else />
 	</div>
 </template>
 
-<script lang="ts" setup>
-	import { onMounted, ref } from 'vue'
-	import EmployImpl from '../../../app/implement/employ'
-	import router from '../../router/router'
-	import { Employ } from './../../../app/models/employ'
-	import Dash from '../../components/pages/asist/dash.vue'
-
-	const employ = ref<Employ>({})
-	const impl = new EmployImpl()
-
-	onMounted(async () => {
-		employ.value = await impl.buscar_pordni(
-			router.currentRoute.value.params.dni.toString()
-		)
-	})
-</script>
-
 <style lang="scss" scoped>
 	.appi {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		gap: 2vh;
-		.profile{
-			height: max-content;
-			display: flex;
-			flex-direction: column;
-			.face{
+		height: 100vh;
+		.asist {
+			height: 100%;
+			display: grid;
+			grid-template-rows: min-content 1fr;
+			gap: 4vh;
+			.employ {
 				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				gap: 3vh;
-				width: 100%;
-				.avatar{
-						.av{
-							border-radius: 100px;
-						}
+				gap: 2vh;
+				justify-content: center;
+				i {
+					min-width: 8vh;
+					font-size: 3rem;
 				}
-				.details{
+				.informacion {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					
-					h1{
-						font-weight: 500;
+					.nombre {
+						font-weight: 600;
+						font-size: 1.5rem;
 					}
-					.aditionals{
-						display: flex;
-						font-size: 0.65rem;
-						justify-content: space-evenly;
-						align-items: flex-start;
-						gap: 0.5vh;
+					.cargos {
+						width: 100%;
 						flex-wrap: wrap;
-						p{
-							color: $opaque;
-							font-weight: 600 ;
+						display: flex;
+						justify-content: space-evenly;
+						gap: 0.5vh;
+						p {
+							font-weight: 500;
+							color: gray;
 						}
+					}
+				}
+			}
+			.dash {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 3vh;
+				.mes {
+					height: min-content;
+				}
+				.tablaas {
+					display: flex;
+					height: 80%;
+					flex-wrap: wrap;
+					align-items: flex-start;
+					gap: 2vh;
+					justify-content: center;
+					.nullable {
+						height: 30vh;
+					}
+					.back {
+						width: 100%;
+						height: 100%;
 					}
 				}
 			}
 		}
 	}
 </style>
+
+<script lang="ts" setup>
+	import { Vue3Lottie } from 'vue3-lottie'
+	import { onMounted, ref, watchEffect } from 'vue'
+	import router from '../../router/router'
+
+	import EmployImpl from '@/implement/employ'
+	import DocsImpl from '@/implement/docs'
+	import { Employ } from '@/models/employ'
+
+	import { AsistenciaDetalle } from '@/models/asistencia'
+	import { Doc, Papeleta } from '@/models/documents'
+
+	import Loading from '@com/loading/loading.vue'
+	import Meses from '@com/pages/asist/meses.vue'
+	import Taback from '@com/pages/asist/taback.vue'
+	import { EmployStore } from '@store/employ'
+
+	const impl = new EmployImpl()
+	const employImp = new EmployImpl()
+	const docs = new DocsImpl()
+	const storempl = EmployStore()
+
+	const employ = ref<Employ>({})
+	const marcaciones = ref<AsistenciaDetalle[]>([])
+	const papeletas = ref<Papeleta[]>([])
+	const docss = ref<Doc[]>([])
+
+	const mesSeleccionado = ref<number>()
+
+	const isLoading = ref(true)
+	const searching = ref(true)
+
+	onMounted(async () => {
+		employ.value = await impl.buscar_pordni(
+			router.currentRoute.value.params.dni.toString()
+		)
+		storempl.changeDni(router.currentRoute.value.params.dni.toString())
+		isLoading.value = !isLoading.value
+	})
+
+	watchEffect(async () => {
+		if (mesSeleccionado.value !== undefined) {
+			searching.value = true
+			marcaciones.value = await employImp.buscar_asistencia(
+				employ.value.dni,
+				mesSeleccionado.value.toString()
+			)
+			papeletas.value = await docs.buscar_papeletas(
+				employ.value.dni,
+				mesSeleccionado.value
+			)
+			docss.value = await docs.buscar_docs(
+				employ.value.dni,
+				mesSeleccionado.value
+			)
+			searching.value = false
+		}
+	})
+</script>

@@ -10,15 +10,15 @@ interface Papeleta {
 }
 interface Doc {
 	id?: String | null
-	dni?: String
-	doc?: String
-	fecha?: String
-	tipo?: String
-	permiso?: String
-	descrip?: String
-	Ref?: String
-	Inicio?: String
-	Fin?: String
+	doc?: String | null
+	dni?: String | null
+	fecha?: String | null
+	tipo?: String | null
+	permiso?: String | null
+	descrip?: String | null
+	Ref?: String | null
+	Inicio?: String | null
+	Fin?: String | null
 }
 
 export { Papeleta, Doc }

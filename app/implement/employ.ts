@@ -23,14 +23,16 @@ export default class EmployImpl implements EmployRep {
 			var data = [] as AsistenciaDetalle[]
 			result.data.buscar_asistencia.forEach((e) => {
 				data.push({
-					fecha: e.fecha,
+					fecha: new Date(
+						new Date(e.fecha).setDate(new Date(e.fecha).getDate() + 1)
+					),
 					marca: e.hora,
 				})
 			})
+			data.sort((a, b) => a.fecha.getTime() - b.fecha.getTime())
 			return data
 		} catch (error) {
-			console.log(error)
-			return null
+			return []
 		}
 	}
 	async buscar_pordni(dni: string): Promise<Employ | null> {
@@ -38,6 +40,7 @@ export default class EmployImpl implements EmployRep {
 			var query = gql`
 				query {
 					empleadoByDNI(dni: "${dni}") {
+						dni
 						nombre
 						cargo
 						area
@@ -47,6 +50,7 @@ export default class EmployImpl implements EmployRep {
 			`
 			const result = await Client.query({ query })
 			return {
+				dni: result.data.empleadoByDNI.dni,
 				nombre: result.data.empleadoByDNI.nombre,
 				cargo: result.data.empleadoByDNI.cargo,
 				area: result.data.empleadoByDNI.area,

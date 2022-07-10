@@ -1,4 +1,3 @@
-import path from 'path'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import LoginImp from '../../app/implement/login'
@@ -16,12 +15,6 @@ const routes: RouteRecordRaw[] = [
 			}
 			next()
 		},
-	},
-	{
-		component: () => import('../views/external.vue'),
-		name: 'external',
-		path: '/:dni/t',
-		props: true,
 	},
 	{
 		component: () => import('../views/dash.vue'),

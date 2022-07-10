@@ -3,12 +3,12 @@
 		<h3>{{ propr.dni }}</h3>
 		<p class="title is-5">{{ propr.nombre }}</p>
 		<div class="icons">
-			<button class="button papeleta" @click="openmemo(true)">
+			<button class="button papeleta" @click="openmemo(true)" v-if="user.admin">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-circle-plus"></i>
 				</span>
 			</button>
-			<button class="button memo" @click="openmemo(false)">
+			<button class="button memo" @click="openmemo(false)" v-if="user.admin">
 				<span class="icon is-small">
 					<i class="fa-solid fa-file-lines"></i>
 				</span>
@@ -43,6 +43,9 @@
 	import { ref } from 'vue'
 	import ModalM from './modal-m.vue'
 	import router from '../../../router/router'
+	import { userStore } from '@store/user'
+
+	const user = userStore()
 
 	const propr = defineProps({
 		nombre: { required: true, type: String },

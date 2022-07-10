@@ -10,13 +10,18 @@
 	</div>
 </template>
 <script lang="ts" setup>
-	import { ref } from 'vue'
+	import { onMounted, ref } from 'vue'
 	import layout from '../components/layout.vue'
+	import { userStore } from '@store/user'
 
 	const teleposhow = ref(true)
+	const user = userStore()
 	const recib = (e) => {
 		teleposhow.value = e
 	}
+	onMounted(() => {
+		user.InitAdmin()
+	})
 </script>
 <style lang="scss">
 	.app {
@@ -26,8 +31,8 @@
 		.main {
 			width: 100%;
 			padding-top: 2.5vh;
-			padding-left: 15%;
-			padding-right: 15%;
+			padding-left: 5%;
+			padding-right: 5%;
 			@media (max-width: 1024px) {
 				padding: 1vh 1vh 2vh 2vh;
 			}

@@ -16,7 +16,17 @@ export default defineConfig({
 		},
 	},
 	resolve: {
-		alias: [{ find: '@', replacement: path.resolve(__dirname, './app') }],
+		alias: [
+			{ find: '@', replacement: path.resolve(__dirname, './app') },
+			{
+				find: '@com',
+				replacement: path.resolve(__dirname, './src/components'),
+			},
+			{
+				find: '@store',
+				replacement: path.resolve(__dirname, './src/store'),
+			},
+		],
 	},
 	plugins: [vue()],
 })

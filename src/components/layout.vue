@@ -18,12 +18,13 @@
 					exact-active-class="is-active"
 					><i class="fa-solid fa-book-medical"></i> Papeletas</router-link
 				>
-				<!-- <router-link
-					to="/asistencia"
+				<router-link
+					v-if="employ.dni !== ''"
+					:to="{ name: 'asistencia', params: { dni: employ.dni } }"
 					class="menu-item"
 					exact-active-class="is-active"
-					><i class="fa-regular fa-building"></i> Trabajadores</router-link
-				> -->
+					><i class="fa-solid fa-user-clock"></i>{{ employ.dni }}
+				</router-link>
 				<a @click="exit" class="menu-item"
 					><i class="fa-solid fa-feather"></i
 				></a>
@@ -32,12 +33,18 @@
 	</div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 	import { ref } from 'vue'
-	import LoginImp from '../../app/implement/login'
+	import LoginImp from '@/implement/login'
 	import router from '../router/router'
+	import { EmployStore } from '@store/employ'
+
+	const employ = EmployStore()
+
 	const isExpanded = ref(false)
+
 	const e = defineEmits(['change'])
+
 	const click = () => {
 		isExpanded.value = !isExpanded.value
 		e('change', isExpanded.value)

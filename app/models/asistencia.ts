@@ -1,5 +1,5 @@
 interface AsistenciaDetalle {
-	fecha: string
+	fecha: Date
 	marca: string
 }
 
