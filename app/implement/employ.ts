@@ -29,7 +29,16 @@ export default class EmployImpl implements EmployRep {
 					marca: e.hora,
 				})
 			})
-			data.sort((a, b) => a.fecha.getTime() - b.fecha.getTime())
+			data.sort(function (a, b) {
+				var hora1 = a.marca.split(':')
+				var hora2 = b.marca.split(':')
+				return (
+					a.fecha.getTime() - b.fecha.getTime() &&
+					parseInt(hora1[0]) * 3600 +
+						parseInt(hora1[2]) * 60 -
+						(parseInt(hora2[0]) * 3600 + parseInt(hora2[2]) * 60)
+				)
+			})
 			return data
 		} catch (error) {
 			return []

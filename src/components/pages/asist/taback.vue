@@ -7,29 +7,39 @@
 			:maxDate="maxDate()"
 			:attributes="atributtes"
 		>
-			<!-- <template #day-popover="{ attributes }">
-				<ul>
+			<template #day-popover="{ attributes }">
+				<ul class="all">
 					<li v-for="{ key, customData } in attributes" :key="key">
-						{{ customData.title }}
+						<h1 v-if="customData.marca !== undefined">
+							<div
+								v-if="parseInt(customData.marca.split('-')[0]) < 12"
+								class="hour"
+							>
+								<i class="fa-solid fa-user-clock"></i>
+								<p>{{ customData.marca }}</p>
+							</div>
+
+							<div v-else class="hour">
+								<i class="fa-solid fa-user-lock"></i>
+								<p>{{ customData.marca }}</p>
+							</div>
+						</h1>
+						<div v-if="customData.papeleta !== undefined" class="pape">
+							<h1>PAPELETA {{ customData.nombre }}</h1>
+							<h2>{{ customData.tipo }}</h2>
+							<p>{{ customData.descrip }}</p>
+							<p>{{ customData.detalle }}</p>
+						</div>
+						<div v-if="customData.memo !== undefined" class="memo">
+							<h1># {{ customData.nombre }}</h1>
+							<h2>{{ customData.tipo }}</h2>
+							<p>{{ customData.descrip }}</p>
+							<p>{{ customData.detalle }}</p>
+						</div>
 					</li>
 				</ul>
-			</template> -->
-			<template #day-content="{ attributes, day }">
-				<div class="day-c" @click="clickme(day)">
-					<span class="dia-titulo">{{ day.day }}</span>
-					<div class="flex-grow overflow-y-scroll overflow-x-auto vbody">
-						<div v-for="attr in attributes" :key="attr.key">
-							<p :class="attr.customData.class">
-								{{ attr.customData.title }}
-							</p>
-						</div>
-					</div>
-				</div>
 			</template>
 		</v-calendar>
-		<!-- <teleport to="body" v-if="openModal">
-			<Modal dni="2" @change="changeModal"></Modal>
-		</teleport> -->
 	</div>
 </template>
 
@@ -39,7 +49,6 @@
 	import 'v-calendar/dist/style.css'
 	import { ref } from 'vue'
 	import { addAtributtes } from '../../../tools/reloj'
-	import Modal from './modal.vue'
 
 	const props = defineProps({
 		mes: { type: Number, required: true },
@@ -61,6 +70,10 @@
 		openModal.value = e
 	}
 
+	const clickmeee = () => {
+		console.log('adsfff')
+	}
+
 	const minDate = () => {
 		var da = new Date().getFullYear()
 		return `${da}-${props.mes}-01`
@@ -79,9 +92,25 @@
 		width: 100%;
 		grid-template-columns: repeat(7, 0.5fr);
 		min-width: none;
-		gap: 1vh;
+		.vc-weekday {
+			padding-bottom: 3vh;
+		}
 		.vc-day {
+			padding-bottom: 2vh;
+			padding-top: 2vh;
 			width: 100%;
+			height: 100%;
+			color: black;
+			.vc-day-layer {
+				.vc-dots {
+					display: flex;
+					justify-content: end;
+					align-items: flex-end;
+				}
+			}
+			.vc-day-content {
+				color: black;
+			}
 			.vbody {
 				width: 100%;
 				height: max-content;
@@ -91,39 +120,44 @@
 				align-items: center;
 				gap: 0.5vh;
 				flex-wrap: wrap;
-				.dia-titulo {
-					font-size: 1.7rem;
-					font-weight: 800;
+			}
+		}
+	}
+	.cale {
+		height: 100%;
+		.all {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1vh;
+			.hour {
+				display: flex;
+				gap: 1vh;
+				align-items: center;
+			}
+			.pape,
+			.memo {
+				display: flex;
+				border: 1px black dotted;
+				flex-direction: column;
+				align-items: center;
+				h1 {
+					font-weight: 600;
+					font-size: 0.8rem;
+				}
+				h2 {
+					font-size: 0.75rem;
+					font-weight: 500;
 				}
 				p {
-					padding-left: 1vh;
-					padding-right: 1vh;
-					width: max-content;
-					height: max-content;
-					border-radius: 10px;
-					word-break: break-all;
-					white-space: normal;
+					display: flex;
+					justify-content: space-center;
+					gap: 1vh;
 				}
-				.marca,
-				.papeleta,
-				.memorando {
-					font-size: 0.8rem;
-					color: white;
-					font-weight: 400;
-					@media (max-width: 1024px) {
-						font-size: 0.4rem;
-					}
-				}
-				.marca {
-					font-weight: 500;
-					background-color: $primary;
-				}
-				.papeleta {
-					background-color: $secundary;
-				}
-				.memorando {
-					background-color: #2b88d9;
-				}
+			}
+			.memo {
+				border: 1px white dotted;
+				margin: 3px;
 			}
 		}
 	}

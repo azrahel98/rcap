@@ -86,7 +86,7 @@
 				}
 				.tablaas {
 					display: flex;
-					height: 80%;
+					height: 100%;
 					flex-wrap: wrap;
 					align-items: flex-start;
 					gap: 2vh;

@@ -1,6 +1,27 @@
 import { AsistenciaDetalle } from '../../app/models/asistencia'
 import { Doc, Papeleta } from '../../app/models/documents'
 
+function colorForPermisos(p: String) {
+	switch (p) {
+		case 'JUSTIFICADO':
+			return 'gray'
+		case 'AC':
+			return 'indigo'
+		case 'DF':
+			return 'orange'
+		default:
+			return 'teal'
+	}
+}
+
+function dateMonth(date: any) {
+	return new Date(date.toString()).getMonth() + 1
+}
+
+function lastDay(d: Date): Date {
+	return new Date(d.getFullYear(), d.getMonth() + 1, 0)
+}
+
 function addAtributtes(
 	data: AsistenciaDetalle[],
 	papes: Papeleta[],
@@ -10,12 +31,15 @@ function addAtributtes(
 	data.forEach((e) => {
 		atri.push({
 			dates: e.fecha,
-
 			customData: {
-				title: `${e.marca}`,
+				marca: `${e.marca}`,
 				class: 'marca',
+				reloj: true,
 			},
-			popover: 'true',
+			popover: {
+				visibility: 'hover',
+			},
+			dot: 'teal',
 		})
 	})
 	papes.forEach((e) => {
@@ -26,87 +50,172 @@ function addAtributtes(
 			popover: {
 				visibility: 'hover',
 			},
-			// popover: {
-			// 	isVisible: true,
-			// 	label: `${e.descrip} - ${e.detalle}`,
-			// 	visibility: 'hover',
-			// },
+			highlight: {
+				color: colorForPermisos(e.tipoP),
+				fillMode: 'outline',
+			},
 			customData: {
-				title: `${e.nombre} - ${e.tipoP}`,
-				class: 'papeleta',
+				papeleta: true,
+				nombre: `${e.nombre}`,
+				descrip: `${e.descrip}`,
+				detalle: `${e.detalle}`,
+				tipo: `${e.tipoP}`,
 			},
 		})
 	})
 	docs.forEach((e) => {
-		if (
-			new Date(e.fecha.toString()).getMonth() + 1 ===
-			new Date(e.Inicio.toString()).getMonth() + 1
-		) {
-			if (
-				new Date(e.Inicio.toString()).getMonth() + 1 ==
-				new Date(e.Fin.toString()).getMonth() + 1
-			) {
-				atri.push({
-					highlight: {
-						start: { fillMode: 'outline' },
-						base: { fillMode: 'light' },
-						end: { fillMode: 'outline' },
+		if (dateMonth(e.Inicio) == dateMonth(e.Fin)) {
+			atri.push({
+				highlight: {
+					start: { fillMode: 'outline' },
+					base: {
+						fillMode: 'light',
+						color: colorForPermisos(e.permiso),
 					},
-					dates: {
-						start: new Date(
-							new Date(e.Inicio.toString()).setDate(
-								new Date(e.Inicio.toString()).getDate() + 1
-							)
-						),
-						end: new Date(
-							new Date(e.Fin.toString()).setDate(
-								new Date(e.Fin.toString()).getDate() + 1
-							)
-						),
+					end: { fillMode: 'outline' },
+				},
+				popover: {
+					visibility: 'hover',
+				},
+				customData: {
+					memo: true,
+					nombre: `${e.doc}`,
+					descrip: `${e.descrip}`,
+					detalle: `${e.Inicio}`,
+					tipo: `${e.Fin}`,
+				},
+				dates: {
+					start: new Date(
+						new Date(e.Inicio.toString()).setDate(
+							new Date(e.Inicio.toString()).getDate() + 1
+						)
+					),
+					end: new Date(
+						new Date(e.Fin.toString()).setDate(
+							new Date(e.Fin.toString()).getDate() + 1
+						)
+					),
+				},
+			})
+		} else if (dateMonth(e.Fin) > dateMonth(e.Inicio)) {
+			atri.push({
+				highlight: {
+					start: { fillMode: 'outline' },
+					base: {
+						fillMode: 'light',
+						color: colorForPermisos(e.permiso),
 					},
-				})
-			} else {
-				atri.push({
-					highlight: {
-						start: { fillMode: 'outline' },
-						base: { fillMode: 'light' },
-						end: { fillMode: 'outline' },
-					},
-					dates: {
-						start: new Date(
-							new Date(e.Inicio.toString()).setDate(
-								new Date(e.Inicio.toString()).getDate() + 1
-							)
-						),
-						end: new Date(
-							new Date(e.Fin.toString()).getFullYear(),
-							new Date(e.Fin.toString()).getMonth() + 1,
-							new Date(
-								new Date(e.Fin.toString()).getFullYear(),
-								new Date(e.Fin.toString()).getMonth() + 1,
-								0
-							).getDate()
-						),
-					},
-				})
-			}
+					end: { fillMode: 'outline' },
+				},
+				popover: {
+					visibility: 'hover',
+				},
+				customData: {
+					memo: true,
+					nombre: `${e.doc}`,
+					descrip: `${e.descrip}`,
+					detalle: `${e.Inicio}`,
+					tipo: `${e.Fin}`,
+				},
+				dates: {
+					start: new Date(
+						new Date(e.Inicio.toString()).setDate(
+							new Date(e.Inicio.toString()).getDate() + 1
+						)
+					),
+					end: lastDay(new Date(e.Inicio.toString())),
+				},
+			})
 		} else {
 			atri.push({
-				dot: {
-					color: 'teal',
+				dates: e.fecha,
+				popover: {
+					visibility: 'hover',
 				},
-				dates: new Date(
-					new Date(e.fecha.toString()).setDate(
-						new Date(e.fecha.toString()).getDate() + 1
-					)
-				),
+				highlight: {
+					color: colorForPermisos(e.permiso),
+					fillMode: 'solid',
+				},
 				customData: {
-					title: `${e.doc}`,
-					class: 'memorando',
+					memo: true,
+					nombre: `${e.doc}`,
+					descrip: `${e.descrip}`,
+					detalle: `${e.Ref}`,
+					tipo: `${e.permiso}`,
 				},
 			})
 		}
 	})
+	// docs.forEach((e) => {
+	// 	if (
+	// 		new Date(e.fecha.toString()).getMonth() + 1 ===
+	// 		new Date(e.Inicio.toString()).getMonth() + 1
+	// 	) {
+	// 		if (
+	// 			new Date(e.Inicio.toString()).getMonth() + 1 ==
+	// 			new Date(e.Fin.toString()).getMonth() + 1
+	// 		) {
+	// 			atri.push({
+	// 				highlight: {
+	// 					start: { fillMode: 'outline' },
+	// 					base: { fillMode: 'light' },
+	// 					end: { fillMode: 'outline' },
+	// 				},
+	// 				dates: {
+	// 					start: new Date(
+	// 						new Date(e.Inicio.toString()).setDate(
+	// 							new Date(e.Inicio.toString()).getDate() + 1
+	// 						)
+	// 					),
+	// 					end: new Date(
+	// 						new Date(e.Fin.toString()).setDate(
+	// 							new Date(e.Fin.toString()).getDate() + 1
+	// 						)
+	// 					),
+	// 				},
+	// 			})
+	// 		} else {
+	// 			atri.push({
+	// 				highlight: {
+	// 					start: { fillMode: 'outline' },
+	// 					base: { fillMode: 'light' },
+	// 					end: { fillMode: 'outline' },
+	// 				},
+	// 				dates: {
+	// 					start: new Date(
+	// 						new Date(e.Inicio.toString()).setDate(
+	// 							new Date(e.Inicio.toString()).getDate() + 1
+	// 						)
+	// 					),
+	// 					end: new Date(
+	// 						new Date(e.Fin.toString()).getFullYear(),
+	// 						new Date(e.Fin.toString()).getMonth() + 1,
+	// 						new Date(
+	// 							new Date(e.Fin.toString()).getFullYear(),
+	// 							new Date(e.Fin.toString()).getMonth() + 1,
+	// 							0
+	// 						).getDate()
+	// 					),
+	// 				},
+	// 			})
+	// 		}
+	// 	} else {
+	// 		atri.push({
+	// 			dot: {
+	// 				color: 'teal',
+	// 			},
+	// 			dates: new Date(
+	// 				new Date(e.fecha.toString()).setDate(
+	// 					new Date(e.fecha.toString()).getDate() + 1
+	// 				)
+	// 			),
+	// 			customData: {
+	// 				title: `${e.doc}`,
+	// 				class: 'memorando',
+	// 			},
+	// 		})
+	// 	}
+	// })
 
 	return atri
 }

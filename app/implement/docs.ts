@@ -15,6 +15,7 @@ export default class DocsImpl implements DocsRep {
 						fecha
 						Inicio
 						Fin
+						permiso
 					}
 				}
 			  `
@@ -27,8 +28,10 @@ export default class DocsImpl implements DocsRep {
 					doc: e.doc,
 					Inicio: e.Inicio,
 					Fin: e.Fin,
+					permiso: e.permiso,
 				})
 			})
+			console.log(result)
 			return result
 		} catch (error) {
 			return []
