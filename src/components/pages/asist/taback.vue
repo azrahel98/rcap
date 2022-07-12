@@ -6,6 +6,7 @@
 			:minDate="minDate()"
 			:maxDate="maxDate()"
 			:attributes="atributtes"
+			popover-direction="left"
 		>
 			<template #day-popover="{ attributes }">
 				<ul class="all">

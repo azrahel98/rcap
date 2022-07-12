@@ -15,7 +15,8 @@ function colorForPermisos(p: String) {
 }
 
 function dateMonth(date: any) {
-	return new Date(date.toString()).getMonth() + 1
+	var now = new Date(date)
+	return new Date(now.setDate(now.getDate() + 1)).getMonth()
 }
 
 function lastDay(d: Date): Date {
@@ -27,6 +28,7 @@ function addAtributtes(
 	papes: Papeleta[],
 	docs: Doc[]
 ): Array<any> {
+	console.log(docs)
 	var atri = []
 	data.forEach((e) => {
 		atri.push({
@@ -64,6 +66,7 @@ function addAtributtes(
 		})
 	})
 	docs.forEach((e) => {
+		console.log(e)
 		if (dateMonth(e.Inicio) == dateMonth(e.Fin)) {
 			atri.push({
 				highlight: {
@@ -126,25 +129,28 @@ function addAtributtes(
 					end: lastDay(new Date(e.Inicio.toString())),
 				},
 			})
-		} else {
-			atri.push({
-				dates: e.fecha,
-				popover: {
-					visibility: 'hover',
-				},
-				highlight: {
-					color: colorForPermisos(e.permiso),
-					fillMode: 'solid',
-				},
-				customData: {
-					memo: true,
-					nombre: `${e.doc}`,
-					descrip: `${e.descrip}`,
-					detalle: `${e.Ref}`,
-					tipo: `${e.permiso}`,
-				},
-			})
 		}
+		atri.push({
+			dates: new Date(
+				new Date(e.fecha.toString()).setDate(
+					new Date(e.fecha.toString()).getDate() + 1
+				)
+			),
+			popover: {
+				visibility: 'hover',
+			},
+			highlight: {
+				color: colorForPermisos(e.permiso),
+				fillMode: 'solid',
+			},
+			customData: {
+				memo: true,
+				nombre: `${e.doc}`,
+				descrip: `${e.descrip}`,
+				detalle: `${e.Ref}`,
+				tipo: `${e.permiso}`,
+			},
+		})
 	})
 	// docs.forEach((e) => {
 	// 	if (

@@ -6,9 +6,18 @@
 				<div class="informacion">
 					<div class="nombre">{{ employ.nombre }}</div>
 					<div class="cargos">
-						<p>{{ employ.ingreso }}</p>
-						<p>{{ employ.area }}</p>
-						<p>{{ employ.cargo }}</p>
+						<div>
+							<i class="fa-solid fa-calendar-days"></i>
+							<h4>{{ employ.ingreso }}</h4>
+						</div>
+						<div>
+							<i class="fa-solid fa-building"></i>
+							<h4>{{ employ.area }}</h4>
+						</div>
+						<div>
+							<i class="fa-solid fa-person-chalkboard"></i>
+							<h4>{{ employ.cargo }}</h4>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -43,14 +52,13 @@
 	.appi {
 		height: 100vh;
 		.asist {
-			height: 100%;
 			display: grid;
 			grid-template-rows: min-content 1fr;
 			gap: 4vh;
 			.employ {
 				display: flex;
 				gap: 2vh;
-				justify-content: center;
+				justify-content: flex-start;
 				i {
 					min-width: 8vh;
 					font-size: 3rem;
@@ -58,20 +66,31 @@
 				.informacion {
 					display: flex;
 					flex-direction: column;
-					align-items: center;
+					align-items: flex-start;
 					.nombre {
 						font-weight: 600;
 						font-size: 1.5rem;
 					}
 					.cargos {
-						width: 100%;
-						flex-wrap: wrap;
 						display: flex;
+						flex-direction: column;
 						justify-content: space-evenly;
 						gap: 0.5vh;
-						p {
-							font-weight: 500;
-							color: gray;
+						div {
+							display: flex;
+							align-items: center;
+							text-align: left;
+							justify-content: center;
+							i {
+								width: min-content;
+
+								font-size: 1.2rem;
+							}
+							h4 {
+								width: 100%;
+								font-weight: 600;
+								font-size: 0.75rem;
+							}
 						}
 					}
 				}

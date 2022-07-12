@@ -5,7 +5,6 @@
 		</div>
 		<div class="docs">
 			<v-calendar></v-calendar>
-			<v-calendar></v-calendar>
 		</div>
 	</div>
 </template>
@@ -15,31 +14,31 @@
 	import EmployImpl from '../../../../app/implement/employ'
 	import { AsistenciaDetalle } from '../../../../app/models/asistencia'
 
-    const props = defineProps({
-        dni:{type:String, required:true},
-        mes:{type:String,required:true}
-    })
+	const props = defineProps({
+		dni: { type: String, required: true },
+		mes: { type: String, required: true },
+	})
 
 	const asistencia = ref<AsistenciaDetalle[]>([])
-    const atributtes = ref<any>([])
+	const atributtes = ref<any>([])
 	var asis = new EmployImpl()
 	onBeforeMount(async () => {
-             asistencia.value = await asis.buscar_asistencia(props.dni,props.mes)
+		asistencia.value = await asis.buscar_asistencia(props.dni, props.mes)
 
-        asistencia.value.forEach(e => {
-            atributtes.value.push({
-                        description: 'Take Noah to basketball practice.',
-                        isComplete: true,
-                        dot:{
-                                color: 'red',
-                        },
-                        dates:`${e.fecha}`,
-                        popover: {
-                            label:`${e.marca}`,
-                        },
-                })
-        });
-     })
+		asistencia.value.forEach((e) => {
+			atributtes.value.push({
+				description: 'Take Noah to basketball practice.',
+				isComplete: true,
+				dot: {
+					color: 'red',
+				},
+				dates: `${e.fecha}`,
+				popover: {
+					label: `${e.marca}`,
+				},
+			})
+		})
+	})
 </script>
 
 <style lang="scss" scoped>
