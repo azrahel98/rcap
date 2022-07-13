@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<h3>{{ propr.dni }}</h3>
-		<p class="title is-5">{{ propr.nombre }}</p>
+		<p class="subtitle is-6">{{ propr.nombre }}</p>
 		<div class="icons">
 			<button class="button papeleta" @click="openmemo(true)" v-if="user.admin">
 				<span class="icon is-small">
@@ -79,10 +79,14 @@
 
 		h3 {
 			min-height: 4vh;
+			color: $secundary;
+			font-size: 0.85rem;
+			font-weight: 500;
 		}
 		p {
 			word-wrap: break-word;
 			height: 100%;
+			font-weight: 500;
 			color: $bsidebar;
 		}
 		.icons {

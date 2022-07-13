@@ -4,7 +4,7 @@
 			<div class="field">
 				<p class="control has-icons-left">
 					<input
-						class="input is-medium"
+						class="input"
 						type="text"
 						v-model="nombre"
 						:disable="isloading"
@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="resultados" id="resultado">
-			<div v-for="e in empleados" :key="e.dni!">
+			<div v-for="e in empleados" :key="e.dni!" class="car">
 				<Card :nombre="e.nombre!" :cargo="e.cargo!" :dni="e.dni!" />
 			</div>
 		</div>
@@ -55,16 +55,27 @@
 		color: $bsidebar;
 	}
 	.app {
-		width: 100%;
-		height: 100vh;
 		display: grid;
-		gap: 5vh;
-		grid-template-rows: 5vh auto;
+		grid-template-rows: min-content;
+		align-items: flex-start;
+		gap: 2vh;
+		overflow-y: scroll !important;
+		&::-webkit-scrollbar {
+			width: 0.12rem;
+		}
 
+		&::-webkit-scrollbar-thumb {
+			background: $primary;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: $background;
+		}
 		.search {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			padding-top: 2vh;
 			i {
 				color: $bsidebar;
 			}
@@ -73,33 +84,24 @@
 				font-weight: 400;
 			}
 			@media (max-width: 1024px) {
-				width: 85%;
+				width: 100%;
 				.input {
 					text-align: center;
 				}
 			}
 		}
 		.resultados {
-			width: 100%;
-			height: 100%;
-			padding-bottom: 4vh;
-			display: flex;
-			justify-content: space-evenly;
-			overflow: scroll !important;
-			gap: 2vh;
-			flex-wrap: wrap;
-			word-wrap: normal;
-
-			&::-webkit-scrollbar {
-				width: 0.15rem;
-			}
-
-			&::-webkit-scrollbar-thumb {
-				background: $primary;
-			}
-
-			&::-webkit-scrollbar-track {
-				background: $background;
+			display: grid;
+			gap: 1rem;
+			grid-auto-rows: auto-fill;
+			grid-template-columns: repeat(auto-fit, minmax(9rem, 0.8fr));
+			padding-bottom: 2vh;
+			justify-content: center;
+			align-items: flex-start;
+			.car {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 		}
 	}

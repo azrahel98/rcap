@@ -2,22 +2,18 @@
 	<div class="appi">
 		<div class="asist" v-if="!isLoading">
 			<div class="employ">
-				<i class="fa-solid fa-person-circle-check"></i>
+				<div class="avatar">
+					<img src="../../assets/user.png" alt="" />
+				</div>
 				<div class="informacion">
-					<div class="nombre">{{ employ.nombre }}</div>
-					<div class="cargos">
-						<div>
-							<i class="fa-solid fa-calendar-days"></i>
-							<h4>{{ employ.ingreso }}</h4>
-						</div>
-						<div>
-							<i class="fa-solid fa-building"></i>
-							<h4>{{ employ.area }}</h4>
-						</div>
-						<div>
-							<i class="fa-solid fa-person-chalkboard"></i>
-							<h4>{{ employ.cargo }}</h4>
-						</div>
+					<div class="cargo">
+						<div class="nombre">{{ employ.nombre }}</div>
+						<p>{{ employ.cargo }}</p>
+					</div>
+					<div class="adicional">
+						<h4>{{ employ.ingreso }}</h4>
+
+						<h4>{{ employ.area }}</h4>
 					</div>
 				</div>
 			</div>
@@ -39,67 +35,57 @@
 					/>
 				</div>
 				<Vue3Lottie
+					class="empty"
 					v-else
 					animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
 				/>
 			</div>
 		</div>
-		<Loading v-else />
+		<div class="loading" v-else><Loading /></div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 	.appi {
-		height: 100vh;
+		width: 100%;
 		.asist {
+			height: 100%;
 			display: grid;
-			grid-template-rows: min-content 1fr;
+			grid-template-rows: auto-fill 1fr;
 			gap: 4vh;
 			.employ {
 				display: flex;
-				gap: 2vh;
-				justify-content: flex-start;
-				i {
-					min-width: 8vh;
-					font-size: 3rem;
+				justify-content: center;
+				.avatar {
+					height: max-content;
+					width: max-content;
+					width: 11vh;
 				}
 				.informacion {
-					display: flex;
-					flex-direction: column;
-					align-items: flex-start;
-					.nombre {
-						font-weight: 600;
-						font-size: 1.5rem;
+					display: grid;
+					grid-template-rows: repeat(auto-fill);
+					.cargo {
+						height: min-content;
+						.nombre {
+							font-weight: 600;
+							font-size: 1.5rem;
+						}
 					}
-					.cargos {
-						display: flex;
-						flex-direction: column;
-						justify-content: space-evenly;
-						gap: 0.5vh;
-						div {
-							display: flex;
-							align-items: center;
-							text-align: left;
-							justify-content: center;
-							i {
-								width: min-content;
-
-								font-size: 1.2rem;
-							}
-							h4 {
-								width: 100%;
-								font-weight: 600;
-								font-size: 0.75rem;
-							}
+					.adicional {
+						display: grid;
+						grid-template-columns: 0.5fr 1fr;
+						align-items: center;
+						gap: 0vh;
+						h4 {
+							font-weight: 500;
 						}
 					}
 				}
 			}
 			.dash {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-				gap: 3vh;
+				display: grid;
+				grid-template-rows: auto-fill 1fr;
+				gap: 2vh;
 				.mes {
 					height: min-content;
 				}
@@ -118,7 +104,16 @@
 						height: 100%;
 					}
 				}
+				.empty {
+					height: 50%;
+				}
 			}
+		}
+		.loading {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
 		}
 	}
 </style>
