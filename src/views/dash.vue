@@ -2,7 +2,7 @@
 	<div class="dash">
 		<div class="app">
 			<layout @change="recib"></layout>
-
+			<!-- <Menu></Menu> -->
 			<div class="main" id="main">
 				<router-view />
 			</div>

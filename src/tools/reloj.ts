@@ -54,7 +54,7 @@ function addAtributtes(
 			},
 			highlight: {
 				color: colorForPermisos(e.tipoP),
-				fillMode: 'outline',
+				fillMode: 'solid',
 			},
 			customData: {
 				papeleta: true,
@@ -66,19 +66,18 @@ function addAtributtes(
 		})
 	})
 	docs.forEach((e) => {
-		console.log(e)
 		if (dateMonth(e.Inicio) == dateMonth(e.Fin)) {
 			atri.push({
 				highlight: {
-					start: { fillMode: 'outline' },
+					start: { fillMode: 'light' },
 					base: {
-						fillMode: 'light',
+						fillMode: 'solid',
 						color: colorForPermisos(e.permiso),
 					},
-					end: { fillMode: 'outline' },
+					end: { fillMode: 'light' },
 				},
 				popover: {
-					visibility: 'hover',
+					visibility: 'click',
 				},
 				customData: {
 					memo: true,
@@ -100,18 +99,18 @@ function addAtributtes(
 					),
 				},
 			})
-		} else if (dateMonth(e.Fin) > dateMonth(e.Inicio)) {
+		} else if (dateMonth(e.Fin) < dateMonth(e.Inicio)) {
 			atri.push({
 				highlight: {
-					start: { fillMode: 'outline' },
+					start: { fillMode: 'light' },
 					base: {
-						fillMode: 'light',
+						fillMode: 'solid',
 						color: colorForPermisos(e.permiso),
 					},
-					end: { fillMode: 'outline' },
+					end: { fillMode: 'light' },
 				},
 				popover: {
-					visibility: 'hover',
+					visibility: 'click',
 				},
 				customData: {
 					memo: true,

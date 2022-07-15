@@ -9,25 +9,29 @@
 		<aside class="sidebar" :class="isExpanded ? 'is-active' : ''">
 			<h3>menu</h3>
 			<nav class="menu" :class="isExpanded ? 'is-active' : ''">
-				<router-link to="/" class="menu-item" exact-active-class="is-active">
-					<i class="fa-solid fa-gauge-high"></i> Dashboard
-				</router-link>
-				<router-link
-					to="/employees"
-					class="menu-item"
-					exact-active-class="is-active"
-					><i class="fa-solid fa-book-medical"></i> Papeletas</router-link
-				>
-				<router-link
-					v-if="employ.dni !== ''"
-					:to="{ name: 'asistencia', params: { dni: employ.dni } }"
-					class="menu-item"
-					exact-active-class="is-active"
-					><i class="fa-solid fa-user-clock"></i>{{ employ.dni }}
-				</router-link>
-				<a @click="exit" class="menu-item"
-					><i class="fa-solid fa-feather"></i
-				></a>
+				<div class="items">
+					<router-link to="/" class="menu-item" exact-active-class="is-active">
+						<i class="fa-solid fa-gauge-high"></i> Dashboard
+					</router-link>
+					<router-link
+						to="/employees"
+						class="menu-item"
+						exact-active-class="is-active"
+						><i class="fa-solid fa-book-medical"></i> Trabajadores</router-link
+					>
+					<router-link
+						v-if="employ.dni !== ''"
+						:to="{ name: 'asistencia', params: { dni: employ.dni } }"
+						class="menu-item"
+						exact-active-class="is-active"
+						><i class="fa-solid fa-user-clock"></i>{{ employ.dni }}
+					</router-link>
+				</div>
+				<div class="exit">
+					<a @click="exit" class="menu-item"
+						><i class="fa-solid fa-feather"></i>Salir</a
+					>
+				</div>
 			</nav>
 		</aside>
 	</div>
@@ -56,12 +60,10 @@
 </script>
 
 <style lang="scss" scoped>
-	i {
-		color: white;
-	}
 	.app {
 		display: flex;
 		height: 100vh !important;
+		border-right: 0px solid gray;
 	}
 	.menu-toggle {
 		display: none;
@@ -118,17 +120,55 @@
 		background: $bsidebar;
 		backdrop-filter: blur(24px);
 		z-index: 1;
-		.menu .menu-item {
+		.menu {
+			height: 100%;
 			display: flex;
-			padding: 1em;
-			color: $primary;
-			padding-left: 2vh;
-			gap: 2vh;
-			font-weight: 400;
-			font-size: 0.92rem;
-			text-decoration: none;
+			flex-direction: column;
 			justify-content: space-between;
-			transition: 0.2s linear;
+			.items {
+				padding-top: 4vh;
+				gap: 2vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				.menu-item {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					color: rgb(124, 121, 121);
+					padding-left: 2vh;
+					gap: 10%;
+					font-weight: 400;
+					padding-left: 20%;
+					font-size: 0.78rem;
+					text-decoration: none;
+					transition: 0.2s linear;
+					.fa-solid {
+						color: transparent;
+						-webkit-text-stroke-width: 0.5px;
+						-webkit-text-stroke-color: #aeaeae;
+					}
+				}
+			}
+			.exit {
+				min-height: 20px;
+				display: flex;
+				justify-content: center;
+				.menu-item {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					color: black;
+					padding-left: 2vh;
+					gap: 10%;
+					font-weight: 400;
+					padding-left: 20%;
+					width: 100%;
+					font-size: 0.78rem;
+					text-decoration: none;
+					transition: 0.2s linear;
+				}
+			}
 		}
 	}
 	.sidebar h3 {
@@ -182,6 +222,9 @@
 		}
 		.sidebar.is-active {
 			left: 0;
+		}
+		.exit {
+			padding-bottom: 10vh;
 		}
 	}
 </style>

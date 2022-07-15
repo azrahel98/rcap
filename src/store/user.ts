@@ -9,6 +9,7 @@ export const userStore = defineStore('user', {
 		InitAdmin() {
 			var token = localStorage.getItem('auth')
 			this.admin = jwtDecode(token)['admin']
+			console.log(jwtDecode(token))
 		},
 	},
 
