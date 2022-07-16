@@ -14,36 +14,22 @@ function colorForPermisos(p: String) {
 	}
 }
 
-function dateMonth(date: any) {
-	var now = new Date(date)
-	return new Date(now.setDate(now.getDate() + 1)).getMonth()
-}
+// function dateMonth(date: any) {
+// 	var now = new Date(date)
+// 	return new Date(now.setDate(now.getDate() + 1)).getMonth()
+// }
 
-function lastDay(d: Date): Date {
-	return new Date(d.getFullYear(), d.getMonth() + 1, 0)
-}
+// function lastDay(d: Date): Date {
+// 	return new Date(d.getFullYear(), d.getMonth() + 1, 0)
+// }
 
 function addAtributtes(
 	data: AsistenciaDetalle[],
 	papes: Papeleta[],
 	docs: Doc[]
 ): Array<any> {
-	console.log(docs)
 	var atri = []
-	data.forEach((e) => {
-		atri.push({
-			dates: e.fecha,
-			customData: {
-				marca: `${e.marca}`,
-				class: 'marca',
-				reloj: true,
-			},
-			popover: {
-				visibility: 'hover',
-			},
-			dot: 'teal',
-		})
-	})
+
 	papes.forEach((e) => {
 		atri.push({
 			dates: new Date(
@@ -66,7 +52,7 @@ function addAtributtes(
 		})
 	})
 	docs.forEach((e) => {
-		if (dateMonth(e.Inicio) == dateMonth(e.Fin)) {
+		if (e.Inicio !== '0000-00-00') {
 			atri.push({
 				highlight: {
 					start: { fillMode: 'light' },
@@ -99,35 +85,6 @@ function addAtributtes(
 					),
 				},
 			})
-		} else if (dateMonth(e.Fin) < dateMonth(e.Inicio)) {
-			atri.push({
-				highlight: {
-					start: { fillMode: 'light' },
-					base: {
-						fillMode: 'solid',
-						color: colorForPermisos(e.permiso),
-					},
-					end: { fillMode: 'light' },
-				},
-				popover: {
-					visibility: 'click',
-				},
-				customData: {
-					memo: true,
-					nombre: `${e.doc}`,
-					descrip: `${e.descrip}`,
-					detalle: `${e.Inicio}`,
-					tipo: `${e.Fin}`,
-				},
-				dates: {
-					start: new Date(
-						new Date(e.Inicio.toString()).setDate(
-							new Date(e.Inicio.toString()).getDate() + 1
-						)
-					),
-					end: lastDay(new Date(e.Inicio.toString())),
-				},
-			})
 		}
 		atri.push({
 			dates: new Date(
@@ -139,89 +96,31 @@ function addAtributtes(
 				visibility: 'hover',
 			},
 			highlight: {
-				color: colorForPermisos(e.permiso),
-				fillMode: 'solid',
+				color: 'teal',
+				fillMode: 'outline',
 			},
 			customData: {
 				memo: true,
 				nombre: `${e.doc}`,
 				descrip: `${e.descrip}`,
-				detalle: `${e.Ref}`,
 				tipo: `${e.permiso}`,
 			},
 		})
 	})
-	// docs.forEach((e) => {
-	// 	if (
-	// 		new Date(e.fecha.toString()).getMonth() + 1 ===
-	// 		new Date(e.Inicio.toString()).getMonth() + 1
-	// 	) {
-	// 		if (
-	// 			new Date(e.Inicio.toString()).getMonth() + 1 ==
-	// 			new Date(e.Fin.toString()).getMonth() + 1
-	// 		) {
-	// 			atri.push({
-	// 				highlight: {
-	// 					start: { fillMode: 'outline' },
-	// 					base: { fillMode: 'light' },
-	// 					end: { fillMode: 'outline' },
-	// 				},
-	// 				dates: {
-	// 					start: new Date(
-	// 						new Date(e.Inicio.toString()).setDate(
-	// 							new Date(e.Inicio.toString()).getDate() + 1
-	// 						)
-	// 					),
-	// 					end: new Date(
-	// 						new Date(e.Fin.toString()).setDate(
-	// 							new Date(e.Fin.toString()).getDate() + 1
-	// 						)
-	// 					),
-	// 				},
-	// 			})
-	// 		} else {
-	// 			atri.push({
-	// 				highlight: {
-	// 					start: { fillMode: 'outline' },
-	// 					base: { fillMode: 'light' },
-	// 					end: { fillMode: 'outline' },
-	// 				},
-	// 				dates: {
-	// 					start: new Date(
-	// 						new Date(e.Inicio.toString()).setDate(
-	// 							new Date(e.Inicio.toString()).getDate() + 1
-	// 						)
-	// 					),
-	// 					end: new Date(
-	// 						new Date(e.Fin.toString()).getFullYear(),
-	// 						new Date(e.Fin.toString()).getMonth() + 1,
-	// 						new Date(
-	// 							new Date(e.Fin.toString()).getFullYear(),
-	// 							new Date(e.Fin.toString()).getMonth() + 1,
-	// 							0
-	// 						).getDate()
-	// 					),
-	// 				},
-	// 			})
-	// 		}
-	// 	} else {
-	// 		atri.push({
-	// 			dot: {
-	// 				color: 'teal',
-	// 			},
-	// 			dates: new Date(
-	// 				new Date(e.fecha.toString()).setDate(
-	// 					new Date(e.fecha.toString()).getDate() + 1
-	// 				)
-	// 			),
-	// 			customData: {
-	// 				title: `${e.doc}`,
-	// 				class: 'memorando',
-	// 			},
-	// 		})
-	// 	}
-	// })
-
+	data.forEach((e) => {
+		atri.push({
+			dates: e.fecha,
+			customData: {
+				marca: `${e.marca}`,
+				class: 'marca',
+				reloj: true,
+			},
+			popover: {
+				visibility: 'hover',
+			},
+			dot: 'teal',
+		})
+	})
 	return atri
 }
 

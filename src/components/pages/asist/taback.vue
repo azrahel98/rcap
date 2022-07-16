@@ -9,7 +9,7 @@
 			popover-direction="left"
 		>
 			<template #day-popover="{ attributes }">
-				<ul class="all">
+				<ul class="all test">
 					<li v-for="{ key, customData } in attributes" :key="key">
 						<h1 v-if="customData.marca !== undefined">
 							<div
@@ -87,6 +87,46 @@
 		openModal.value = true
 	}
 </script>
+<style lang="scss" scoped>
+	.cale {
+		height: 100%;
+		.all {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1vh;
+			.hour {
+				display: flex;
+				gap: 1vh;
+				align-items: center;
+			}
+			.pape,
+			.memo {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				h1 {
+					font-weight: 600;
+					font-size: 0.8rem;
+				}
+				h2 {
+					font-size: 0.75rem;
+					font-weight: 500;
+				}
+				p {
+					display: flex;
+					justify-content: space-center;
+					gap: 1vh;
+				}
+			}
+			.memo {
+				border: 1px white dotted;
+				margin: 3px;
+			}
+		}
+	}
+</style>
 <style lang="scss">
 	.vc-weeks {
 		display: grid;
@@ -124,42 +164,17 @@
 			}
 		}
 	}
-	.cale {
-		height: 100%;
-		.all {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 1vh;
-			.hour {
-				display: flex;
-				gap: 1vh;
-				align-items: center;
-			}
-			.pape,
-			.memo {
-				display: flex;
-				border: 1px black dotted;
-				flex-direction: column;
-				align-items: center;
-				h1 {
-					font-weight: 600;
-					font-size: 0.8rem;
-				}
-				h2 {
-					font-size: 0.75rem;
-					font-weight: 500;
-				}
-				p {
-					display: flex;
-					justify-content: space-center;
-					gap: 1vh;
-				}
-			}
-			.memo {
-				border: 1px white dotted;
-				margin: 3px;
-			}
-		}
+	.vc-popover-content-wrapper {
+		background-color: transparent !important;
+		border: none !important;
+	}
+	.vc-day-popover-container {
+		background: rgba(48, 48, 48, 0.98);
+		border-radius: 16px;
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+		backdrop-filter: blur(6.8px);
+		-webkit-backdrop-filter: blur(6.8px);
+		border: 1px solid rgba(48, 48, 48, 0.3);
+		border: none !important;
 	}
 </style>

@@ -1,22 +1,7 @@
 <template>
 	<div class="appi">
 		<div class="asist" v-if="!isLoading">
-			<div class="employ">
-				<div class="avatar">
-					<img src="../../assets/user.png" alt="" />
-				</div>
-				<div class="informacion">
-					<div class="cargo">
-						<div class="nombre">{{ employ.nombre }}</div>
-						<p>{{ employ.cargo }}</p>
-					</div>
-					<div class="adicional">
-						<h4>{{ employ.ingreso }}</h4>
-
-						<h4>{{ employ.area }}</h4>
-					</div>
-				</div>
-			</div>
+			<Infor :employ="employ" class="employ" />
 			<div class="dash">
 				<Meses class="mes" @change="(x) => (mesSeleccionado = x)" />
 				<div class="tablaas" v-if="mesSeleccionado != null">
@@ -47,40 +32,12 @@
 
 <style lang="scss" scoped>
 	.appi {
-		width: 100%;
 		.asist {
-			height: 100%;
 			display: grid;
 			grid-template-rows: auto-fill 1fr;
 			gap: 4vh;
 			.employ {
-				display: flex;
-				justify-content: center;
-				.avatar {
-					height: max-content;
-					width: max-content;
-					width: 11vh;
-				}
-				.informacion {
-					display: grid;
-					grid-template-rows: repeat(auto-fill);
-					.cargo {
-						height: min-content;
-						.nombre {
-							font-weight: 600;
-							font-size: 1.5rem;
-						}
-					}
-					.adicional {
-						display: grid;
-						grid-template-columns: 0.5fr 1fr;
-						align-items: center;
-						gap: 0vh;
-						h4 {
-							font-weight: 500;
-						}
-					}
-				}
+				max-height: min-content;
 			}
 			.dash {
 				display: grid;
@@ -134,6 +91,7 @@
 	import Meses from '@com/pages/asist/meses.vue'
 	import Taback from '@com/pages/asist/taback.vue'
 	import { EmployStore } from '@store/employ'
+	import Infor from '@com/pages/asist/name/infor.vue'
 
 	const impl = new EmployImpl()
 	const employImp = new EmployImpl()
