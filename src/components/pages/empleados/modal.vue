@@ -24,7 +24,8 @@
 							</select></label
 						><svg class="sprites"></svg>
 					</div>
-					<v-date-picker mode="date" v-model="date" />
+					<v-date-picker mode="date" v-model="date" class="calendario-picker">
+					</v-date-picker>
 				</div>
 				<div class="other">
 					<input
@@ -284,5 +285,11 @@
 				}
 			}
 		}
+	}
+</style>
+
+<style>
+	.vc-weeks {
+		row-gap: 0;
 	}
 </style>

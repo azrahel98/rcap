@@ -67,14 +67,6 @@
 
 	const openModal = ref<any>(false)
 
-	const changeModal = (e) => {
-		openModal.value = e
-	}
-
-	const clickmeee = () => {
-		console.log('adsfff')
-	}
-
 	const minDate = () => {
 		var da = new Date().getFullYear()
 		return `${da}-${props.mes}-01`
@@ -82,9 +74,6 @@
 	const maxDate = () => {
 		var da = new Date().getFullYear()
 		return `${da}-${props.mes}-30`
-	}
-	const clickme = (x) => {
-		openModal.value = true
 	}
 </script>
 <style lang="scss" scoped>
@@ -130,15 +119,13 @@
 <style lang="scss">
 	.vc-weeks {
 		display: grid;
-		width: 100%;
 		grid-template-columns: repeat(7, 0.5fr);
+		row-gap: 5vh;
 		min-width: none;
 		.vc-weekday {
 			padding-bottom: 3vh;
 		}
 		.vc-day {
-			padding-bottom: 2vh;
-			padding-top: 2vh;
 			width: 100%;
 			height: 100%;
 			color: black;
