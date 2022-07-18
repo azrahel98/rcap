@@ -1,7 +1,7 @@
 <template>
 	<div class="app">
 		<div class="map">
-			<mapbox-map
+			<!-- <mapbox-map
 				:accessToken="token"
 				class="mapa"
 				:center="center"
@@ -42,12 +42,6 @@
 					</mapbox-popup></mapbox-marker
 				>
 
-				<!-- <mapbox-marker :lngLat="[-76.9296641, -12.2282669]">
-					<mapbox-popup>
-						<div>Warmi Salud</div>
-					</mapbox-popup></mapbox-marker
-				> -->
-				<!-- -12.238675, -76.923864 -->
 				<mapbox-marker :lngLat="[-76.923864, -12.238675]">
 					<mapbox-popup>
 						<div class="marcador">
@@ -55,14 +49,7 @@
 						</div>
 					</mapbox-popup></mapbox-marker
 				>
-				<!-- <mapbox-marker :lngLat="[-76.921582, -12.224102]">
-					<mapbox-popup>
-						<div>CIAM</div>
-					</mapbox-popup></mapbox-marker
-				> -->
-				<!-- -12.224102, -76.921582 -->
-				<!--  12.2282669,-76.9296641-->
-				<!-- -12.2021373,-76.9356006 -->
+
 				<mapbox-marker :lngLat="[-76.9356006, -12.2021373]">
 					<mapbox-popup>
 						<div class="marcador">
@@ -71,7 +58,7 @@
 						</div>
 					</mapbox-popup>
 				</mapbox-marker>
-				<!-- -12.116638,-77.043603 -->
+
 				<mapbox-marker :lngLat="[-76.952989, -12.211872]">
 					<mapbox-popup>
 						<div class="marcador">
@@ -79,7 +66,7 @@
 						</div>
 					</mapbox-popup>
 				</mapbox-marker>
-			</mapbox-map>
+			</mapbox-map> -->
 		</div>
 	</div>
 </template>
@@ -102,7 +89,6 @@
 <style lang="scss" scoped>
 	.app {
 		display: grid;
-		padding-top: 5vh;
 		.marcador {
 			color: white;
 			display: flex;
@@ -118,7 +104,7 @@
 		}
 	}
 </style>
-<style lang="scss">
+<!-- <style lang="scss">
 	.mapboxgl-popup-content {
 		background-color: $primary;
 		opacity: 0.6;
@@ -130,4 +116,4 @@
 		border-radius: 50px;
 		border-color: blue !important;
 	}
-</style>
+</style> -->
