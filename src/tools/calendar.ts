@@ -14,15 +14,6 @@ function colorForPermisos(p: String) {
 	}
 }
 
-// function dateMonth(date: any) {
-// 	var now = new Date(date)
-// 	return new Date(now.setDate(now.getDate() + 1)).getMonth()
-// }
-
-// function lastDay(d: Date): Date {
-// 	return new Date(d.getFullYear(), d.getMonth() + 1, 0)
-// }
-
 function addAtributtes(
 	data: AsistenciaDetalle[],
 	papes: Papeleta[],

@@ -10,7 +10,7 @@
 			</button>
 			<button class="button memo" @click="openmemo(false)" v-if="user.admin">
 				<span class="icon is-small">
-					<i class="fa-solid fa-file-lines"></i>
+					<span class="material-icons-outlined"> search </span>
 				</span>
 			</button>
 			<button class="button" @click="getEmploy">

@@ -25,16 +25,12 @@
 		user.InitAdmin()
 	})
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.dash {
 		.app {
-			display: flex;
-			width: auto;
 			.main {
-				width: 100%;
-				padding-top: 2.5vh;
-				padding-left: 5%;
-				padding-right: 5%;
+				margin-left: 18%;
+				padding-right: 2%;
 				@media (max-width: 1024px) {
 					padding: 1vh 1vh 2vh 2vh;
 				}

@@ -49,7 +49,7 @@
 	import { Doc, Papeleta } from '@/models/documents'
 	import 'v-calendar/dist/style.css'
 	import { ref } from 'vue'
-	import { addAtributtes } from '../../../tools/reloj'
+	import { addAtributtes } from '../../../tools/calendar'
 
 	const props = defineProps({
 		mes: { type: Number, required: true },
