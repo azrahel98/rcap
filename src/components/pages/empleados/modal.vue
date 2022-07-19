@@ -1,76 +1,103 @@
 <template>
-	<div class="modal is-active">
-		<div class="modal-background"></div>
-		<div class="modal-content" v-click-outside="out">
-			<div class="empleado">
-				<div class="nombre">
-					<h4 class="name">{{ prop.nombre }}</h4>
-					<h4>{{ prop.cargo }}</h4>
+	<div
+		class="modal fade"
+		id="exampleModalCenter"
+		tabindex="-1"
+		role="dialog"
+		aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-				<p class="subtitle is-6">PAPELETA</p>
-				<button class="delete" aria-label="close" @click="close"></button>
-			</div>
-			<div class="form">
-				<div class="left">
-					<div class="permisos">
-						<label class="select" for="slct"
-							><select id="slct" v-model="tipoper">
-								<option value="JUSTIFICADO">Justificado</option>
-								<option value="DF">Descanso Fisico</option>
-								<option value="AC">A cuenta</option>
-								<option value="DFXHEL">Por horas Extras</option>
-								<option value="OMISION">Omision</option>
-								<option value="ONOMASTICO">Onomastico</option>
-							</select></label
-						><svg class="sprites"></svg>
+				<div class="modal-body">
+					<div class="empleado">
+						<div class="nombre">
+							<h4 class="name">{{ prop.nombre }}</h4>
+							<h4>{{ prop.cargo }}</h4>
+						</div>
+						<p class="subtitle is-6">PAPELETA</p>
+						<button class="delete" aria-label="close" @click="close"></button>
 					</div>
-					<v-date-picker mode="date" v-model="date" />
-				</div>
-				<div class="other">
-					<input
-						class="input is-small is-rounded papeleta"
-						type="number"
-						min="4000"
-						v-model="papeleta"
-						placeholder="# PAPELETA"
-					/>
-					<div class="field">
-						<div class="control">
-							<textarea
-								class="textarea"
-								placeholder="Descripcion"
-								v-model="descrip"
-							></textarea>
+					<div class="form">
+						<div class="left">
+							<div class="permisos">
+								<label class="select" for="slct"
+									><select id="slct" v-model="tipoper">
+										<option value="JUSTIFICADO">Justificado</option>
+										<option value="DF">Descanso Fisico</option>
+										<option value="AC">A cuenta</option>
+										<option value="DFXHEL">Por horas Extras</option>
+										<option value="OMISION">Omision</option>
+										<option value="ONOMASTICO">Onomastico</option>
+									</select></label
+								><svg class="sprites"></svg>
+							</div>
+							<v-date-picker mode="date" v-model="date" />
+						</div>
+						<div class="other">
+							<input
+								class="input is-small is-rounded papeleta"
+								type="number"
+								min="4000"
+								v-model="papeleta"
+								placeholder="# PAPELETA"
+							/>
+							<div class="field">
+								<div class="control">
+									<textarea
+										class="textarea"
+										placeholder="Descripcion"
+										v-model="descrip"
+									></textarea>
+								</div>
+							</div>
+							<div class="detalle">
+								<input
+									class="input is-small details"
+									type="text"
+									v-model="detalle"
+									placeholder="Detalle"
+								/>
+								<label class="checkbox">
+									<input
+										type="checkbox"
+										v-model="conretorno"
+										@keyup.enter="clickRetorno"
+									/>
+									Regreso?
+								</label>
+							</div>
+							<div class="botones">
+								<button
+									class="button"
+									@click="guardar"
+									:class="isLoading ? 'is-loding' : ''"
+								>
+									Guardar
+								</button>
+								<p class="help" :class="isError ? 'is-danger' : 'is-success'">
+									{{ message }}
+								</p>
+							</div>
 						</div>
 					</div>
-					<div class="detalle">
-						<input
-							class="input is-small details"
-							type="text"
-							v-model="detalle"
-							placeholder="Detalle"
-						/>
-						<label class="checkbox">
-							<input
-								type="checkbox"
-								v-model="conretorno"
-								@keyup.enter="clickRetorno"
-							/>
-							Regreso?
-						</label>
-					</div>
-					<div class="botones">
-						<button
-							class="button"
-							@click="guardar"
-							:class="isLoading ? 'is-loding' : ''"
-						>
-							Guardar
-						</button>
-						<p class="help" :class="isError ? 'is-danger' : 'is-success'">
-							{{ message }}
-						</p>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Close
+					</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
 		</div>

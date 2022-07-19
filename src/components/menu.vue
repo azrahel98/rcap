@@ -75,7 +75,8 @@
 				.pages {
 					.iconpage {
 						.material-icons {
-							font-size: 2rem !important;
+							padding-right: 2vh;
+							font-size: 1.61rem !important;
 						}
 					}
 				}
