@@ -4,30 +4,14 @@
 		<p class="subtitle is-6">{{ propr.nombre }}</p>
 		<div class="icons">
 			<button
-				@click="openmemo(true)"
 				type="button"
 				class="btn btn-primary"
 				data-toggle="modal"
-				data-target="#exampleModalCenter"
+				:data-target="`#${propr.dni}`"
 			>
 				Launch demo modal
 			</button>
-			<!-- <button class="button papeleta" @click="openmemo(true)" v-if="user.admin">
-				<span class="icon is-small">
-					<i class="fa-solid fa-file-circle-plus"></i>
-				</span>
-			</button>
-			<button
-				class="button memo"
-				@click="openmemo(false)"
-				v-if="user.admin"
-				data-toggle="modal"
-				data-target="#exampleModalCenter"
-			>
-				<span class="icon is-small">
-					<span class="material-icons-outlined"> search </span>
-				</span>
-			</button> -->
+
 			<button class="button" @click="getEmploy">
 				<span class="icon is-small">
 					<i class="fa-solid fa-share"></i>
@@ -35,22 +19,21 @@
 			</button>
 		</div>
 	</div>
-	<Teleport to="#resultado" v-if="showp">
-		<Modal
-			@change="close"
-			:cargo="propr.cargo"
-			:dni="propr.dni"
-			:nombre="propr.nombre"
-			v-if="ispape"
-		/>
-		<ModalM
-			@change="close"
-			:cargo="propr.cargo"
-			:dni="propr.dni"
-			:nombre="propr.nombre"
-			v-else
-		/>
-	</Teleport>
+
+	<Modal
+		@change="close"
+		:cargo="propr.cargo"
+		:dni="propr.dni"
+		:nombre="propr.nombre"
+		v-if="ispape"
+	/>
+	<ModalM
+		@change="close"
+		:cargo="propr.cargo"
+		:dni="propr.dni"
+		:nombre="propr.nombre"
+		v-else
+	/>
 </template>
 
 <script lang="ts" setup>
