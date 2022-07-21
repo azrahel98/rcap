@@ -12,7 +12,13 @@
 		<div class="pbody">
 			<div class="presult" v-if="isloading">
 				<div v-for="e in empleados" :key="e.dni!" class="car">
-					<Card :nombre="e.nombre!" :cargo="e.cargo!" :dni="e.dni!" />
+					<Card
+						:nombre="e.nombre!"
+						:cargo="e.cargo!"
+						:dni="e.dni!"
+						:area="e.area!"
+						:ingreso="e.ingreso!"
+					/>
 				</div>
 			</div>
 			<div class="psearching" v-else>
