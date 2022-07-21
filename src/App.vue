@@ -9,5 +9,16 @@
 		box-sizing: border-box;
 		font-family: 'Poppins', sans-serif;
 		font-weight: 400;
+		outline: 0;
+		border: none;
+		:active,
+		:focus {
+			outline: 0;
+			border: none;
+		}
+		span {
+			font-weight: 600;
+			font-size: 0.7rem;
+		}
 	}
 </style>

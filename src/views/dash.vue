@@ -29,7 +29,7 @@
 	.dash {
 		.app {
 			.main {
-				margin-left: 18%;
+				margin-left: 12%;
 				padding-right: 2%;
 				@media (max-width: 1024px) {
 					padding: 1vh 1vh 2vh 2vh;

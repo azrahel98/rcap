@@ -2,7 +2,7 @@
 	<div class="card">
 		<h3>{{ propr.dni }}</h3>
 		<p class="subtitle is-6">{{ propr.nombre }}</p>
-		<div class="icons">
+		<!-- <div class="icons">
 			<button
 				type="button"
 				class="btn btn-primary"
@@ -17,7 +17,7 @@
 					<i class="fa-solid fa-share"></i>
 				</span>
 			</button>
-		</div>
+		</div> -->
 	</div>
 
 	<Modal
@@ -66,8 +66,10 @@
 
 <style lang="scss" scoped>
 	.card {
-		max-width: 19vh;
-		background-color: $primary;
+		min-height: 29vh;
+		min-width: 10vh;
+		max-width: 30vh;
+		background-color: $opaque;
 		border-radius: 10.9322px;
 		display: grid;
 		grid-template-rows: 3vh auto auto;
