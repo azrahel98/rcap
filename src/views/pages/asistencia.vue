@@ -2,7 +2,10 @@
 	<div class="appi">
 		<div class="asist" v-if="!isLoading">
 			<Infor :employ="employ" class="employ" />
-			<div class="dash">
+			<div class="calendario">
+				<h3>adsfadsfdsf</h3>
+			</div>
+			<!-- <div class="dash">
 				<Meses class="mes" @change="(x) => (mesSeleccionado = x)" />
 				<div class="tablaas" v-if="mesSeleccionado != null">
 					<Vue3Lottie
@@ -24,7 +27,7 @@
 					v-else
 					animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
 				/>
-			</div>
+			</div> -->
 		</div>
 		<div class="loading" v-else><Loading /></div>
 	</div>
@@ -32,9 +35,11 @@
 
 <style lang="scss" scoped>
 	.appi {
+		height: 100vh;
+		width: 100%;
 		.asist {
 			display: grid;
-			grid-template-rows: auto-fill 1fr;
+
 			gap: 4vh;
 			.employ {
 				max-height: min-content;

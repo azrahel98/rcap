@@ -53,21 +53,17 @@
 
 <style lang="scss" scoped>
 	.navigation {
-		position: fixed;
+		position: relative;
+		height: 100vh;
 		border-radius: 25px 25px 25px 25px;
 		box-sizing: initial;
 		border-left: 5px solid #4d5bf9;
 		background: #4d5bf9;
 		transition: width 0.5;
-		top: 2px;
-		left: 4px;
-		bottom: 2px;
 		min-width: 18vh;
 		@media (max-width: 1024px) {
-			min-width: 7vh;
+			min-width: 40px;
 			border-radius: 0 25px 25px 0;
-			top: 0;
-			left: 0;
 			ul {
 				li {
 					width: 100%;

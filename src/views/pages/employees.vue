@@ -29,27 +29,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="search">
-			<div class="field">
-				<p class="control has-icons-left">
-					<input
-						class="input"
-						type="text"
-						v-model="nombre"
-						:disable="isloading"
-						:class="isloading ? 'is-loading' : ''"
-					/>
-					<span class="icon is-small is-left">
-						<i class="fa-brands fa-searchengin"></i>
-					</span>
-				</p>
-			</div>
-		</div>
-		<div class="resultados" id="resultado">
-			<div v-for="e in empleados" :key="e.dni!" class="car">
-				<Card :nombre="e.nombre!" :cargo="e.cargo!" :dni="e.dni!" />
-			</div>
-		</div> -->
 </template>
 <script lang="ts" setup>
 	import { Employ } from '@/models/employ'
@@ -75,50 +54,36 @@
 	})
 </script>
 <style lang="scss" scoped>
-	input {
-		text-align: left;
-		font-family: 'Fira Sans' !important;
-		font-weight: 500 !important;
-		border: 1px solid $alternative;
-		border-radius: 10px;
-		color: $alternative;
-		font-family: 'Roboto' !important;
-		font-size: 0.7rem;
-		text-align: center;
-		min-height: 3.7vh;
-		width: max-content;
-	}
-
 	.pemploy {
 		display: grid;
 		justify-content: center;
-		height: 100%;
 		padding-top: 4vh;
 		grid-template-rows: auto 4fr;
 		gap: 2vh;
+		width: 100%;
 		.pbody {
-			justify-self: center;
 			.psearching {
 				.lottie {
 					height: 70vh;
 				}
 			}
 			.presult {
+				padding-left: 2vh;
 				display: grid;
-				grid-template-columns: repeat(4, 1fr);
+				grid-template-columns: repeat(2, 1fr);
 				column-gap: 2vh;
 				row-gap: 4vh;
-				justify-content: center;
-				align-items: center;
+				overflow: auto;
 			}
 		}
 		.psearch {
 			display: grid;
-			align-items: center;
-			justify-content: space-between;
+			grid-template-columns: auto auto;
 			column-gap: 10vh;
-			grid-template-columns: 0.5fr 1.5fr;
+			align-items: center;
+			justify-content: center;
 			.pem {
+				width: min-content;
 				h4 {
 					font-size: 1.2rem;
 					font-weight: 700;
@@ -129,62 +94,24 @@
 				}
 			}
 			.einp {
+				width: min-content;
 				align-self: center;
 				justify-self: center;
 				height: max-content;
-				width: 100%;
+				input {
+					text-align: left;
+					font-family: 'Fira Sans' !important;
+					font-weight: 500 !important;
+					border: 1px solid $alternative;
+					border-radius: 10px;
+					color: $alternative;
+					font-family: 'Roboto' !important;
+					font-size: 0.7rem;
+					text-align: center;
+					min-height: 3.7vh;
+					width: max-content;
+				}
 			}
 		}
 	}
-	// .app {
-	// 	display: grid;
-	// 	grid-template-rows: min-content;
-	// 	align-items: flex-start;
-	// 	gap: 2vh;
-	// 	overflow-y: scroll !important;
-	// 	&::-webkit-scrollbar {
-	// 		width: 0.12rem;
-	// 	}
-
-	// 	&::-webkit-scrollbar-thumb {
-	// 		background: $primary;
-	// 	}
-
-	// 	&::-webkit-scrollbar-track {
-	// 		background: $background;
-	// 	}
-	// 	.search {
-	// 		display: flex;
-	// 		justify-content: center;
-	// 		align-items: center;
-	// 		padding-top: 2vh;
-	// 		i {
-	// 			color: $bsidebar;
-	// 		}
-	// 		.input {
-	// 			box-shadow: none;
-	// 			font-weight: 400;
-	// 		}
-	// 		@media (max-width: 1024px) {
-	// 			width: 100%;
-	// 			.input {
-	// 				text-align: center;
-	// 			}
-	// 		}
-	// 	}
-	// 	.resultados {
-	// 		display: grid;
-	// 		gap: 1rem;
-	// 		grid-auto-rows: auto-fill;
-	// 		grid-template-columns: repeat(auto-fit, minmax(9rem, 0.8fr));
-	// 		padding-bottom: 2vh;
-	// 		justify-content: center;
-	// 		align-items: flex-start;
-	// 		.car {
-	// 			display: flex;
-	// 			align-items: center;
-	// 			justify-content: center;
-	// 		}
-	// 	}
-	// }
 </style>

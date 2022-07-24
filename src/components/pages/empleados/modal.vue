@@ -1,10 +1,9 @@
 <template>
 	<div
 		class="modal fade"
-		:id="prop.dni"
+		:id="`p${prop.dni}`"
 		tabindex="-1"
 		role="dialog"
-		aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true"
 	>
 		<div class="modal-dialog modal-dialog" role="document">
@@ -18,7 +17,7 @@
 					</div>
 					<button
 						type="button"
-						class="close"
+						class="btn close"
 						data-dismiss="modal"
 						aria-label="Close"
 					>

@@ -20,5 +20,8 @@
 			font-weight: 600;
 			font-size: 0.7rem;
 		}
+		button {
+			font-size: 0.7rem !important;
+		}
 	}
 </style>

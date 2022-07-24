@@ -1,99 +1,110 @@
 <template>
-	<div class="modal is-active">
-		<div class="modal-background"></div>
-		<div class="modal-content" v-click-outside="out">
-			<div class="empleado">
-				<div class="nombre">
-					<h4 class="name">{{ prop.nombre }}</h4>
-					<h4>{{ prop.cargo }}</h4>
-				</div>
-				<p class="subtitle is-6">MEMORANDOOO</p>
-				<button class="delete" aria-label="close" @click="close"></button>
-			</div>
-			<div class="form">
-				<div class="left">
-					<div class="permisos">
-						<label class="select" for="slct"
-							><select id="slct" v-model="tipodoc">
-								<option value="RESOLUCION">Resolucion</option>
-								<option value="CARTA">Carta</option>
-								<option value="INFORME">Informe</option>
-								<option value="RENUNCIA">Renuncia</option>
-								<option value="SOLICITUD">Solicitud</option>
-								<option value="MEMORANDO">Memorando</option>
-							</select></label
-						><svg class="sprites"></svg>
-						<label class="select" for="slct"
-							><select id="slct" v-model="tipoper">
-								<option value="DF">Descanso Fisico</option>
-								<option value="AC">A cuenta</option>
-								<option value="JUSTIFICADO">Justificado</option>
-								<option value="XHEL">Por horas Extras</option>
-								<option value="ONOMASTICO">Onomastico</option>
-								<option value="ADELANTO">Adelanto</option>
-								<option value="SANSION">Sansion</option>
-								<option value="LICENCIA">Licencia</option>
-								<option value="HORASEXTRAS">Horas Extras</option>
-								<option value="OMISION">Omision</option>
-								<option value="OTROS">Otros</option>
-							</select></label
-						><svg class="sprites"></svg>
+	<div
+		class="modal fade"
+		:id="`m${prop.dni}`"
+		tabindex="-1"
+		role="dialog"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="empleado">
+					<div class="nombre">
+						<h4 class="name">{{ prop.nombre }}</h4>
+						<h4>{{ prop.cargo }}</h4>
 					</div>
-					<div class="times">
-						<div class="fecha-doc">
-							<label class="checkbox">
-								<input type="checkbox" v-model="docwithrange" />
-								Rango
-							</label>
-							<v-date-picker v-model="date" mode="date">
-								<template v-slot="{ inputValue, inputEvents }">
-									<input
-										class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
-										:value="inputValue"
-										v-on="inputEvents"
-									/>
-								</template>
-							</v-date-picker>
+					<p class="subtitle is-6">MEMORANDOOO</p>
+					<button class="delete" aria-label="close" @click="close"></button>
+				</div>
+				<div class="form">
+					<div class="left">
+						<div class="permisos">
+							<label class="select" for="slct"
+								><select id="slct" v-model="tipodoc">
+									<option value="RESOLUCION">Resolucion</option>
+									<option value="CARTA">Carta</option>
+									<option value="INFORME">Informe</option>
+									<option value="RENUNCIA">Renuncia</option>
+									<option value="SOLICITUD">Solicitud</option>
+									<option value="MEMORANDO">Memorando</option>
+								</select></label
+							><svg class="sprites"></svg>
+							<label class="select" for="slct"
+								><select id="slct" v-model="tipoper">
+									<option value="DF">Descanso Fisico</option>
+									<option value="AC">A cuenta</option>
+									<option value="JUSTIFICADO">Justificado</option>
+									<option value="XHEL">Por horas Extras</option>
+									<option value="ONOMASTICO">Onomastico</option>
+									<option value="ADELANTO">Adelanto</option>
+									<option value="SANSION">Sansion</option>
+									<option value="LICENCIA">Licencia</option>
+									<option value="HORASEXTRAS">Horas Extras</option>
+									<option value="OMISION">Omision</option>
+									<option value="OTROS">Otros</option>
+								</select></label
+							><svg class="sprites"></svg>
 						</div>
-						<v-date-picker is-range v-if="docwithrange" v-model="rangedates" />
-					</div>
-				</div>
-				<div class="other">
-					<input
-						class="input is-small is-rounded memorando"
-						type="text"
-						v-model="memorando"
-						placeholder="###"
-					/>
-					<div class="field">
-						<div class="control">
-							<textarea
-								class="textarea"
-								placeholder="Descripcion"
-								v-model="descrip"
-							></textarea>
+						<div class="times">
+							<div class="fecha-doc">
+								<label class="checkbox">
+									<input type="checkbox" v-model="docwithrange" />
+									Rango
+								</label>
+								<v-date-picker v-model="date" mode="date">
+									<template v-slot="{ inputValue, inputEvents }">
+										<input
+											class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
+											:value="inputValue"
+											v-on="inputEvents"
+										/>
+									</template>
+								</v-date-picker>
+							</div>
+							<v-date-picker
+								is-range
+								v-if="docwithrange"
+								v-model="rangedates"
+							/>
 						</div>
 					</div>
-					<div class="detalle">
+					<div class="other">
 						<input
-							class="input is-small details"
+							class="input is-small is-rounded memorando"
 							type="text"
-							v-model="referencia"
-							placeholder="Ref"
+							v-model="memorando"
+							placeholder="###"
 						/>
-					</div>
-					<div class="botones">
-						<button
-							class="button"
-							@click="guardar"
-							:class="isLoading ? 'is-loding' : ''"
-							:disabled="isLoading"
-						>
-							Guardar
-						</button>
-						<p class="help" :class="isError ? 'is-danger' : 'is-success'">
-							{{ message }}
-						</p>
+						<div class="field">
+							<div class="control">
+								<textarea
+									class="textarea"
+									placeholder="Descripcion"
+									v-model="descrip"
+								></textarea>
+							</div>
+						</div>
+						<div class="detalle">
+							<input
+								class="input is-small details"
+								type="text"
+								v-model="referencia"
+								placeholder="Ref"
+							/>
+						</div>
+						<div class="botones">
+							<button
+								class="button"
+								@click="guardar"
+								:class="isLoading ? 'is-loding' : ''"
+								:disabled="isLoading"
+							>
+								Guardar
+							</button>
+							<p class="help" :class="isError ? 'is-danger' : 'is-success'">
+								{{ message }}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
