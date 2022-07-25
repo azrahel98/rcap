@@ -75,6 +75,8 @@
 		border-radius: 10.9322px;
 		display: grid;
 		grid-template-rows: auto 1fr 5vh;
+		row-gap: 2vh;
+		padding-bottom: 3vh;
 		max-width: 25vh;
 		min-width: 20vh;
 		.cname {
@@ -120,7 +122,6 @@
 			flex-wrap: wrap;
 			align-items: center;
 			justify-content: space-around;
-			padding-bottom: 1vh;
 			button {
 				text-align: center;
 			}
