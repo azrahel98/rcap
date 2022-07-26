@@ -82,7 +82,7 @@
 		.psearch {
 			display: grid;
 			grid-template-columns: auto auto;
-			column-gap: 10vh;
+			column-gap: 5vh;
 			align-items: center;
 			justify-content: center;
 			.pem {

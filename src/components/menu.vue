@@ -55,12 +55,11 @@
 	.navigation {
 		position: relative;
 		height: 100vh;
-		border-radius: 25px 25px 25px 25px;
 		box-sizing: initial;
 		border-left: 5px solid #4d5bf9;
 		background: #4d5bf9;
 		transition: width 0.5;
-		min-width: 18vh;
+		min-width: 14vh;
 		@media (max-width: 1024px) {
 			min-width: 40px;
 			border-radius: 0 25px 25px 0;

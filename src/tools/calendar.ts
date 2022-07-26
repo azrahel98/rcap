@@ -115,4 +115,17 @@ function addAtributtes(
 	return atri
 }
 
-export { addAtributtes }
+interface CalInfo {
+	dias: number
+	fday: number
+}
+
+function DiasDelMes(mes: number, año: number): CalInfo {
+	var date = new Date(año, mes, 0)
+	var frist = new Date(`${año}-${mes}-01`)
+	return { dias: date.getDate(), fday: frist.getDay() }
+}
+
+function PrimerDiadelaSemana(mes: number) {}
+
+export { addAtributtes, CalInfo, DiasDelMes }

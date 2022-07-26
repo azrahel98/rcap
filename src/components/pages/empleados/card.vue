@@ -121,9 +121,12 @@
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
-			justify-content: space-around;
+			justify-content: space-evenly;
 			button {
-				text-align: center;
+				padding: 0.5vh;
+				span {
+					font-size: 1.2rem;
+				}
 			}
 		}
 	}
