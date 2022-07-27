@@ -15,15 +15,11 @@
 </template>
 <script lang="ts" setup>
 	import { onMounted, ref } from 'vue'
-	import layout from '../components/layout.vue'
 	import { userStore } from '@store/user'
 	import Layout from '@com/menu.vue'
 
 	const teleposhow = ref(true)
 	const user = userStore()
-	const recib = (e) => {
-		teleposhow.value = e
-	}
 	onMounted(() => {
 		user.InitAdmin()
 	})

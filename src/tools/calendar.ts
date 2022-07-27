@@ -1,3 +1,4 @@
+import { EmployStore } from '@store/employ'
 import { AsistenciaDetalle } from '../../app/models/asistencia'
 import { Doc, Papeleta } from '../../app/models/documents'
 
@@ -126,6 +127,17 @@ function DiasDelMes(mes: number, año: number): CalInfo {
 	return { dias: date.getDate(), fday: frist.getDay() }
 }
 
-function PrimerDiadelaSemana(mes: number) {}
+function DiasRegistros(dia: number) {
+	const emp = EmployStore()
 
-export { addAtributtes, CalInfo, DiasDelMes }
+	var result = []
+	emp.registros.forEach((e) => {
+		var d = e.fecha as Date
+		if (d.getDate() === dia) {
+			result.push(e)
+		}
+	})
+	return result
+}
+
+export { addAtributtes, CalInfo, DiasDelMes, DiasRegistros }

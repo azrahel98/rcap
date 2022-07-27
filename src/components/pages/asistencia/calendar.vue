@@ -12,7 +12,7 @@
 		<div class="d-dias">
 			<div v-for="l in minfo.fday - 1" />
 			<div v-for="x in minfo.dias">
-				<DiasCard :day="x" />
+				<DiasCard :day="x" :list="DiasRegistros(x)" />
 			</div>
 		</div>
 	</div>
@@ -52,8 +52,8 @@
 
 <script lang="ts" setup>
 	import { ref } from 'vue'
-	import { CalInfo, DiasDelMes } from '../../../tools/calendar'
+	import { CalInfo, DiasDelMes, DiasRegistros } from '../../../tools/calendar'
 	import DiasCard from './dias-card.vue'
 
-	const minfo = ref<CalInfo>(DiasDelMes(7, 2022))
+	const minfo = ref<CalInfo>(DiasDelMes(6, 2022))
 </script>

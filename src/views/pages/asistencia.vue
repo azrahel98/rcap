@@ -29,7 +29,7 @@
 			height: 100vh;
 			.cal {
 				display: grid;
-				grid-template-rows: auto 1fr 1fr;
+				grid-template-rows: auto auto 1fr;
 				grid-template-columns: 1fr;
 				row-gap: 5vh;
 				justify-content: space-around;
@@ -47,7 +47,6 @@
 					padding: 0;
 					width: 100%;
 					min-width: 100vh;
-					max-height: 50vh;
 					max-width: 1500px;
 				}
 			}

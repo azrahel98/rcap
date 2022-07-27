@@ -14,7 +14,7 @@ export default class EmployImpl implements EmployRep {
 			var query = gql`
 				query  {
 					buscar_asistencia(dni: "${dni}", mes: ${mes}) {
-						fecha
+						fecha 
 						hora
 					}
 				}
@@ -41,6 +41,7 @@ export default class EmployImpl implements EmployRep {
 			})
 			return data
 		} catch (error) {
+			console.log(error)
 			return []
 		}
 	}
