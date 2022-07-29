@@ -46,7 +46,6 @@
 		display: grid;
 		grid-template-rows: auto 1fr 1fr;
 		padding-top: 3vh;
-		max-width: 200px;
 		.name {
 			display: flex;
 			flex-direction: column;

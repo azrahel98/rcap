@@ -127,11 +127,9 @@ function DiasDelMes(mes: number, año: number): CalInfo {
 	return { dias: date.getDate(), fday: frist.getDay() }
 }
 
-function DiasRegistros(dia: number) {
-	const emp = EmployStore()
-
+function DiasRegistros(dia: number, list: Array<any>) {
 	var result = []
-	emp.registros.forEach((e) => {
+	list.forEach((e) => {
 		var d = e.fecha as Date
 		if (d.getDate() === dia) {
 			result.push(e)
@@ -140,4 +138,15 @@ function DiasRegistros(dia: number) {
 	return result
 }
 
-export { addAtributtes, CalInfo, DiasDelMes, DiasRegistros }
+function DiasDocumentos(dia: number, list: Array<any>) {
+	var result = []
+	list.forEach((e) => {
+		var d = new Date(e.fecha)
+		if (d.getDate() === dia) {
+			result.push(e)
+		}
+	})
+	return result
+}
+
+export { addAtributtes, CalInfo, DiasDelMes, DiasRegistros, DiasDocumentos }

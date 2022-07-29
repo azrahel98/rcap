@@ -34,7 +34,7 @@
 			.main {
 				width: 100%;
 				height: 100vh;
-				overflow: auto;
+				// overflow: auto;
 				// @media (max-width: 1024px) {
 				// 	padding-left: 28vh;
 			}

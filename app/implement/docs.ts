@@ -16,10 +16,12 @@ export default class DocsImpl implements DocsRep {
 						Inicio
 						Fin
 						permiso
+						tipo
 					}
 				}
 			  `
 			var data = await Client.query({ query, fetchPolicy: 'no-cache' })
+			console.log(data.data)
 			const result = [] as Doc[]
 			data.data.buscar_docs.forEach((e) => {
 				result.push({
@@ -28,6 +30,7 @@ export default class DocsImpl implements DocsRep {
 					doc: e.doc,
 					Inicio: e.Inicio,
 					Fin: e.Fin,
+					tipo: e.tipo,
 					permiso: e.permiso,
 				})
 			})

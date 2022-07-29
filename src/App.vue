@@ -23,5 +23,8 @@
 		button {
 			font-size: 0.7rem !important;
 		}
+		::-webkit-scrollbar {
+			width: 1rem;
+		}
 	}
 </style>

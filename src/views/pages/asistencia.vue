@@ -3,7 +3,12 @@
 		<div class="body">
 			<div class="cal">
 				<h1>Registro de Asistencia</h1>
-				<Calendar class="calem"></Calendar>
+				<Calendar
+					class="calem"
+					:memos="memo"
+					:papeletas="pap"
+					:marcaciones="marcaciones"
+				/>
 				<div class="adi">
 					<h1>3</h1>
 				</div>
@@ -18,24 +23,23 @@
 
 <style lang="scss" scoped>
 	.appi {
+		width: 100%;
 		height: 100vh;
 		.body {
 			display: grid;
-			grid-template-columns: 3fr auto;
-			padding-right: 1vh;
-			width: 100%;
-			column-gap: 2vh;
-			padding-left: 2vh;
+			grid-template-columns: 1fr auto;
+
 			height: 100vh;
+			justify-content: space-between;
 			.cal {
+				justify-self: center;
 				display: grid;
-				grid-template-rows: auto auto 1fr;
-				grid-template-columns: 1fr;
+				grid-template-rows: auto auto auto;
+				overflow-y: auto;
 				row-gap: 5vh;
-				justify-content: space-around;
-				align-items: center;
-				min-width: max-content;
-				overflow-y: scroll;
+				width: 100%;
+				max-width: 1200px;
+
 				h1 {
 					padding-top: 5vh;
 					justify-self: center;
@@ -43,24 +47,30 @@
 					color: $opaque;
 				}
 				.calem {
-					justify-self: center;
 					padding: 0;
 					width: 100%;
-					min-width: 100vh;
-					max-width: 1500px;
 				}
 			}
 			.profile {
 				height: 100vh;
-				width: auto;
+				width: 100%;
+				min-width: 100px;
+				max-width: 250px;
+				align-self: flex-end;
+				@media (max-width: 1024px) {
+					display: none;
+				}
+				// background-color: olive;
 			}
 		}
 	}
 </style>
 
 <script lang="ts" setup>
+	import DocsImpl from '@/implement/docs'
 	import EmployImpl from '@/implement/employ'
 	import { AsistenciaDetalle } from '@/models/asistencia'
+	import { Doc, Papeleta } from '@/models/documents'
 	import Calendar from '@com/pages/asistencia/calendar.vue'
 	import Profile from '@com/pages/asistencia/profile.vue'
 	import { EmployStore } from '@store/employ'
@@ -68,78 +78,27 @@
 	import router from '../../router/router'
 
 	const emplim = new EmployImpl()
+	const docimp = new DocsImpl()
 
 	const marcaciones = ref<AsistenciaDetalle[]>([])
+	const pap = ref<Papeleta[]>([])
+	const memo = ref<Doc[]>([])
 
 	const em = EmployStore()
 
 	onMounted(async () => {
-		try {
-			marcaciones.value = await emplim.buscar_asistencia(
-				router.currentRoute.value.params.dni as string,
-				'6'
-			)
-			em.loadRegistros(marcaciones.value)
-		} catch (error) {
-			console.log(232232)
-		}
+		marcaciones.value = await emplim.buscar_asistencia(
+			router.currentRoute.value.params.dni as string,
+			'6'
+		)
+
+		memo.value = await docimp.buscar_docs(
+			router.currentRoute.value.params.dni as string,
+			6
+		)
+		pap.value = await docimp.buscar_papeletas(
+			router.currentRoute.value.params.dni as string,
+			6
+		)
 	})
-
-	// import { Vue3Lottie } from 'vue3-lottie'
-	// import { onMounted, ref, watchEffect } from 'vue'
-	// import router from '../../router/router'
-
-	// import EmployImpl from '@/implement/employ'
-	// import DocsImpl from '@/implement/docs'
-	// import { Employ } from '@/models/employ'
-
-	// import { AsistenciaDetalle } from '@/models/asistencia'
-	// import { Doc, Papeleta } from '@/models/documents'
-
-	// import Loading from '@com/loading/loading.vue'
-	// import Meses from '@com/pages/asist/meses.vue'
-	// import Taback from '@com/pages/asist/taback.vue'
-	// import { EmployStore } from '@store/employ'
-	// import Infor from '@com/pages/asist/name/infor.vue'
-
-	// const impl = new EmployImpl()
-	// const employImp = new EmployImpl()
-	// const docs = new DocsImpl()
-	// const storempl = EmployStore()
-
-	// const employ = ref<Employ>({})
-	// const papeletas = ref<Papeleta[]>([])
-	// const docss = ref<Doc[]>([])
-
-	// const mesSeleccionado = ref<number>()
-
-	// const isLoading = ref(true)
-	// const searching = ref(true)
-
-	// onMounted(async () => {
-	// 	employ.value = await impl.buscar_pordni(
-	// 		router.currentRoute.value.params.dni.toString()
-	// 	)
-	// 	storempl.changeDni(router.currentRoute.value.params.dni.toString())
-	// 	isLoading.value = !isLoading.value
-	// })
-
-	// watchEffect(async () => {
-	// 	if (mesSeleccionado.value !== undefined) {
-	// 		searching.value = true
-	// 		marcaciones.value = await employImp.buscar_asistencia(
-	// 			employ.value.dni,
-	// 			mesSeleccionado.value.toString()
-	// 		)
-	// 		papeletas.value = await docs.buscar_papeletas(
-	// 			employ.value.dni,
-	// 			mesSeleccionado.value
-	// 		)
-	// 		docss.value = await docs.buscar_docs(
-	// 			employ.value.dni,
-	// 			mesSeleccionado.value
-	// 		)
-	// 		searching.value = false
-	// 	}
-	// })
 </script>

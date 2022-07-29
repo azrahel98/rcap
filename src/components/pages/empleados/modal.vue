@@ -8,7 +8,7 @@
 	>
 		<div class="modal-dialog modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-header" v-if="prop.papeleta == undefined">
 					<div class="title">
 						<h5 class="modal-title">
 							{{ prop.nombre }}
@@ -25,16 +25,20 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<label class="selecta" for="slct"
-						><select id="slct" v-model="tipoper">
+					<div class="input-group mb-3">
+						<select
+							class="custom-select"
+							id="inputGroupSelect04"
+							v-model="tipoper"
+						>
 							<option value="JUSTIFICADO">Justificado</option>
 							<option value="DF">Descanso Fisico</option>
 							<option value="AC">A cuenta</option>
 							<option value="DFXHEL">Por horas Extras</option>
 							<option value="OMISION">Omision</option>
 							<option value="ONOMASTICO">Onomastico</option>
-						</select></label
-					>
+						</select>
+					</div>
 					<input
 						class="input papeleta"
 						type="number"
@@ -54,7 +58,7 @@
 						</div>
 						<div class="detalle">
 							<input
-								class="input is-small details"
+								class="input papeleta"
 								type="text"
 								v-model="detalle"
 								placeholder="Detalle"
@@ -75,8 +79,12 @@
 							class="btn"
 							@click="guardar"
 							:class="isLoading ? 'is-loding' : ''"
+							v-if="prop.papeleta == undefined"
 						>
 							Guardar
+						</button>
+						<button class="btn" :class="isLoading ? 'is-loding' : ''" v-else>
+							Update
 						</button>
 						<div class="alert alert-warning" role="alert" v-if="isError">
 							{{ message }}
@@ -91,17 +99,18 @@
 <script lang="ts" setup>
 	import { isNumber } from 'lodash'
 	import 'v-calendar/dist/style.css'
-	import { ref, watchEffect } from 'vue'
+	import { ref } from 'vue'
 	import DocsImpl from '../../../../app/implement/docs'
 	import { ConverDateToString, CheckIsEmpty } from '../../../../app/tools/doc'
 
 	const doc = new DocsImpl()
 	const prop = defineProps({
 		nombre: { required: true, type: String },
-		cargo: { required: true, type: String },
+		cargo: { type: String },
 		dni: { required: true, type: String },
+		papeleta: { required: false },
 	})
-	const outclick = ref(true)
+
 	const isLoading = ref(false)
 	const isError = ref(false)
 	const message = ref<string>('')
@@ -112,6 +121,8 @@
 	const descrip = ref<string>('')
 	const detalle = ref<string>('')
 	const conretorno = ref(false)
+
+	isUpdate()
 
 	const guardar = async () => {
 		if (CheckIsEmpty(descrip.value, detalle.value)) {
@@ -136,28 +147,21 @@
 		}
 	}
 
-	watchEffect(() => {
-		if (descrip.value.length > 2) {
-			outclick.value = false
-		}
-	})
-
 	const clickRetorno = () => {
 		conretorno.value = !conretorno.value
 	}
 
-	var clickz: number = 0
-	const e = defineEmits(['change'])
-	const close = () => {
-		e('change', false)
-	}
-
-	const out = () => {
-		clickz++
-
-		if (clickz > 1 && outclick.value) {
-			close()
+	function isUpdate() {
+		if (prop.papeleta !== undefined) {
+			tipoper.value = prop.papeleta['tipoP']
+			date.value = new Date(
+				new Date(prop.papeleta['fecha']).getTime() + 86400000
+			)
+			descrip.value = prop.papeleta['descrip']
+			detalle.value = prop.papeleta['detalle']
+			papeleta.value = prop.papeleta['nombre']
 		}
+		// 86400000
 	}
 </script>
 <style lang="scss" scoped>
@@ -253,6 +257,7 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 2vh;
+			padding-top: 2vh;
 			button {
 				width: max-content;
 			}
