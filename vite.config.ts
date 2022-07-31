@@ -16,6 +16,10 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: [
+			{
+				find: '@boostrap',
+				replacement: path.resolve(__dirname, './node_modules/bootstrap'),
+			},
 			{ find: '@', replacement: path.resolve(__dirname, './app') },
 			{
 				find: '@com',

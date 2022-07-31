@@ -161,7 +161,6 @@
 			detalle.value = prop.papeleta['detalle']
 			papeleta.value = prop.papeleta['nombre']
 		}
-		// 86400000
 	}
 </script>
 <style lang="scss" scoped>

@@ -18,7 +18,6 @@
 	import { userStore } from '@store/user'
 	import Layout from '@com/menu.vue'
 
-	const teleposhow = ref(true)
 	const user = userStore()
 	onMounted(() => {
 		user.InitAdmin()
@@ -31,12 +30,10 @@
 			width: 100%;
 			display: grid;
 			grid-template-columns: auto 1fr;
+			grid-template-rows: 1fr;
 			.main {
 				width: 100%;
 				height: 100vh;
-				// overflow: auto;
-				// @media (max-width: 1024px) {
-				// 	padding-left: 28vh;
 			}
 			// 	// margin-left: 12%;
 			// 	// padding-right: 2%;

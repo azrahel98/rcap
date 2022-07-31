@@ -17,6 +17,7 @@ export default class DocsImpl implements DocsRep {
 						Fin
 						permiso
 						tipo
+						id
 					}
 				}
 			  `
@@ -32,9 +33,10 @@ export default class DocsImpl implements DocsRep {
 					Fin: e.Fin,
 					tipo: e.tipo,
 					permiso: e.permiso,
+					id: e.id,
 				})
 			})
-			console.log(result)
+
 			return result
 		} catch (error) {
 			return []

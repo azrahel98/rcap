@@ -24,16 +24,16 @@
 		<div class="icons-a">
 			<button
 				class="btn"
-				data-toggle="modal"
-				:data-target="`#p${propr.dni}`"
+				data-bs-toggle="modal"
+				:data-bs-target="`#p${propr.dni}`"
 				v-on:click="change(false)"
 			>
 				<span class="material-icons"> receipt_long </span>
 			</button>
 			<button
 				class="btn"
-				data-toggle="modal"
-				:data-target="`#m${propr.dni}`"
+				data-bs-toggle="modal"
+				:data-bs-target="`#m${propr.dni}`"
 				v-on:click="change(true)"
 			>
 				<span class="material-icons"> description </span>
@@ -41,13 +41,8 @@
 		</div>
 	</div>
 
-	<Modal
-		:cargo="propr.cargo"
-		:dni="propr.dni"
-		:nombre="propr.nombre"
-		v-if="!isMemo"
-	/>
-	<ModalM :cargo="propr.cargo" :dni="propr.dni" :nombre="propr.nombre" v-else />
+	<Modal :cargo="propr.cargo" :dni="propr.dni" :nombre="propr.nombre" />
+	<ModalM :cargo="propr.cargo" :dni="propr.dni" :nombre="propr.nombre" />
 </template>
 
 <script lang="ts" setup>

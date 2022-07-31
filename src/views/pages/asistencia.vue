@@ -1,21 +1,34 @@
 <template>
 	<div class="appi">
-		<div class="body">
+		<div class="body" v-if="month_se !== undefined && month_se !== '0'">
 			<div class="cal">
-				<h1>Registro de Asistencia</h1>
-				<Calendar
-					class="calem"
-					:memos="memo"
-					:papeletas="pap"
-					:marcaciones="marcaciones"
-				/>
 				<div class="adi">
 					<h1>3</h1>
+				</div>
+				<div class="calem">
+					<Calendar
+						:memos="memo"
+						:papeletas="pap"
+						:marcaciones="marcaciones"
+						:mes="month_se"
+					/>
 				</div>
 			</div>
 			<div class="profile">
 				<Profile></Profile>
 			</div>
+		</div>
+		<div class="selecct">
+			<select
+				class="form-select form-select-lg mb-3"
+				aria-label=".form-select-lg example"
+				v-model="month_se"
+			>
+				<option selected value="0">Selecciona un Mes</option>
+				<option value="6">Junio</option>
+				<option value="7">Julio</option>
+				<option value="8">Agosto</option>
+			</select>
 		</div>
 		<div class="loading"></div>
 	</div>
@@ -26,28 +39,17 @@
 		width: 100%;
 		height: 100vh;
 		.body {
-			display: grid;
-			grid-template-columns: 1fr auto;
-
-			height: 100vh;
+			display: flex;
 			justify-content: space-between;
 			.cal {
-				justify-self: center;
-				display: grid;
-				grid-template-rows: auto auto auto;
-				overflow-y: auto;
-				row-gap: 5vh;
+				overflow-y: scroll;
 				width: 100%;
-				max-width: 1200px;
-
-				h1 {
-					padding-top: 5vh;
-					justify-self: center;
-					font-weight: 500;
-					color: $opaque;
-				}
+				display: grid;
+				align-self: flex-start;
+				grid-template-columns: 1fr;
+				grid-template-rows: auto 1fr;
 				.calem {
-					padding: 0;
+					justify-self: center;
 					width: 100%;
 				}
 			}
@@ -71,10 +73,11 @@
 	import EmployImpl from '@/implement/employ'
 	import { AsistenciaDetalle } from '@/models/asistencia'
 	import { Doc, Papeleta } from '@/models/documents'
+
 	import Calendar from '@com/pages/asistencia/calendar.vue'
 	import Profile from '@com/pages/asistencia/profile.vue'
 	import { EmployStore } from '@store/employ'
-	import { onMounted, ref } from 'vue'
+	import { ref, watchEffect } from 'vue'
 	import router from '../../router/router'
 
 	const emplim = new EmployImpl()
@@ -86,19 +89,22 @@
 
 	const em = EmployStore()
 
-	onMounted(async () => {
-		marcaciones.value = await emplim.buscar_asistencia(
-			router.currentRoute.value.params.dni as string,
-			'6'
-		)
+	const month_se = ref<any>()
 
-		memo.value = await docimp.buscar_docs(
-			router.currentRoute.value.params.dni as string,
-			6
-		)
-		pap.value = await docimp.buscar_papeletas(
-			router.currentRoute.value.params.dni as string,
-			6
-		)
+	watchEffect(async () => {
+		if (month_se.value !== '0' && month_se.value !== undefined) {
+			marcaciones.value = await emplim.buscar_asistencia(
+				router.currentRoute.value.params.dni as string,
+				month_se.value
+			)
+			memo.value = await docimp.buscar_docs(
+				router.currentRoute.value.params.dni as string,
+				month_se.value
+			)
+			pap.value = await docimp.buscar_papeletas(
+				router.currentRoute.value.params.dni as string,
+				month_se.value
+			)
+		}
 	})
 </script>

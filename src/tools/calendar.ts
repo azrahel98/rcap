@@ -1,4 +1,3 @@
-import { EmployStore } from '@store/employ'
 import { AsistenciaDetalle } from '../../app/models/asistencia'
 import { Doc, Papeleta } from '../../app/models/documents'
 
@@ -148,5 +147,58 @@ function DiasDocumentos(dia: number, list: Array<any>) {
 	})
 	return result
 }
+function DiasDocumentosMemo(dia: number, list: Array<Doc>, mes: number) {
+	var result = []
+	list.forEach((e) => {
+		var d = new Date(e.fecha.toString())
+		if (d.getDate() === dia && d.getMonth() + 1 == mes) {
+			result.push(e)
+		}
+	})
+	return result
+}
+function CheckDocsinArray(list: Array<Doc>, mes: number, day: number) {
+	var result = []
+	list.forEach((e) => {
+		var di = new Date(new Date(e.Inicio.toString()).getTime() + 86400000)
+		var df = new Date(new Date(e.Fin.toString()).getTime() + 86400000)
 
-export { addAtributtes, CalInfo, DiasDelMes, DiasRegistros, DiasDocumentos }
+		if (di.getMonth() + 1 == mes) {
+			if (di.getDate() <= day) {
+				result.push(e)
+			}
+		} else if (df.getMonth() + 1 == mes && df.getDate() >= day) {
+			result.push(e)
+		}
+	})
+	return result
+}
+function AbrevPermisoP(long: string) {
+	switch (long) {
+		case 'DF':
+			return ['DF', '#9E5140']
+		case 'AC':
+			return ['AC', '#F0CB4D']
+		case 'JUSTIFICADO':
+			return ['JU', '#82BDD6']
+		case 'OMISION':
+			return ['OM', '#D77EF1']
+		case 'DFXHEL':
+			return ['XE', '#F97901']
+		case 'ONOMASTICO':
+			return ['ON', 'orange']
+		default:
+			return ['ME', '#EE72AA']
+	}
+}
+
+export {
+	addAtributtes,
+	CalInfo,
+	DiasDelMes,
+	DiasRegistros,
+	DiasDocumentos,
+	DiasDocumentosMemo,
+	AbrevPermisoP,
+	CheckDocsinArray,
+}

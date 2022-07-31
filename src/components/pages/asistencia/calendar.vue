@@ -16,7 +16,8 @@
 					:day="x"
 					:list="DiasRegistros(x, prop.marcaciones)"
 					:papeletas="DiasDocumentos(x - 1, papeletas)"
-					:docs="DiasDocumentos(x - 1, memos)"
+					:docs="DiasDocumentosMemo(x - 1, memos, prop.mes)"
+					:rangd="CheckDocsinArray(memos, prop.mes, x)"
 				/>
 			</div>
 		</div>
@@ -32,14 +33,16 @@
 		widows: 100%;
 		padding: 1.4vh !important;
 		border-radius: 20px;
+
 		.d-semana {
-			align-self: center;
 			border-radius: 20px 20px 0 0;
 			background-color: #f1557e;
 			height: 100%;
+			width: 100%;
 			display: grid;
 			grid-template-columns: repeat(7, 1fr);
 			align-items: center;
+			justify-content: center;
 			h6 {
 				text-align: center;
 			}
@@ -59,20 +62,26 @@
 </style>
 
 <script lang="ts" setup>
-	import { ref } from 'vue'
+	import { min } from 'lodash'
+	import { ref, watchEffect } from 'vue'
 	import {
 		CalInfo,
 		DiasDelMes,
 		DiasRegistros,
 		DiasDocumentos,
+		DiasDocumentosMemo,
+		CheckDocsinArray,
 	} from '../../../tools/calendar'
 	import DiasCard from './dias-card.vue'
-
-	const minfo = ref<CalInfo>(DiasDelMes(6, 2022))
-
 	const prop = defineProps({
 		papeletas: { required: true, type: Array },
 		memos: { required: true, type: Array },
 		marcaciones: { required: true },
+		mes: { required: true },
+	})
+	const minfo = ref<CalInfo>(DiasDelMes(prop.mes as number, 2022))
+
+	watchEffect(() => {
+		minfo.value = DiasDelMes(prop.mes as number, 2022)
 	})
 </script>
