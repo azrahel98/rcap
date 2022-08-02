@@ -138,6 +138,7 @@ function DiasRegistros(dia: number, list: Array<any>) {
 }
 
 function DiasDocumentos(dia: number, list: Array<any>) {
+	console.log('ejecutandome diasdocmentos')
 	var result = []
 	list.forEach((e) => {
 		var d = new Date(e.fecha)
@@ -158,17 +159,24 @@ function DiasDocumentosMemo(dia: number, list: Array<Doc>, mes: number) {
 	return result
 }
 function CheckDocsinArray(list: Array<Doc>, mes: number, day: number) {
+	console.log('ejecutandome', mes)
 	var result = []
 	list.forEach((e) => {
 		var di = new Date(new Date(e.Inicio.toString()).getTime() + 86400000)
 		var df = new Date(new Date(e.Fin.toString()).getTime() + 86400000)
 
 		if (di.getMonth() + 1 == mes) {
-			if (di.getDate() <= day) {
+			if (df.getMonth() + 1 == mes) {
+				if (df.getDate() >= day && di.getDate() <= day) {
+					result.push(e)
+				}
+			} else {
 				result.push(e)
 			}
-		} else if (df.getMonth() + 1 == mes && df.getDate() >= day) {
-			result.push(e)
+		} else if (di.getMonth() + 1 !== mes && df.getMonth() + 1 == mes) {
+			if (day <= df.getDate()) {
+				result.push(e)
+			}
 		}
 	})
 	return result

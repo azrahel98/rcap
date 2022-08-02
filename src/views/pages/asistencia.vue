@@ -89,7 +89,7 @@
 
 	const em = EmployStore()
 
-	const month_se = ref<any>()
+	const month_se = ref<any>(6)
 
 	watchEffect(async () => {
 		if (month_se.value !== '0' && month_se.value !== undefined) {

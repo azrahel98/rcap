@@ -14,10 +14,10 @@
 			<div v-for="x in minfo.dias" class="cald">
 				<DiasCard
 					:day="x"
-					:list="DiasRegistros(x, prop.marcaciones)"
-					:papeletas="DiasDocumentos(x - 1, papeletas)"
-					:docs="DiasDocumentosMemo(x - 1, memos, prop.mes)"
-					:rangd="CheckDocsinArray(memos, prop.mes, x)"
+					:list="DiasRegistros(x)"
+					:papeletas="DiasDocumentos(x - 1, papeletas as any)"
+					:docs="DiasDocumentosMemo(x - 1, memos, prop.mes as number)"
+					:rangd="CheckDocsinArray(memos, prop.mes as number, x)"
 				/>
 			</div>
 		</div>
@@ -62,12 +62,11 @@
 </style>
 
 <script lang="ts" setup>
-	import { min } from 'lodash'
+	import { computed } from '@vue/reactivity'
 	import { ref, watchEffect } from 'vue'
 	import {
 		CalInfo,
 		DiasDelMes,
-		DiasRegistros,
 		DiasDocumentos,
 		DiasDocumentosMemo,
 		CheckDocsinArray,
@@ -76,7 +75,7 @@
 	const prop = defineProps({
 		papeletas: { required: true, type: Array },
 		memos: { required: true, type: Array },
-		marcaciones: { required: true },
+		marcaciones: { required: true, type: Array },
 		mes: { required: true },
 	})
 	const minfo = ref<CalInfo>(DiasDelMes(prop.mes as number, 2022))
@@ -84,4 +83,16 @@
 	watchEffect(() => {
 		minfo.value = DiasDelMes(prop.mes as number, 2022)
 	})
+
+	function DiasRegistros(dia: number): Array<any> {
+		console.log('me ejecturo :v', dia)
+		var result = []
+		prop.marcaciones.forEach((e) => {
+			var d = e['fecha'] as Date
+			if (d.getDate() === dia) {
+				result.push(e)
+			}
+		})
+		return result
+	}
 </script>

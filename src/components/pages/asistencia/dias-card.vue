@@ -242,6 +242,7 @@
 <script lang="ts" setup>
 	import { AbrevPermisoP } from '../../../tools/calendar'
 	import { BPopover } from 'bootstrap-vue-3'
+	import { watchEffect } from 'vue'
 
 	const prop = defineProps({
 		day: { type: Number, required: true },
@@ -249,6 +250,9 @@
 		papeletas: { required: false, type: Array },
 		docs: { required: false },
 		rangd: { required: false, type: Array },
+	})
+	watchEffect(() => {
+		console.log(prop)
 	})
 </script>
 <style lang="scss" scoped>
