@@ -138,7 +138,6 @@ function DiasRegistros(dia: number, list: Array<any>) {
 }
 
 function DiasDocumentos(dia: number, list: Array<any>) {
-	console.log('ejecutandome diasdocmentos')
 	var result = []
 	list.forEach((e) => {
 		var d = new Date(e.fecha)
@@ -159,7 +158,6 @@ function DiasDocumentosMemo(dia: number, list: Array<Doc>, mes: number) {
 	return result
 }
 function CheckDocsinArray(list: Array<Doc>, mes: number, day: number) {
-	console.log('ejecutandome', mes)
 	var result = []
 	list.forEach((e) => {
 		var di = new Date(new Date(e.Inicio.toString()).getTime() + 86400000)

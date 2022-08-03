@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<div class="cname">
-			<router-link :to="`/asistencia/${propr.dni}`"
+			<router-link :to="`/asistencia/${propr.dni}`" class="link"
 				><h3>{{ propr.nombre }}</h3></router-link
 			>
 			<p>{{ propr.dni }}</p>
@@ -92,6 +92,9 @@
 			align-items: center;
 			justify-content: space-around;
 			color: white;
+			.link {
+				text-decoration: none;
+			}
 		}
 		.cdet {
 			align-self: flex-start;

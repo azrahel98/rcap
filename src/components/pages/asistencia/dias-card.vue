@@ -95,154 +95,10 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- <div class="d-card">
-		<div class="day-info">
-			<div class="dia">
-				<h1>{{ prop.day }}</h1>
-			</div>
-			<div class="d-marca">
-				<h6 v-for="x in prop.list">
-					{{ x['marca'] }}
-				</h6>
-			</div>
-		</div>
-
-		<div class="d-docs" v-if="prop.rangd.length == 0">
-			<div class="d-p">
-				<div v-for="x in papeletas">
-					<span
-						class="badge position-relative papeleta-bg"
-						v-on:click="() => (show = true)"
-						data-bs-toggle="modal"
-						:data-bs-target="`#p${x['nombre']}`"
-					>
-						{{ x['nombre'] }}
-						<span
-							class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
-							v-bind:style="{ backgroundColor: AbrevPermisoP(x['tipoP'])[1] }"
-						>
-							{{ x['tipoP'] }}
-						</span>
-					</span>
-
-					<Teleport to="body" v-if="show">
-						<ModalP
-							:dni="`${x['nombre']}`"
-							:nombre="x['nombre']"
-							:papeleta="x"
-						/>
-					</Teleport>
-				</div>
-			</div>
-			<div class="d-doc">
-				<div v-for="x in docs">
-					<span
-						class="badge bg-light text-dark text-wrap"
-						v-on:click="() => (show = true)"
-						data-bs-toggle="modal"
-						:data-bs-target="`#m${x['id']}`"
-					>
-						{{ AbrevPermisoP(x['doc'])[0] }}
-					</span>
-					<Modal :id="`m${x['id']}`">
-						<div class="m-cont">
-							<div class="m-top">
-								<p>{{ x['tipo'] }}</p>
-								<h6>{{ x['doc'] }}</h6>
-							</div>
-							<div class="m-descr">
-								<p>{{ x['descrip'] }}</p>
-								<div>
-									<span>{{ x['fecha'] }}</span>
-									<h5>{{ x['permiso'] }}</h5>
-								</div>
-							</div>
-							<div class="rango">
-								<span>{{ x['Inicio'] }}</span>
-								<span>{{ x['Fin'] }}</span>
-							</div>
-						</div>
-					</Modal>
-				</div>
-			</div>
-		</div>
-		<div class="d-docs" v-else>
-			<div class="d-p">
-				<div v-for="x in papeletas">
-					<span
-						class="badge position-relative papeleta-bg"
-						v-on:click="() => (show = true)"
-						data-bs-toggle="modal"
-						:data-bs-target="`#p${x['nombre']}`"
-					>
-						{{ AbrevPermisoP(x['doc'])[0] }}
-						<span
-							class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
-							v-bind:style="{ backgroundColor: AbrevPermisoP(x['tipoP'])[1] }"
-						>
-							{{ AbrevPermisoP(x['tipoP'])[0] }}
-						</span>
-					</span>
-
-					<Teleport to="body" v-if="show">
-						<ModalP
-							:dni="`${x['nombre']}`"
-							:nombre="x['nombre']"
-							:papeleta="x"
-						/>
-					</Teleport>
-				</div>
-			</div>
-			<div class="d-doc">
-				<div v-for="x in rangd">
-					<span
-						class="badge bg-light range text-wrap"
-						v-on:click="() => (show = true)"
-						:class="x['permiso'] == 'DF' ? 'bg-df' : 'bg-jut'"
-						data-bs-toggle="modal"
-						:data-bs-target="`#m${prop.day}`"
-					>
-						{{ x['permiso'] }}
-					</span>
-					<Modal :id="`m${prop.day}`">
-						<div class="m-cont">
-							<div class="m-top">
-								<p>{{ x['tipo'] }}</p>
-								<h6>{{ x['doc'] }}</h6>
-							</div>
-							<div class="m-descr">
-								<p>{{ x['descrip'] }}</p>
-								<div>
-									<span>{{ x['fecha'] }}</span>
-									<h5>{{ x['permiso'] }}</h5>
-								</div>
-							</div>
-							<div class="rango">
-								<span>{{ x['Inicio'] }}</span>
-								<span>{{ x['Fin'] }}</span>
-							</div>
-						</div>
-					</Modal>
-				</div>
-			</div>
-		</div>
-		<div class="add-days">
-			<div class="tiempos" v-if="prop.rangd.length == 0">
-				<button>2</button>
-				<button>5</button>
-				<button>F</button>
-			</div>
-			<button>
-				<span class="material-icons"> add_circle </span>
-			</button>
-		</div>
-	</div> -->
 </template>
 <script lang="ts" setup>
 	import { AbrevPermisoP } from '../../../tools/calendar'
 	import { BPopover } from 'bootstrap-vue-3'
-	import { watchEffect } from 'vue'
 
 	const prop = defineProps({
 		day: { type: Number, required: true },
@@ -250,9 +106,6 @@
 		papeletas: { required: false, type: Array },
 		docs: { required: false },
 		rangd: { required: false, type: Array },
-	})
-	watchEffect(() => {
-		console.log(prop)
 	})
 </script>
 <style lang="scss" scoped>

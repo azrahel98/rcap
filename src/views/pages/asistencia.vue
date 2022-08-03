@@ -1,11 +1,11 @@
 <template>
 	<div class="appi">
-		<div class="body" v-if="month_se !== undefined && month_se !== '0'">
+		<div class="body">
 			<div class="cal">
 				<div class="adi">
-					<h1>3</h1>
+					<h1>REGISTRO DE ASISTENCIA</h1>
 				</div>
-				<div class="calem">
+				<div class="calem" v-if="month_se !== undefined && month_se !== '0'">
 					<Calendar
 						:memos="memo"
 						:papeletas="pap"
@@ -13,22 +13,22 @@
 						:mes="month_se"
 					/>
 				</div>
+				<div class="selecct">
+					<select
+						class="form-select form-select-lg mb-3"
+						aria-label=".form-select-lg example"
+						v-model="month_se"
+					>
+						<option selected value="0">Selecciona un Mes</option>
+						<option value="6">Junio</option>
+						<option value="7">Julio</option>
+						<option value="8">Agosto</option>
+					</select>
+				</div>
 			</div>
 			<div class="profile">
 				<Profile></Profile>
 			</div>
-		</div>
-		<div class="selecct">
-			<select
-				class="form-select form-select-lg mb-3"
-				aria-label=".form-select-lg example"
-				v-model="month_se"
-			>
-				<option selected value="0">Selecciona un Mes</option>
-				<option value="6">Junio</option>
-				<option value="7">Julio</option>
-				<option value="8">Agosto</option>
-			</select>
 		</div>
 		<div class="loading"></div>
 	</div>
@@ -51,6 +51,11 @@
 				.calem {
 					justify-self: center;
 					width: 100%;
+				}
+
+				.adi {
+					align-self: center;
+					justify-self: center;
 				}
 			}
 			.profile {

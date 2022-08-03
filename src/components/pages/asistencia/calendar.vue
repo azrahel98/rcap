@@ -62,7 +62,6 @@
 </style>
 
 <script lang="ts" setup>
-	import { computed } from '@vue/reactivity'
 	import { ref, watchEffect } from 'vue'
 	import {
 		CalInfo,
@@ -85,7 +84,6 @@
 	})
 
 	function DiasRegistros(dia: number): Array<any> {
-		console.log('me ejecturo :v', dia)
 		var result = []
 		prop.marcaciones.forEach((e) => {
 			var d = e['fecha'] as Date

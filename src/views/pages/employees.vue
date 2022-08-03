@@ -62,6 +62,7 @@
 		gap: 2vh;
 		width: 100%;
 		height: 100vh;
+		overflow-y: scroll;
 		.pbody {
 			height: 100%;
 			.psearching {
@@ -75,8 +76,8 @@
 				grid-template-columns: repeat(2, 1fr);
 				column-gap: 2vh;
 				row-gap: 4vh;
-				height: 100%;
-				overflow: auto;
+
+				overflow: scroll;
 			}
 		}
 		.psearch {
