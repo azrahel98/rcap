@@ -13,38 +13,81 @@
 						<h4 class="name">{{ prop.nombre }}</h4>
 						<h4>{{ prop.cargo }}</h4>
 					</div>
-					<p class="subtitle is-6">MEMORANDOOO</p>
-					<button class="delete" aria-label="close" @click="close"></button>
+				</div>
+				<div class="d-tp">
+					<div class="lb-t">
+						<label class="select" for="slct"
+							><select id="slct" v-model="tipodoc">
+								<option value="RESOLUCION">Resolucion</option>
+								<option value="CARTA">Carta</option>
+								<option value="INFORME">Informe</option>
+								<option value="RENUNCIA">Renuncia</option>
+								<option value="SOLICITUD">Solicitud</option>
+								<option value="MEMORANDO">Memorando</option>
+							</select></label
+						>
+					</div>
+					<div class="lb-t">
+						<label class="select" for="slct"
+							><select id="slct" v-model="tipoper">
+								<option value="DF">Descanso Fisico</option>
+								<option value="AC">A cuenta</option>
+								<option value="JUSTIFICADO">Justificado</option>
+								<option value="XHEL">Por horas Extras</option>
+								<option value="ONOMASTICO">Onomastico</option>
+								<option value="ADELANTO">Adelanto</option>
+								<option value="SANSION">Sansion</option>
+								<option value="LICENCIA">Licencia</option>
+								<option value="HORASEXTRAS">Horas Extras</option>
+								<option value="OMISION">Omision</option>
+								<option value="OTROS">Otros</option>
+							</select></label
+						>
+					</div>
 				</div>
 				<div class="form">
-					<div class="left">
-						<div class="permisos">
-							<label class="select" for="slct"
-								><select id="slct" v-model="tipodoc">
-									<option value="RESOLUCION">Resolucion</option>
-									<option value="CARTA">Carta</option>
-									<option value="INFORME">Informe</option>
-									<option value="RENUNCIA">Renuncia</option>
-									<option value="SOLICITUD">Solicitud</option>
-									<option value="MEMORANDO">Memorando</option>
-								</select></label
-							><svg class="sprites"></svg>
-							<label class="select" for="slct"
-								><select id="slct" v-model="tipoper">
-									<option value="DF">Descanso Fisico</option>
-									<option value="AC">A cuenta</option>
-									<option value="JUSTIFICADO">Justificado</option>
-									<option value="XHEL">Por horas Extras</option>
-									<option value="ONOMASTICO">Onomastico</option>
-									<option value="ADELANTO">Adelanto</option>
-									<option value="SANSION">Sansion</option>
-									<option value="LICENCIA">Licencia</option>
-									<option value="HORASEXTRAS">Horas Extras</option>
-									<option value="OMISION">Omision</option>
-									<option value="OTROS">Otros</option>
-								</select></label
-							><svg class="sprites"></svg>
+					<div class="f-left">
+						<div class="form-floating">
+							<input type="email" class="form-control" v-model="memorando" />
+							<label># Doc</label>
 						</div>
+						<div class="d-fecha">
+							<div class="f-info">
+								<div>
+									<v-date-picker v-model="date" mode="date">
+										<template v-slot="{ inputValue, inputEvents }">
+											<input
+												class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300 d-pick"
+												:value="inputValue"
+												v-on="inputEvents"
+											/>
+										</template>
+									</v-date-picker>
+								</div>
+								<label class="checkbox">
+									<input type="checkbox" v-model="docwithrange" />
+									Rango
+								</label>
+							</div>
+							<v-date-picker
+								is-range
+								v-if="docwithrange"
+								v-model="rangedates"
+							/>
+						</div>
+					</div>
+					<div class="f-r">
+						<div class="form-floating">
+							<input type="email" class="form-control" v-model="referencia" />
+							<label>Ref</label>
+						</div>
+						<div class="form-floating area">
+							<textarea v-model="descrip" class="form-control"></textarea>
+							<label>Descripcion</label>
+						</div>
+					</div>
+					<!-- <div class="left">
+						
 						<div class="times">
 							<div class="fecha-doc">
 								<label class="checkbox">
@@ -105,6 +148,23 @@
 								{{ message }}
 							</p>
 						</div>
+					</div> -->
+				</div>
+				<div class="btn-send">
+					<button
+						class="btn btn-info"
+						@click="guardar"
+						:class="isLoading ? 'is-loding' : ''"
+						:disabled="isLoading"
+					>
+						Guardar
+					</button>
+					<div
+						class="alert"
+						role="alert"
+						:class="isError ? 'alert-warning' : 'alert-success'"
+					>
+						{{ message }}
 					</div>
 				</div>
 			</div>
@@ -183,153 +243,79 @@
 		}
 	})
 
-	var clickz: number = 0
 	const e = defineEmits(['change'])
-	const close = () => {
-		e('change', false)
-	}
-
-	const out = () => {
-		clickz++
-
-		if (clickz > 1 && outclick.value) {
-			close()
-		}
-	}
 </script>
 <style lang="scss" scoped>
-	textarea,
-	input {
-		font-family: 'Ubuntu Mono', sans-serif;
-		font-weight: 600;
-	}
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
 	.modal-content {
-		// min-height: 60vh;
-		min-width: 70vh;
+		display: grid;
+		grid-template-rows: auto auto auto;
+		grid-template-columns: 1fr;
 		background-color: white;
 		border-radius: 15px;
-		padding-bottom: 6vh;
+		padding: 6px;
+		.d-tp {
+			height: min-content;
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+			align-items: center;
+			height: 50px;
+			width: 100%;
+			.lb-t {
+				width: min-content;
+			}
+		}
 		.form {
 			display: flex;
-			align-items: center;
-			padding-bottom: 2vh;
-			padding-top: 1vh;
-			padding-right: 1vh;
-			height: 100%;
-			.left {
+			gap: 2vh;
+			.f-left {
 				display: flex;
 				flex-direction: column;
+				gap: 2vh;
+				flex-wrap: wrap;
 				align-items: center;
-				gap: 3vh;
-				height: 100%;
-				width: 100%;
-				.permisos {
-					padding-left: 1vh;
-					padding-right: 1vh;
-					gap: 1vh;
-					display: flex;
-					padding-bottom: 2vh;
-					height: max-content;
-				}
-				.times {
-					width: 100%;
-					height: max-content;
+				.d-fecha {
 					display: flex;
 					flex-direction: column;
-					justify-content: center;
+					gap: 2vh;
 					align-items: center;
-					gap: 25px;
-					.fecha-doc {
+					.f-info {
 						display: flex;
 						justify-content: center;
 						gap: 2vh;
+						justify-content: space-around;
+						align-items: center;
+						.d-pick {
+							max-width: 12vh;
+						}
 					}
 				}
 			}
-			.other {
+			.f-r {
 				display: flex;
 				flex-direction: column;
-				align-items: center;
-				gap: 3vh;
 				height: 100%;
-				min-width: 45%;
-				.detalle {
-					width: 80%;
-					display: flex;
-					justify-content: space-around;
-					align-items: center;
+				justify-content: flex-start;
+				gap: 4vh;
+				.area {
+					height: 50%;
+					textarea {
+						min-height: 150px;
+					}
 				}
-				.field {
-					width: 80%;
+			}
+			.form-floating {
+				width: 100%;
+				input {
+					height: 4vh;
 				}
+				label {
+					height: 4px;
 
-				.memorando {
-					text-align: center;
-					width: 70%;
+					padding-top: 1px;
+					font-size: 0.8rem;
+					background-color: white;
 				}
-			}
-			.select {
-				position: relative;
-				min-width: min-content;
-				svg {
-					position: absolute;
-					right: 12px;
-					top: calc(50% - 3px);
-					width: 10px;
-					height: 6px;
-					stroke-width: 2px;
-					stroke: #9098a9;
-					fill: none;
-					stroke-linecap: round;
-					stroke-linejoin: round;
-					pointer-events: none;
-				}
-				select {
-					-webkit-appearance: none;
-					padding: 7px 40px 7px 12px;
-					width: 100%;
-					border: 1px solid #e8eaed;
-					border-radius: 5px;
-					background: #fff;
-					box-shadow: 0 1px 3px -2px #9098a9;
-					cursor: pointer;
-					font-family: inherit;
-					font-size: 16px;
-					transition: all 150ms ease;
-					&:required {
-						&:invalid {
-							color: #5a667f;
-						}
-					}
-					option {
-						color: #223254;
-					}
-					option[value=''][disabled] {
-						display: none;
-					}
-					&:focus {
-						outline: none;
-						border-color: #07f;
-						box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
-					}
-					&:hover {
-						& + svg {
-							stroke: #07f;
-						}
-					}
-				}
-			}
-			.sprites {
-				position: absolute;
-				width: 0;
-				height: 0;
-				pointer-events: none;
-				user-select: none;
 			}
 		}
 		.empleado {
@@ -354,6 +340,13 @@
 					font-weight: 500;
 				}
 			}
+		}
+		.btn-send {
+			justify-self: center;
+			padding-top: 4vh;
+			display: flex;
+			gap: 2vh;
+			flex-direction: column;
 		}
 	}
 </style>
