@@ -47,11 +47,11 @@ const routes: RouteRecordRaw[] = [
 			},
 		],
 	},
-	{
-		component: () => import('../views/error.vue'),
-		path: '/:pathMatch(.*)*',
-		name: 'notfound',
-	},
+	// {
+	// 	component: () => import('../views/error.vue'),
+	// 	path: '/:pathMatch(.*)*',
+	// 	name: 'notfound',
+	// },
 ]
 
 const router = createRouter({

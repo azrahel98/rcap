@@ -26,5 +26,52 @@
 		::-webkit-scrollbar {
 			width: 1rem;
 		}
+		a {
+			color: $color-dark;
+			text-decoration: none;
+		}
+
+		img {
+			display: block;
+			width: 100%;
+		}
+		h1 {
+			font-weight: 800;
+			font-size: 1.8rem;
+		}
+		h2 {
+			font-size: 1.4rem;
+		}
+		h3 {
+			font-size: 0.87rem;
+		}
+		h4 {
+			font-size: 0.8rem;
+		}
+		h5 {
+			font-size: 0.77rem;
+		}
+		small {
+			font-size: 0.75rem;
+		}
+		p {
+			color: $color-dark-variant;
+		}
+		b {
+			color: $color-dark;
+		}
+	}
+
+	.primary {
+		color: $color-primary;
+	}
+	.danger {
+		color: $color-danger;
+	}
+	.success {
+		color: $color-success;
+	}
+	.warning {
+		color: $color-warning;
 	}
 </style>
