@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<div class="cname">
-			<router-link :to="`/asistencia/${propr.dni}`" class="link"
+			<router-link :to="`/asistencia/${propr.dni}`" class="link" tag="a"
 				><h3>{{ propr.nombre }}</h3></router-link
 			>
 			<p>{{ propr.dni }}</p>
@@ -23,7 +23,7 @@
 
 		<div class="icons-a">
 			<button
-				class="btn"
+				class="btn p"
 				data-bs-toggle="modal"
 				:data-bs-target="`#p${propr.dni}`"
 				v-on:click="change(false)"
@@ -31,7 +31,7 @@
 				<span class="material-icons"> receipt_long </span>
 			</button>
 			<button
-				class="btn"
+				class="btn m"
 				data-bs-toggle="modal"
 				:data-bs-target="`#m${propr.dni}`"
 				v-on:click="change(true)"
@@ -66,7 +66,6 @@
 
 <style lang="scss" scoped>
 	.card {
-		background-color: $opaque;
 		border-radius: 10.9322px;
 		display: grid;
 		grid-template-rows: auto 1fr 5vh;
@@ -74,11 +73,17 @@
 		padding-bottom: 3vh;
 		max-width: 25vh;
 		min-width: 20vh;
+		padding: 1rem;
 		.cname {
 			padding-top: 1.5vh;
 			justify-self: center;
 			align-self: flex-start;
 			padding-right: 2vh;
+			a {
+				:hover {
+					color: $alternative;
+				}
+			}
 			h3 {
 				font-weight: 600;
 				font-size: 1.5rem;
@@ -105,13 +110,15 @@
 			gap: 0.2vh;
 			align-items: flex-start;
 			.icons {
-				color: $alternative;
 				display: flex;
 				font-size: 0.7rem;
 				gap: 1vh;
 				p {
 					font-weight: 500;
 					// font-size: 0.8rem;
+				}
+				span {
+					color: $color-primary;
 				}
 			}
 		}
@@ -120,8 +127,16 @@
 			flex-wrap: wrap;
 			align-items: center;
 			justify-content: space-evenly;
+
+			.p {
+				background-color: $color-info-dark;
+			}
+			.m {
+				background-color: $color-primary;
+			}
 			button {
 				padding: 0.5vh;
+				color: $color-white;
 				span {
 					font-size: 1.2rem;
 				}

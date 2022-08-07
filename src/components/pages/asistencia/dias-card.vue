@@ -110,7 +110,7 @@
 </script>
 <style lang="scss" scoped>
 	.d-card {
-		border: 0.01rem solid #cbcee1;
+		border: 0.01rem solid $color-info-dark;
 		border-radius: 10px;
 		display: grid;
 		grid-template-columns: 1fr;
@@ -128,6 +128,9 @@
 				span {
 					font-weight: 600;
 				}
+			}
+			h5 {
+				color: $color-dark;
 			}
 		}
 		.d-body {

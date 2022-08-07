@@ -1,6 +1,6 @@
 interface AsistenciaDetalle {
-	fecha: Date
-	marca: string
+	fecha?: Date | null
+	marca?: string | null
 }
 
 export { AsistenciaDetalle }

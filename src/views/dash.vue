@@ -9,92 +9,18 @@
 				<button v-on:click="change(true)">
 					<span class="material-icons">menu</span>
 				</button>
-				<div class="theme-toggler">
-					<span class="material-icons active">light_mode</span>
-					<span class="material-icons">dark_mode</span>
-				</div>
-				<div class="profile">
-					<div class="info">
-						<p>Hola <b>Raul</b></p>
-						<small>Admin</small>
-					</div>
-					<div class="profile-potho">
-						<img src="" alt="" />
-					</div>
-				</div>
-			</div>
-			<div class="recent-updates">
-				<h2>Recent Updates</h2>
-				<div class="updates">
-					<div class="update">
-						<div class="profile-photo">
-							<img src="" />
-						</div>
-						<div class="message">
-							<p>
-								<b>Mike Tyson</b> received his order of Night lion tech GPS
-								drone.
-							</p>
-							<small class="text-muted">2 Minutes Ago</small>
-						</div>
-					</div>
-					<div class="update">
-						<div class="profile-photo">
-							<img src="" />
-						</div>
-						<div class="message">
-							<p>
-								<b>Mike Tyson</b> received his order of Night lion tech GPS
-								drone.
-							</p>
-							<small class="text-muted">2 Minutes Ago</small>
-						</div>
-					</div>
-					<div class="update">
-						<div class="profile-photo">
-							<img src="" />
-						</div>
-						<div class="message">
-							<p>
-								<b>Mike Tyson</b> received his order of Night lion tech GPS
-								drone.
-							</p>
-							<small class="text-muted">2 Minutes Ago</small>
-						</div>
-					</div>
-					<div class="update">
-						<div class="profile-photo">
-							<img src="" />
-						</div>
-						<div class="message">
-							<p>
-								<b>Mike Tyson</b> received his order of Night lion tech GPS
-								drone.
-							</p>
-							<small class="text-muted">2 Minutes Ago</small>
-						</div>
-					</div>
-					<div class="update">
-						<div class="profile-photo">
-							<img src="" />
-						</div>
-						<div class="message">
-							<p>
-								<b>Mike Tyson</b> received his order of Night lion tech GPS
-								drone.
-							</p>
-							<small class="text-muted">2 Minutes Ago</small>
-						</div>
-					</div>
+				<div class="logo">
+					<h2>MVS<span class="danger">LM</span></h2>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-	import { onMounted, ref } from 'vue'
+	import { onMounted, ref, watchEffect } from 'vue'
 	import { userStore } from '@store/user'
 	import Sideb from '@com/side.vue'
+	import { useScreen } from 'vue-screen'
 
 	const user = userStore()
 	onMounted(() => {
@@ -106,34 +32,40 @@
 	const change = (x: boolean) => {
 		showMenu.value = x
 	}
+	watchEffect(() => {
+		if (useScreen().width >= 768) {
+			showMenu.value = true
+		}
+	})
 </script>
 <style lang="scss" scoped>
 	body {
-		width: 100vw;
+		width: 100% !important;
 		height: 100vh;
 		font-family: poppins, sans-serif;
 		font-size: 0.88rem;
 		background-color: $color-background;
 		overflow: hidden;
 		.dash {
+			background-color: $color-background;
 			display: grid;
-			width: 96%;
+			width: 100%;
 			margin: 0 auto;
 			gap: 1.8rem;
-			grid-template-columns: 14rem auto 23rem;
+			grid-template-columns: 10rem auto 0;
 			@media screen and (max-width: 1200px) {
-				width: 94%;
-				grid-template-columns: 7rem auto 23rem;
+				width: 98%;
+				grid-template-columns: 5rem auto 0;
 			}
 			@media screen and (max-width: 768px) {
 				width: 100%;
 				grid-template-columns: 1fr;
 				.main {
-					margin-top: 8rem;
+					margin-top: 5rem;
 					padding: 0 1rem;
 				}
 				.rigth {
-					width: 94%;
+					display: block;
 					margin: 0 auto 4rem;
 					.top {
 						position: fixed;
@@ -147,16 +79,7 @@
 						margin: 0;
 						z-index: 2;
 						box-shadow: 0 1rem 1rem $color-light;
-						.theme-toggler {
-							width: 4.4rem;
-							position: absolute;
-							left: 66%;
-						}
-						.profile {
-							.info {
-								display: none;
-							}
-						}
+
 						button {
 							display: inline-block;
 							background: transparent;
@@ -171,17 +94,10 @@
 					}
 				}
 			}
+		}
 
-			.main {
-				width: 100%;
-				display: flex;
-				justify-content: space-between;
-			}
-		}
-		.main {
-			background-color: red !important;
-		}
 		.rigth {
+			display: none;
 			margin-top: 1.4rem;
 			.top {
 				display: flex;

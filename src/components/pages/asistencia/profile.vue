@@ -1,21 +1,12 @@
 <template>
 	<div class="profile">
-		<div class="name">
-			<div class="avatar">
-				<!-- <div class="edit">
-					<button>edit</button>
-				</div> -->
-				<img
-					src="../../../assets/circle.png"
-					class="rounded-circle"
-					style="width: 150px"
-					alt="Avatar"
-				/>
-				<!-- <div class="edit">
-					<button>edit</button>
-				</div> -->
-			</div>
-			<h6>{{ employ ? employ.nombre : '' }}</h6>
+		<div class="personal">
+			<h1>{{ employ.nombre }}</h1>
+			<span>{{ employ.dni }}</span>
+		</div>
+		<div class="cargo">
+			<h6>{{ employ.area }}</h6>
+			<h6>{{ employ.cargo }}</h6>
 		</div>
 	</div>
 </template>
@@ -23,45 +14,40 @@
 <script lang="ts" setup>
 	import EmployImpl from '@/implement/employ'
 	import { Employ } from '@/models/employ'
-	import { onMounted, ref } from 'vue'
-	import router from '../../../router/router'
+	import { onMounted, reactive, ref } from 'vue'
 
 	const impl = new EmployImpl()
 
-	const employ = ref<Employ>()
+	var employ = ref<Employ>({})
+
+	const prop = defineProps({
+		dni: { required: true, type: String },
+	})
 
 	onMounted(async () => {
-		employ.value = await impl.buscar_pordni(
-			router.currentRoute.value.params.dni as string
-		)
+		employ.value = await impl.buscar_pordni(prop.dni)
+		console.log(employ)
 	})
 </script>
 
 <style lang="scss" scoped>
 	.profile {
-		border-radius: 25px;
-		background-color: $background;
-		width: 100%;
-		height: 100%;
-		display: grid;
-		grid-template-rows: auto 1fr 1fr;
-		padding-top: 3vh;
-		.name {
+		padding-top: 4vh;
+		justify-self: center;
+		align-self: center;
+		.personal {
 			display: flex;
 			flex-direction: column;
-			width: 100%;
 			align-items: center;
-			gap: 2vh;
-			.avatar {
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
+			span {
+				color: $color-info-dark;
 			}
-			h6 {
-				text-align: center;
-				font-size: 1rem;
-				font-weight: 600;
-			}
+		}
+		.cargo {
+			display: flex;
+			gap: 4vh;
+			flex-wrap: wrap;
+			color: $color-dark;
 		}
 	}
 </style>

@@ -1,11 +1,11 @@
 <template>
-	<aside :style="[!prop.show ? { display: 'none' } : { display: 'block' }]">
+	<aside v-show="prop.show">
 		<div class="top">
 			<div class="logo">
 				<img
 					src="https://scontent.flim28-1.fna.fbcdn.net/v/t39.30808-6/296445143_430459115792767_472435730899642184_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFD34HrMONIly8qo6epdp0xdwQgFeHC8ox3BCAV4cLyjFPJ3Y5CMOiM2MmMtVS_t7g&_nc_ohc=_gYUXIRq9VIAX_KGNwn&tn=jEkHbpr1GDBSx5dy&_nc_ht=scontent.flim28-1.fna&oh=00_AT-YMvr5ZIq95OOSHEbnDnBaVkA-EL4Ouz0qiyFhDFqvJg&oe=62F0E00C"
 				/>
-				<h2>EGA<span class="danger">TOR</span></h2>
+				<h2>MVS<span class="danger">LM</span></h2>
 			</div>
 			<div class="close" id="close-btn">
 				<span class="material-icons" v-on:click="() => e('close', false)"
@@ -14,27 +14,14 @@
 			</div>
 		</div>
 		<div class="sidebar">
-			<a href="#">
+			<router-link to="/" exact-active-class="active" ref="a">
 				<span class="material-icons">grid_view</span>
 				<h3>Dashboard</h3>
-			</a>
-			<a href="#" class="active">
-				<span class="material-icons">person_outline</span>
-				<h3>Customers</h3>
-			</a>
-			<a href="#">
-				<span class="material-icons">receipt_long</span>
-				<h3>Orders</h3>
-			</a>
-			<a href="#">
-				<span class="material-icons">insights</span>
-				<h3>Analytics</h3>
-			</a>
-			<a href="#">
-				<span class="material-icons">mail_outline</span>
-				<h3>Messages</h3>
-				<span class="message-count">26</span>
-			</a>
+			</router-link>
+			<router-link to="/employees" exact-active-class="active" ref="a">
+				<span class="material-icons">badge</span>
+				<h3>Trabajadores</h3>
+			</router-link>
 
 			<a href="#">
 				<span class="material-icons">logout</span>
@@ -45,8 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-	import { ref } from 'vue'
-
 	const prop = defineProps({
 		show: { required: true, type: Boolean },
 	})
@@ -57,11 +42,17 @@
 	aside {
 		display: block;
 		height: 100vh;
+		width: max-content;
+		background-color: $color-white;
 		.top {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			margin-top: 1.4rem;
+
+			.close {
+				display: none;
+			}
 			.logo {
 				display: flex;
 				gap: 0.8rem;
@@ -77,10 +68,12 @@
 			flex-direction: column;
 			height: 86vh;
 			position: relative;
+			align-items: center;
 			top: 3rem;
 
 			h3 {
 				font-weight: 500;
+				font-size: 0.8rem;
 			}
 			a {
 				display: flex;
@@ -91,9 +84,9 @@
 				position: relative;
 				height: 3.7rem;
 				transition: all 300ms ease;
-
+				width: 100%;
 				span {
-					font-size: 1.6rem;
+					font-size: 1.3rem;
 				}
 			}
 			:hover {
@@ -106,9 +99,10 @@
 				background: $color-light;
 				color: $color-primary;
 				margin-left: 0;
+				padding-right: 10px;
 				span {
 					color: $color-primary;
-					margin-left: calc(1rem - 3px);
+					margin-left: calc(0.8rem - 15px);
 				}
 			}
 			a.active:before {
@@ -132,12 +126,20 @@
 			}
 		}
 		@media screen and (max-width: 1200px) {
+			.top {
+				.logo {
+					align-items: center;
+					h2 {
+						display: none;
+					}
+				}
+			}
 			.sidebar {
 				h3 {
 					display: none;
 				}
 				a {
-					width: 5.6rem;
+					width: 100%;
 				}
 				:last-child {
 					position: relative;
@@ -154,26 +156,29 @@
 			box-shadow: 1rem 3rem 4rem $color-light;
 			height: 100vh;
 			padding-right: $card-padding;
-			.logo {
-				margin-left: 1rem;
-				h2 {
-					display: inline;
-				}
-			}
-			h3 {
-				display: inline;
-			}
-			a {
-				width: 100%;
-				height: 3.4rem;
-			}
-			a.last-child {
-				position: absolute;
-				bottom: 5rem;
-			}
 			.close {
-				display: inline-block;
+				display: block !important;
 				cursor: pointer;
+			}
+			.sidebar {
+				.logo {
+					margin-left: 1rem;
+					h2 {
+						display: inline;
+					}
+				}
+				h3 {
+					display: inline-block;
+				}
+
+				a {
+					width: 100%;
+					height: 3.4rem;
+				}
+				a.last-child {
+					position: absolute;
+					bottom: 5rem;
+				}
 			}
 		}
 	}

@@ -1,4 +1,3 @@
-// @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 $bsidebar: #ececf6;
 $background:#E1DFF2;
@@ -30,16 +29,5 @@ $border-radius-2: 0.8rem;
 $border-radius-3 : 1.2rem;
 $card-padding: 1.8rem;
 $padding-1: 1.2rem;
-$box-shadow: 0 2rem 3rem var(-- color-light);
+$box-shadow: 0 2rem 3rem $color-light;
 
-
-// primary #3326ae
-// colormenu white
-
-// background #F7F7F9
-// tercer #708393
-
-// secundary = #FF776C
-
- // referencia
-// https://dribbble.com/shots/11289085-Smart-Home-Dashboard-Design/attachments/2898159?mode=mediahttps://dribbble.com/shots/11289085-Smart-Home-Dashboard-Design/attachments/2898159?mode=media
