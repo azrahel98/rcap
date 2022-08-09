@@ -112,6 +112,7 @@
 		marc.value = await em.buscar_asistencia(prop.dni, prop.mes.toString())
 		pap.value = await ds.buscar_papeletas(prop.dni, prop.mes as number)
 		dc.value = await ds.buscar_docs(prop.dni, prop.mes as number)
+		console.log(dc.value)
 		load.value = !load.value
 	})
 

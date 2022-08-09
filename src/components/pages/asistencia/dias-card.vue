@@ -2,9 +2,9 @@
 	<div class="d-card">
 		<div class="d-day">
 			<h5>{{ prop.day }}</h5>
-			<div class="d-reloj">
-				<span v-for="x in prop.list">{{ x['marca'] }}</span>
-			</div>
+		</div>
+		<div class="d-reloj">
+			<span v-for="x in asis">{{ x['marca'] }}</span>
 		</div>
 		<div class="d-body">
 			<div class="d-pp">
@@ -99,6 +99,7 @@
 <script lang="ts" setup>
 	import { AbrevPermisoP } from '../../../tools/calendar'
 	import { BPopover } from 'bootstrap-vue-3'
+	import { ref } from 'vue'
 
 	const prop = defineProps({
 		day: { type: Number, required: true },
@@ -107,6 +108,13 @@
 		docs: { required: false },
 		rangd: { required: false, type: Array },
 	})
+	const asis = ref<any>()
+
+	asis.value = (prop.list as Array<any>).sort(
+		(a, b) =>
+			((a['marca'].split(':')[0] as number) -
+				b['marca'].split(':')[0]) as number
+	)
 </script>
 <style lang="scss" scoped>
 	.d-card {
@@ -114,23 +122,24 @@
 		border-radius: 10px;
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: 1fr 1fr;
+		grid-template-rows: auto auto 1fr;
 		.d-day {
 			padding-top: 2px;
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-evenly;
-			.d-reloj {
-				display: flex;
-				flex-direction: column;
-				flex-wrap: wrap;
-				color: gray;
-				span {
-					font-weight: 600;
-				}
-			}
+
 			h5 {
 				color: $color-dark;
+			}
+		}
+		.d-reloj {
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+			color: gray;
+			span {
+				font-weight: 600;
 			}
 		}
 		.d-body {
@@ -150,10 +159,16 @@
 				}
 			}
 			.d-dd {
-				span {
-					height: max-content;
-					box-shadow: none;
-					cursor: pointer;
+				display: flex;
+				justify-content: space-around;
+				flex-wrap: wrap;
+				gap: 2vh;
+				div {
+					span {
+						height: max-content;
+						box-shadow: none;
+						cursor: pointer;
+					}
 				}
 			}
 		}
