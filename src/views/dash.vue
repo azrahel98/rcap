@@ -1,141 +1,123 @@
 <template>
 	<div class="dash">
-		<Sideb :show="showMenu" @close="(e) => (showMenu = e)"></Sideb>
-		<div class="main" id="main">
-			<router-view />
-		</div>
-		<div class="rigth">
-			<div class="top">
-				<button v-on:click="change(true)">
-					<span class="material-icons">menu</span>
-				</button>
-				<div class="logo">
-					<h2>MVS<span class="danger">LM</span></h2>
+		<div class="d-flex main" id="wrapper">
+			<div class="border-end bg-white" id="sidebar-wrapper">
+				<div class="sidebar-heading">MVS<span class="danger">LM</span></div>
+				<div class="list-group">
+					<div class="a-items">
+						<router-link to="/" exact-active-class="active" ref="a">
+							<span class="material-icons">grid_view</span>
+							<h3>Dashboard</h3>
+						</router-link>
+						<router-link to="/employees" exact-active-class="active" ref="a">
+							<span class="material-icons">badge</span>
+							<h3>Trabajadores</h3>
+						</router-link>
+					</div>
+					<div class="logout">
+						<a
+							class="list-group-item list-group-item-action list-group-item-light"
+							>Statusexxxxxxxxx</a
+						>
+					</div>
+				</div>
+			</div>
+			<!-- Page content wrapper-->
+			<div id="page-content-wrapper">
+				<!-- Top navigation-->
+				<nav
+					class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
+				>
+					<div class="container">
+						<button class="btn btn-primary" id="sidebarToggle" @click="toggle">
+							Toggle Menu
+						</button>
+					</div>
+				</nav>
+				<!-- Page content-->
+				<div class="container">
+					<router-view></router-view>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-	import { onMounted, ref, watchEffect } from 'vue'
+	import { onMounted } from 'vue'
 	import { userStore } from '@store/user'
-	import Sideb from '@com/side.vue'
-	import { useScreen } from 'vue-screen'
 
 	const user = userStore()
 	onMounted(() => {
 		user.InitAdmin()
 	})
 
-	const showMenu = ref<any>(true)
-
-	const change = (x: boolean) => {
-		showMenu.value = x
+	const toggle = () => {
+		document.body.classList.toggle('sb-sidenav-toggled')
 	}
-	watchEffect(() => {
-		if (useScreen().width >= 768) {
-			showMenu.value = true
-		}
-	})
 </script>
+
 <style lang="scss" scoped>
-	body {
-		width: 100% !important;
+	.dash {
 		height: 100vh;
 		font-family: poppins, sans-serif;
 		font-size: 0.88rem;
 		background-color: $color-background;
-		overflow: hidden;
-		.dash {
-			background-color: $color-background;
-			display: grid;
-			width: 100%;
-			margin: 0 auto;
-			gap: 1.8rem;
-			grid-template-columns: 10rem auto 0;
-			@media screen and (max-width: 1200px) {
-				width: 98%;
-				grid-template-columns: 5rem auto 0;
-			}
-			@media screen and (max-width: 768px) {
-				width: 100%;
-				grid-template-columns: 1fr;
-				.main {
-					margin-top: 5rem;
-					padding: 0 1rem;
-				}
-				.rigth {
-					display: block;
-					margin: 0 auto 4rem;
-					.top {
-						position: fixed;
-						top: 0;
-						left: 0;
-						align-items: center;
-						padding: 0 0.8rem;
-						height: 4.6rem;
-						background-color: $color-white;
-						width: 100%;
-						margin: 0;
-						z-index: 2;
-						box-shadow: 0 1rem 1rem $color-light;
+		// overflow: hidden;
+	}
 
-						button {
-							display: inline-block;
-							background: transparent;
-							cursor: pointer;
-							color: $color-dark;
-							position: absolute;
-							left: 1rem;
-							span {
-								font-size: 2rem;
-							}
-						}
-					}
+	#sidebar-wrapper {
+		min-height: 100vh !important;
+		margin-left: -15rem;
+		-webkit-transition: margin 0.25s ease-out;
+		-moz-transition: margin 0.25s ease-out;
+		-o-transition: margin 0.25s ease-out;
+		transition: margin 0.25s ease-out;
+		width: min-content;
+		.sidebar-heading {
+			padding: 0.875rem 1.25rem;
+			font-size: 1.2rem;
+			font-weight: 600;
+			text-align: center;
+		}
+		.list-group {
+			width: 15rem;
+			height: 90vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			.a-items {
+				a {
+					height: min-content;
+					border: none;
+					display: flex;
+					justify-content: center;
+					gap: 2vh;
+					align-items: center;
 				}
 			}
 		}
+	}
 
-		.rigth {
-			display: none;
-			margin-top: 1.4rem;
-			.top {
-				display: flex;
-				justify-content: end;
-				gap: 2rem;
-				button {
-					display: none;
-				}
-				.theme-toggler {
-					background: $color-light;
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					height: 1.6rem;
-					width: 4.2rem;
-					cursor: pointer;
-					border-radius: $border-radius-1;
-					span {
-						font-size: 1.2rem;
-						width: 50%;
-						height: 100%;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-					}
-					.active {
-						background: $color-primary;
-						color: white;
-						border-radius: $border-radius-1;
-					}
-				}
+	#page-content-wrapper {
+		min-width: 100vw;
+	}
 
-				.profile {
-					display: flex;
-					gap: 2rem;
-					text-align: right;
-				}
-			}
+	body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+		margin-left: 0;
+	}
+
+	@media (min-width: 768px) {
+		#sidebar-wrapper {
+			margin-left: 0;
+		}
+
+		#page-content-wrapper {
+			min-width: 0;
+			width: 100%;
+		}
+
+		body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+			margin-left: -15rem;
 		}
 	}
 </style>

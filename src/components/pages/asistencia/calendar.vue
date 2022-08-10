@@ -15,7 +15,7 @@
 				<DiasCard
 					:day="x"
 					:list="DiasRegistros(x)"
-					:papeletas="DiasDocumentos(x - 1, pap as any)"
+					:papeletas="DiasDocumentos(x , pap as any)"
 					:docs="DiasDocumentosMemo(x - 1, dc, prop.mes as number)"
 					:rangd="CheckDocsinArray(dc, prop.mes as number, x)"
 				/>

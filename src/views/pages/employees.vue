@@ -6,7 +6,7 @@
 				<span>1576 activos</span>
 			</div>
 			<div class="einp">
-				<input v-model="nombre" />
+				<input v-model="nombre" @keyup.enter="search" />
 			</div>
 		</div>
 		<div class="pbody">
@@ -44,14 +44,13 @@
 	const reg = new RegExp('[a-zA-Z]{4,}')
 	const empleados = ref<Employ[] | null>([])
 
-	watchEffect(async () => {
-		console.log(nombre.value)
+	const search = async () => {
 		if (reg.test(nombre.value)) {
 			isloading.value = false
 			empleados.value = await employ.buscar_nombre(nombre.value)
 			isloading.value = true
 		}
-	})
+	}
 </script>
 <style lang="scss" scoped>
 	.pemploy {

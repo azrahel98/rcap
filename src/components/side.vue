@@ -2,9 +2,6 @@
 	<aside v-show="prop.show">
 		<div class="top">
 			<div class="logo">
-				<img
-					src="https://scontent.flim28-1.fna.fbcdn.net/v/t39.30808-6/296445143_430459115792767_472435730899642184_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFD34HrMONIly8qo6epdp0xdwQgFeHC8ox3BCAV4cLyjFPJ3Y5CMOiM2MmMtVS_t7g&_nc_ohc=_gYUXIRq9VIAX_KGNwn&tn=jEkHbpr1GDBSx5dy&_nc_ht=scontent.flim28-1.fna&oh=00_AT-YMvr5ZIq95OOSHEbnDnBaVkA-EL4Ouz0qiyFhDFqvJg&oe=62F0E00C"
-				/>
 				<h2>MVS<span class="danger">LM</span></h2>
 			</div>
 			<div class="close" id="close-btn">
