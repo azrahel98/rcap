@@ -5,11 +5,21 @@
 				<div class="sidebar-heading">MVS<span class="danger">LM</span></div>
 				<div class="list-group">
 					<div class="a-items">
-						<router-link to="/" exact-active-class="active" ref="a">
+						<router-link
+							to="/"
+							exact-active-class="active"
+							ref="a"
+							v-on:click="toggle"
+						>
 							<span class="material-icons">grid_view</span>
 							<h3>Dashboard</h3>
 						</router-link>
-						<router-link to="/employees" exact-active-class="active" ref="a">
+						<router-link
+							to="/employees"
+							exact-active-class="active"
+							ref="a"
+							v-on:click="toggle"
+						>
 							<span class="material-icons">badge</span>
 							<h3>Trabajadores</h3>
 						</router-link>
@@ -17,7 +27,7 @@
 					<div class="logout">
 						<a
 							class="list-group-item list-group-item-action list-group-item-light"
-							>Statusexxxxxxxxx</a
+							>logout</a
 						>
 					</div>
 				</div>
@@ -30,7 +40,7 @@
 				>
 					<div class="container">
 						<button class="btn btn-primary" id="sidebarToggle" @click="toggle">
-							Toggle Menu
+							<span class="material-icons">menu</span>
 						</button>
 					</div>
 				</nav>

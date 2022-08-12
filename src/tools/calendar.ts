@@ -160,22 +160,23 @@ function DiasDocumentosMemo(dia: number, list: Array<Doc>, mes: number) {
 function CheckDocsinArray(list: Array<Doc>, mes: number, day: number) {
 	var result = []
 	list.forEach((e) => {
-		var di = new Date(new Date(e.Inicio.toString()).getTime() + 86400000)
-		var df = new Date(new Date(e.Fin.toString()).getTime() + 86400000)
-
-		if (di.getMonth() + 1 == mes) {
-			if (df.getMonth() + 1 == mes) {
-				if (df.getDate() >= day && di.getDate() <= day) {
+		list.forEach((e) => {
+			if (e.Fin !== '0000-00-00' || e.Inicio !== '0000-00-00') {
+				var di = new Date(new Date(e.Inicio.toString()).getTime() + 86400000)
+				var df = new Date(new Date(e.Fin.toString()).getTime() + 86400000)
+				if (di.getMonth() + 1 == mes) {
+					if (di.getDate() <= day) {
+						result.push(e)
+					}
+				} else if (df.getMonth() + 1 == mes) {
+					if (df.getDate() >= day) {
+						result.push(e)
+					}
+				} else {
 					result.push(e)
 				}
-			} else {
-				result.push(e)
 			}
-		} else if (di.getMonth() + 1 !== mes && df.getMonth() + 1 == mes) {
-			if (day <= df.getDate()) {
-				result.push(e)
-			}
-		}
+		})
 	})
 	return result
 }
