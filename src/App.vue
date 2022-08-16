@@ -1,13 +1,7 @@
 <template>
-	<div class="mainapp">
-		<router-view />
-	</div>
+	<router-view />
 </template>
-
 <style lang="scss">
-	.mainapp {
-		background-color: $color-background;
-	}
 	* {
 		margin: 0;
 		padding: 0;
@@ -35,7 +29,6 @@
 			color: $color-dark;
 			text-decoration: none;
 		}
-
 		img {
 			display: block;
 			width: 100%;
@@ -66,7 +59,6 @@
 			color: $color-dark;
 		}
 	}
-
 	.primary {
 		color: $color-primary;
 	}

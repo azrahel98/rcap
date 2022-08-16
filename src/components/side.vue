@@ -1,13 +1,11 @@
 <template>
-	<aside v-show="prop.show">
+	<aside>
 		<div class="top">
 			<div class="logo">
-				<h2>MVS<span class="danger">LM</span></h2>
+				<h2>EGA<span class="danger">TOR</span></h2>
 			</div>
 			<div class="close" id="close-btn">
-				<span class="material-icons" v-on:click="() => e('close', false)"
-					>close</span
-				>
+				<span class="material-icons" v-on:click="clicka">close</span>
 			</div>
 		</div>
 		<div class="sidebar">
@@ -15,12 +13,26 @@
 				<span class="material-icons">grid_view</span>
 				<h3>Dashboard</h3>
 			</router-link>
-			<router-link to="/employees" exact-active-class="active" ref="a">
-				<span class="material-icons">badge</span>
-				<h3>Trabajadores</h3>
-			</router-link>
 
-			<a href="#">
+			<router-link to="/employees" exact-active-class="active" ref="a">
+				<span class="material-icons">receipt_long</span>
+				<h3>Orders</h3>
+			</router-link>
+			<!-- <a>
+				<span class="material-icons">receipt_long</span>
+				<h3>Orders</h3>
+			</a>
+			<a>
+				<span class="material-icons">insights</span>
+				<h3>Analytics</h3>
+			</a>
+			<a>
+				<span class="material-icons">mail_outline</span>
+				<h3>Messages</h3>
+				<span class="message-count">26</span>
+			</a> -->
+
+			<a>
 				<span class="material-icons">logout</span>
 				<h3>Logout</h3>
 			</a>
@@ -29,27 +41,20 @@
 </template>
 
 <script lang="ts" setup>
-	const prop = defineProps({
-		show: { required: true, type: Boolean },
-	})
-	const e = defineEmits(['close'])
+	const clicka = () => {
+		document.querySelector('aside').classList.toggle('open')
+	}
 </script>
 
 <style lang="scss" scoped>
 	aside {
 		display: block;
 		height: 100vh;
-		width: max-content;
-		background-color: $color-white;
 		.top {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			margin-top: 1.4rem;
-
-			.close {
-				display: none;
-			}
 			.logo {
 				display: flex;
 				gap: 0.8rem;
@@ -58,19 +63,18 @@
 					height: 2rem;
 				}
 			}
+			.close {
+				display: none;
+			}
 		}
-
 		.sidebar {
 			display: flex;
 			flex-direction: column;
 			height: 86vh;
 			position: relative;
-			align-items: center;
 			top: 3rem;
-
 			h3 {
 				font-weight: 500;
-				font-size: 0.8rem;
 			}
 			a {
 				display: flex;
@@ -81,9 +85,12 @@
 				position: relative;
 				height: 3.7rem;
 				transition: all 300ms ease;
-				width: 100%;
+				text-decoration: none;
+				h3 {
+					font-size: 1rem;
+				}
 				span {
-					font-size: 1.3rem;
+					font-size: 1.6rem;
 				}
 			}
 			:hover {
@@ -96,10 +103,9 @@
 				background: $color-light;
 				color: $color-primary;
 				margin-left: 0;
-				padding-right: 10px;
 				span {
 					color: $color-primary;
-					margin-left: calc(0.8rem - 15px);
+					margin-left: calc(1rem - 3px);
 				}
 			}
 			a.active:before {
@@ -113,7 +119,6 @@
 				bottom: 2rem;
 				width: 100%;
 			}
-
 			.message-count {
 				background: $color-danger;
 				color: $color-white;
@@ -123,20 +128,12 @@
 			}
 		}
 		@media screen and (max-width: 1200px) {
-			.top {
-				.logo {
-					align-items: center;
-					h2 {
-						display: none;
-					}
-				}
-			}
 			.sidebar {
 				h3 {
 					display: none;
 				}
 				a {
-					width: 100%;
+					width: 5.6rem;
 				}
 				:last-child {
 					position: relative;
@@ -153,29 +150,34 @@
 			box-shadow: 1rem 3rem 4rem $color-light;
 			height: 100vh;
 			padding-right: $card-padding;
+			display: none;
+			animation: showMenu 400ms ease forwards;
+
+			@keyframes showMenu {
+				to {
+					left: 0;
+				}
+			}
+			.logo {
+				margin-left: 1rem;
+				h2 {
+					display: inline;
+				}
+			}
+			h3 {
+				display: inline;
+			}
+			a {
+				width: 100%;
+				height: 3.4rem;
+			}
+			a.last-child {
+				position: absolute;
+				bottom: 5rem;
+			}
 			.close {
 				display: block !important;
 				cursor: pointer;
-			}
-			.sidebar {
-				.logo {
-					margin-left: 1rem;
-					h2 {
-						display: inline;
-					}
-				}
-				h3 {
-					display: inline-block;
-				}
-
-				a {
-					width: 100%;
-					height: 3.4rem;
-				}
-				a.last-child {
-					position: absolute;
-					bottom: 5rem;
-				}
 			}
 		}
 	}
