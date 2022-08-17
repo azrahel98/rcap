@@ -58,10 +58,9 @@
 			.logo {
 				display: flex;
 				gap: 0.8rem;
-				img {
-					width: 2rem;
-					height: 2rem;
-				}
+				width: 100%;
+				justify-content: center;
+				align-items: center;
 			}
 			.close {
 				display: none;
@@ -73,24 +72,23 @@
 			height: 86vh;
 			position: relative;
 			top: 3rem;
-			h3 {
-				font-weight: 500;
-			}
+			gap: 1rem;
 			a {
 				display: flex;
 				color: $color-info-dark;
-				margin-left: 2rem;
-				gap: 1rem;
+				margin-left: 0.8rem;
+				gap: 0.5rem;
+				width: 100%;
 				align-items: center;
 				position: relative;
-				height: 3.7rem;
+				height: 3rem;
 				transition: all 300ms ease;
 				text-decoration: none;
 				h3 {
-					font-size: 1rem;
+					font-size: 0.79rem;
 				}
 				span {
-					font-size: 1.6rem;
+					font-size: 1rem;
 				}
 			}
 			:hover {
