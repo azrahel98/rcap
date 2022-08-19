@@ -32,7 +32,7 @@
 </template>
 <script lang="ts" setup>
 	import { Employ } from '@/models/employ'
-	import { ref, watchEffect } from 'vue'
+	import { ref } from 'vue'
 	import { Vue3Lottie } from 'vue3-lottie'
 	import EmployImp from '@/implement/employ'
 	import Card from '@com/pages/empleados/card.vue'
@@ -55,27 +55,29 @@
 <style lang="scss" scoped>
 	.pemploy {
 		display: grid;
-		justify-content: center;
-		padding-top: 4vh;
-		grid-template-rows: auto 4fr;
-		gap: 2vh;
+		grid-template-rows: 10vh auto;
+		grid-template-columns: 1fr;
 		width: 100%;
 		height: 100vh;
-		overflow-y: scroll;
 		.pbody {
-			height: 100%;
+			width: 100%;
+			justify-self: center;
+			overflow-y: scroll;
 			.psearching {
 				.lottie {
 					height: 70vh;
 				}
 			}
 			.presult {
-				padding-left: 2vh;
 				display: grid;
-				grid-template-columns: repeat(2, 1fr);
+				grid-template-columns: repeat(auto-fill, 19vh);
+				grid-template-rows: 1fr;
+				width: 100%;
+				justify-content: center;
+				align-content: center;
+				align-items: flex-start;
 				column-gap: 2vh;
-				row-gap: 4vh;
-
+				row-gap: 1vh;
 				overflow: scroll;
 			}
 		}
@@ -102,17 +104,12 @@
 				justify-self: center;
 				height: max-content;
 				input {
-					text-align: left;
-					font-family: 'Fira Sans' !important;
-					font-weight: 500 !important;
-					border: 1px solid $alternative;
-					border-radius: 10px;
-					color: $alternative;
-					font-family: 'Roboto' !important;
-					font-size: 0.7rem;
+					border-radius: 15px;
 					text-align: center;
-					min-height: 3.7vh;
-					width: max-content;
+					height: 2.7vh;
+					font-weight: 500;
+					border: 0;
+					box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.02);
 				}
 			}
 		}

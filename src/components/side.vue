@@ -15,22 +15,9 @@
 			</router-link>
 
 			<router-link to="/employees" exact-active-class="active" ref="a">
-				<span class="material-icons">receipt_long</span>
-				<h3>Orders</h3>
+				<span class="material-icons">people</span>
+				<h3>Trabajadores</h3>
 			</router-link>
-			<!-- <a>
-				<span class="material-icons">receipt_long</span>
-				<h3>Orders</h3>
-			</a>
-			<a>
-				<span class="material-icons">insights</span>
-				<h3>Analytics</h3>
-			</a>
-			<a>
-				<span class="material-icons">mail_outline</span>
-				<h3>Messages</h3>
-				<span class="message-count">26</span>
-			</a> -->
 
 			<a>
 				<span class="material-icons">logout</span>

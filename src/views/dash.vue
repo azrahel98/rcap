@@ -14,7 +14,7 @@
 						<span class="material-icons active">light_mode</span>
 						<span class="material-icons">dark_mode</span>
 					</div>
-					<div class="profile">
+					<!-- <div class="profile">
 						<div class="info">
 							<p>Hola <b>Raul</b></p>
 							<small>Admin</small>
@@ -22,7 +22,7 @@
 						<div class="profile-potho">
 							<img src="" alt="" />
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -56,10 +56,10 @@
 			display: grid;
 			margin: 0 auto;
 			gap: 1.8rem;
-			grid-template-columns: 9rem auto auto;
+			grid-template-columns: 9rem auto 2rem;
 			@media screen and (max-width: 1200px) {
-				width: 94%;
-				grid-template-columns: 7rem auto 23rem;
+				width: 100%;
+				grid-template-columns: 7rem auto 1rem;
 			}
 			@media screen and (max-width: 768px) {
 				width: 100%;
@@ -119,6 +119,7 @@
 				display: flex;
 				justify-content: end;
 				gap: 2rem;
+				padding-right: 2rem;
 				button {
 					display: none;
 				}
