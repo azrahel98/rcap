@@ -68,17 +68,17 @@
 	.card {
 		border-radius: 10.9322px;
 		display: grid;
-		grid-template-rows: auto 1fr 5vh;
-		row-gap: 2vh;
-		padding-bottom: 3vh;
-		max-width: 25vh;
-		min-width: 20vh;
-		padding: 1rem;
+		grid-template-rows: auto 1fr auto;
+		grid-template-columns: 1fr;
+		row-gap: 1vh;
+		width: min-content;
+		min-width: 18vh;
 		.cname {
 			padding-top: 1.5vh;
 			justify-self: center;
 			align-self: flex-start;
-			padding-right: 2vh;
+			padding-left: 1vh;
+			padding-right: 1vh;
 			a {
 				:hover {
 					color: $alternative;
@@ -104,16 +104,14 @@
 		}
 		.cdet {
 			align-self: flex-start;
-			justify-self: start;
+			justify-self: center;
 			display: flex;
-			flex-direction: column;
+			flex-wrap: wrap;
 			justify-content: center;
-			gap: 0.2vh;
-			align-items: flex-start;
 			.icons {
 				display: flex;
 				font-size: 0.7rem;
-				gap: 1vh;
+				gap: 0.3vh;
 				p {
 					font-weight: 500;
 					// font-size: 0.8rem;
@@ -125,22 +123,21 @@
 		}
 		.icons-a {
 			display: flex;
-			flex-wrap: wrap;
 			align-items: center;
-			justify-content: space-evenly;
 
 			.p {
 				background-color: $color-info-dark;
+				border-bottom-left-radius: 10.9322px;
 			}
 			.m {
 				background-color: $color-primary;
+				border-bottom-right-radius: 10.9322px;
 			}
 			button {
-				padding: 0.5vh;
-				color: $color-white;
-				span {
-					font-size: 1.2rem;
-				}
+				width: 100%;
+				border-radius: 0;
+				outline: none;
+				border: none;
 			}
 		}
 	}

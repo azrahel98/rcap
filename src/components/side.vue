@@ -9,12 +9,24 @@
 			</div>
 		</div>
 		<div class="sidebar">
-			<router-link to="/" exact-active-class="active" ref="a">
+			<router-link
+				to="/"
+				exact-active-class="active"
+				ref="a"
+				class="a-tag"
+				v-on:click="clicka"
+			>
 				<span class="material-icons">grid_view</span>
 				<h3>Dashboard</h3>
 			</router-link>
 
-			<router-link to="/employees" exact-active-class="active" ref="a">
+			<router-link
+				to="/employees"
+				exact-active-class="active"
+				ref="a"
+				class="a-tag"
+				v-on:click="clicka"
+			>
 				<span class="material-icons">people</span>
 				<h3>Trabajadores</h3>
 			</router-link>
@@ -137,28 +149,29 @@
 			padding-right: $card-padding;
 			display: none;
 			animation: showMenu 400ms ease forwards;
-
+			padding-right: 1vh;
+			.sidebar {
+				width: 100%;
+				.a-tag {
+					display: flex;
+					align-items: center;
+					height: max-content;
+					width: 100%;
+					h3 {
+						display: block;
+						height: min-content;
+						align-items: center;
+						height: 100%;
+					}
+					span {
+						text-align: center;
+					}
+				}
+			}
 			@keyframes showMenu {
 				to {
 					left: 0;
 				}
-			}
-			.logo {
-				margin-left: 1rem;
-				h2 {
-					display: inline;
-				}
-			}
-			h3 {
-				display: inline;
-			}
-			a {
-				width: 100%;
-				height: 3.4rem;
-			}
-			a.last-child {
-				position: absolute;
-				bottom: 5rem;
 			}
 			.close {
 				display: block !important;

@@ -54,39 +54,33 @@
 </script>
 <style lang="scss" scoped>
 	.pemploy {
-		display: grid;
-		grid-template-rows: 10vh auto;
-		grid-template-columns: 1fr;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		width: 100%;
-		height: 100vh;
+		gap: 2vh;
 		.pbody {
-			width: 100%;
-			justify-self: center;
-			overflow-y: scroll;
+			height: 100vh;
+			overflow-y: auto;
 			.psearching {
 				.lottie {
 					height: 70vh;
 				}
 			}
 			.presult {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, 19vh);
-				grid-template-rows: 1fr;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 5vh;
 				width: 100%;
 				justify-content: center;
-				align-content: center;
-				align-items: flex-start;
-				column-gap: 2vh;
-				row-gap: 1vh;
-				overflow: scroll;
 			}
 		}
 		.psearch {
-			display: grid;
-			grid-template-columns: auto auto;
-			column-gap: 5vh;
-			align-items: center;
+			display: flex;
+			gap: 2vh;
 			justify-content: center;
+			align-items: center;
+			padding-top: 1vh;
 			.pem {
 				width: min-content;
 				h4 {
@@ -99,17 +93,15 @@
 				}
 			}
 			.einp {
-				width: min-content;
-				align-self: center;
-				justify-self: center;
-				height: max-content;
 				input {
 					border-radius: 15px;
 					text-align: center;
 					height: 2.7vh;
 					font-weight: 500;
-					border: 0;
+					border: 1px solid $alternative;
 					box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.02);
+					width: 25vh;
+					font-size: 0.8rem;
 				}
 			}
 		}
