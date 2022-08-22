@@ -72,20 +72,22 @@
 		grid-template-columns: 1fr;
 		row-gap: 1vh;
 		width: min-content;
-		min-width: 18vh;
+		min-width: 25vh;
 		.cname {
 			padding-top: 1.5vh;
 			justify-self: center;
 			align-self: flex-start;
 			padding-left: 1vh;
 			padding-right: 1vh;
+			display: flex;
+			flex-wrap: wrap;
 			a {
 				:hover {
 					color: $alternative;
 				}
 				h3 {
 					font-weight: 600;
-					font-size: 1.5rem;
+					font-size: 1rem;
 				}
 			}
 
@@ -107,17 +109,18 @@
 			justify-self: center;
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: center;
+			justify-content: flex-start;
 			.icons {
 				display: flex;
-				font-size: 0.7rem;
-				gap: 0.3vh;
+				font-size: 0.6rem;
+				gap: 0.9vh;
 				p {
 					font-weight: 500;
 					// font-size: 0.8rem;
 				}
 				span {
 					color: $color-primary;
+					font-size: 1rem;
 				}
 			}
 		}
@@ -138,6 +141,11 @@
 				border-radius: 0;
 				outline: none;
 				border: none;
+				color: $color-white;
+				span {
+					// background-color: red;
+					font-size: 1rem;
+				}
 			}
 		}
 	}

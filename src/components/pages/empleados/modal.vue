@@ -137,7 +137,7 @@
 				detalle: detalle.value,
 			})
 			isLoading.value = false
-			isError.value = false
+			isError.value = true
 			if (isNumber(id)) {
 				message.value = `El ultimo registro Guardado fue ${id}`
 			}
