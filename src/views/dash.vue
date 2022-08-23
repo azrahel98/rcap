@@ -46,12 +46,13 @@
 		.dash {
 			display: grid;
 			margin: 0 auto;
-			gap: 1.8rem;
 			grid-template-columns: 9rem auto 8vh;
 			.main {
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
+				border-left: 0.1px solid $color-light;
+				margin-left: 2px;
 			}
 			.rigth {
 				margin-top: 1.4rem;

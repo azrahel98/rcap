@@ -1,13 +1,16 @@
 <template>
 	<div class="card">
 		<div class="cname">
-			<router-link :to="`/asistencia/${propr.dni}`" class="link" tag="a"
-				><h3>{{ propr.nombre }}</h3></router-link
-			>
-			<p>{{ propr.dni }}</p>
+			<div class="avatar" data-label="DC" />
+			<div class="ofname">
+				<router-link :to="`/asistencia/${propr.dni}`" class="link" tag="a"
+					><h3>{{ propr.nombre }}</h3></router-link
+				>
+				<p>{{ propr.dni }}</p>
+			</div>
 		</div>
 		<div class="cdet">
-			<div class="icons">
+			<div class="icons" v-if="propr.ingreso !== '0000-00-00'">
 				<span class="material-icons"> insert_invitation </span>
 				<p>{{ propr.ingreso }}</p>
 			</div>
@@ -65,43 +68,59 @@
 </script>
 
 <style lang="scss" scoped>
+	textarea,
+	input {
+		font-family: 'Ubuntu Mono', sans-serif;
+	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 	.card {
 		border-radius: 10.9322px;
 		display: grid;
 		grid-template-rows: auto 1fr auto;
 		grid-template-columns: 1fr;
-		row-gap: 1vh;
 		width: min-content;
 		min-width: 25vh;
+		row-gap: 2vh;
 		.cname {
-			padding-top: 1.5vh;
-			justify-self: center;
-			align-self: flex-start;
-			padding-left: 1vh;
-			padding-right: 1vh;
-			display: flex;
-			flex-wrap: wrap;
-			a {
-				:hover {
-					color: $alternative;
-				}
-				h3 {
-					font-weight: 600;
-					font-size: 1rem;
-				}
+			padding: 5px 0 0 10px;
+			display: grid;
+			grid-template-columns: auto 1fr;
+			grid-template-rows: auto;
+			column-gap: 5px;
+			.avatar {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: $color-primary;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
 			}
+			::after {
+				content: attr(data-label);
+				color: $color-white;
+				font-weight: 600;
+			}
+			.ofname {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				a {
+					text-decoration: none;
+					h3 {
+						font-weight: 600;
+						font-size: 0.8rem;
+					}
+				}
 
-			p {
-				font-size: 0.8rem;
-				font-weight: 500;
-			}
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: space-around;
-			color: white;
-			.link {
-				text-decoration: none;
+				p {
+					font-size: 0.8rem;
+					font-weight: 500;
+				}
 			}
 		}
 		.cdet {
@@ -110,6 +129,8 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: flex-start;
+			padding: 0 3px 0 8px;
+			gap: 5px;
 			.icons {
 				display: flex;
 				font-size: 0.6rem;
@@ -127,9 +148,8 @@
 		.icons-a {
 			display: flex;
 			align-items: center;
-
 			.p {
-				background-color: $color-info-dark;
+				background-color: $opaque;
 				border-bottom-left-radius: 10.9322px;
 			}
 			.m {
@@ -142,6 +162,7 @@
 				outline: none;
 				border: none;
 				color: $color-white;
+				padding: 0.5rem;
 				span {
 					// background-color: red;
 					font-size: 1rem;

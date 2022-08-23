@@ -49,6 +49,7 @@
 	aside {
 		display: block;
 		height: 100vh;
+		width: 100%;
 		.top {
 			display: flex;
 			align-items: center;
@@ -99,13 +100,15 @@
 			.active {
 				background: $color-light;
 				color: $color-primary;
-				margin-left: 0;
+				margin-left: 3px;
+
 				span {
 					color: $color-primary;
 					margin-left: calc(1rem - 3px);
 				}
 			}
-			a.active:before {
+
+			.active:before {
 				content: '';
 				width: 6px;
 				height: 100%;

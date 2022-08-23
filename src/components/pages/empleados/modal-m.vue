@@ -6,7 +6,10 @@
 		role="dialog"
 		aria-hidden="true"
 	>
-		<div class="modal-dialog modal-dialog" role="document">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document"
+		>
 			<div class="modal-content">
 				<div class="empleado">
 					<div class="nombre">
@@ -246,107 +249,112 @@
 	const e = defineEmits(['change'])
 </script>
 <style lang="scss" scoped>
-	.modal-content {
-		display: grid;
-		grid-template-rows: auto auto auto;
-		grid-template-columns: 1fr;
-		background-color: white;
-		border-radius: 15px;
-		padding: 6px;
-		.d-tp {
-			height: min-content;
-			display: flex;
-			justify-content: space-around;
-			flex-wrap: wrap;
-			align-items: center;
-			height: 50px;
-			width: 100%;
-			.lb-t {
-				width: min-content;
-			}
-		}
-		.form {
-			display: flex;
-			gap: 2vh;
-			.f-left {
+	.modal-dialog {
+		max-width: auto;
+		margin-left: auto;
+		margin-right: auto;
+		.modal-content {
+			display: grid;
+			grid-template-rows: auto auto auto;
+			grid-template-columns: 1fr;
+			background-color: white;
+			border-radius: 15px;
+			padding: 6px;
+			.d-tp {
+				height: min-content;
 				display: flex;
-				flex-direction: column;
-				gap: 2vh;
+				justify-content: space-around;
 				flex-wrap: wrap;
 				align-items: center;
-				.d-fecha {
+				height: 50px;
+				width: 100%;
+				.lb-t {
+					width: min-content;
+				}
+			}
+			.form {
+				display: flex;
+				gap: 2vh;
+				.f-left {
 					display: flex;
 					flex-direction: column;
 					gap: 2vh;
+					flex-wrap: wrap;
 					align-items: center;
-					.f-info {
+					.d-fecha {
 						display: flex;
-						justify-content: center;
+						flex-direction: column;
 						gap: 2vh;
-						justify-content: space-around;
 						align-items: center;
-						.d-pick {
-							max-width: 12vh;
+						.f-info {
+							display: flex;
+							justify-content: center;
+							gap: 2vh;
+							justify-content: space-around;
+							align-items: center;
+							.d-pick {
+								max-width: 12vh;
+							}
 						}
 					}
 				}
-			}
-			.f-r {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				justify-content: flex-start;
-				gap: 4vh;
-				.area {
-					height: 50%;
-					textarea {
-						min-height: 150px;
+				.f-r {
+					display: flex;
+					flex-direction: column;
+					height: 100%;
+					justify-content: flex-start;
+					gap: 4vh;
+					.area {
+						height: 50%;
+						textarea {
+							min-height: 150px;
+						}
+					}
+				}
+				.form-floating {
+					width: 100%;
+					input {
+						height: 4vh;
+					}
+					label {
+						height: 4px;
+
+						padding-top: 1px;
+						font-size: 0.8rem;
+						background-color: white;
 					}
 				}
 			}
-			.form-floating {
-				width: 100%;
-				input {
-					height: 4vh;
-				}
-				label {
-					height: 4px;
-
-					padding-top: 1px;
-					font-size: 0.8rem;
-					background-color: white;
-				}
-			}
-		}
-		.empleado {
-			display: flex;
-			width: 100%;
-			padding: 1vh 2vh 0 2vh;
-
-			justify-content: space-between;
-			align-items: center;
-			.nombre {
+			.empleado {
 				display: flex;
-				flex-direction: column;
-				height: 100%;
-				justify-content: center;
-				gap: 1vh;
-				.name {
-					font-size: 1rem;
-					font-weight: 600;
-				}
-				h4 {
-					font-size: 0.7rem;
-					font-weight: 500;
+				width: 100%;
+				padding: 1vh 2vh 0 2vh;
+
+				justify-content: space-between;
+				align-items: center;
+				.nombre {
+					display: flex;
+					flex-direction: column;
+					height: 100%;
+					justify-content: center;
+					gap: 1vh;
+					.name {
+						font-size: 1rem;
+						font-weight: 600;
+					}
+					h4 {
+						font-size: 0.7rem;
+						font-weight: 500;
+					}
 				}
 			}
-		}
-		.btn-send {
-			justify-self: center;
-			padding-top: 4vh;
-			display: flex;
-			gap: 2vh;
-			flex-direction: column;
+			.btn-send {
+				justify-self: center;
+				padding-top: 4vh;
+				display: flex;
+				gap: 2vh;
+				flex-direction: column;
+			}
 		}
 	}
 </style>
