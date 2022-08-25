@@ -24,7 +24,7 @@
 			<div class="psearching" v-else>
 				<Vue3Lottie
 					class="lottie"
-					animationLink="https://assets4.lottiefiles.com/packages/lf20_nninlpvr.json"
+					animationLink="https://assets10.lottiefiles.com/packages/lf20_nrtm9xfr.json"
 				/>
 			</div>
 		</div>
@@ -54,25 +54,29 @@
 </script>
 <style lang="scss" scoped>
 	.pemploy {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		display: grid;
+		height: 100% !important;
+		grid-template-rows: auto 1fr;
 		width: 100%;
-		gap: 2vh;
+		height: 100vh;
 		.pbody {
-			height: 100vh;
-			overflow-y: auto;
+			padding-top: 2vh;
 			.psearching {
 				.lottie {
-					height: 70vh;
+					height: 20em;
 				}
 			}
 			.presult {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 5vh;
-				width: 100%;
+				position: relative;
+				height: 100vh;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(20vh, 1fr));
+				grid-template-rows: 29vh;
+				overflow-y: auto;
 				justify-content: center;
+				.car {
+					justify-self: center;
+				}
 			}
 		}
 		.psearch {

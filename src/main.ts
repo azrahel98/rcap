@@ -8,7 +8,6 @@ import Vcalendar from 'v-calendar'
 import Boostrap from 'bootstrap-vue-3'
 
 import 'vue3-lottie/dist/style.css'
-
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 

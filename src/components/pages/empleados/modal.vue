@@ -6,10 +6,7 @@
 		role="dialog"
 		aria-hidden="true"
 	>
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-			role="document"
-		>
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header" v-if="prop.papeleta == undefined">
 					<div class="title">
@@ -105,6 +102,8 @@
 	import { ref } from 'vue'
 	import DocsImpl from '../../../../app/implement/docs'
 	import { ConverDateToString, CheckIsEmpty } from '../../../../app/tools/doc'
+	import { createToast, withProps } from 'xdf-vue-toastify'
+	import 'xdf-vue-toastify/dist/style.css'
 
 	const doc = new DocsImpl()
 	const prop = defineProps({
@@ -143,10 +142,12 @@
 			isError.value = true
 			if (isNumber(id)) {
 				message.value = `El ultimo registro Guardado fue ${id}`
+				createToast(message.value)
 			}
 		} else {
 			isError.value = true
 			message.value = 'Campos vacios'
+			createToast(message.value)
 		}
 	}
 
@@ -179,14 +180,11 @@
 			border-radius: 15px;
 			padding: 6px;
 			.modal-body {
-				height: min-content;
-				width: min-content;
 				display: grid;
-				grid-template-columns: auto 25vh;
+				grid-template-columns: repeat(2, minmax(10vh, 1fr));
 				row-gap: 0.5vh;
 				column-gap: 5vh;
 				font-size: 0.85rem;
-
 				label {
 					align-self: center;
 					justify-self: center;
@@ -205,7 +203,6 @@
 						outline: 0;
 					}
 				}
-
 				.papeleta {
 					height: min-content;
 					outline: 0;

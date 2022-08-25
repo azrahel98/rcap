@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
 		<div class="cname">
-			<div class="avatar" data-label="DC" />
+			<div class="avatar" :data-label="AbrevName()" />
 			<div class="ofname">
 				<router-link :to="`/asistencia/${propr.dni}`" class="link" tag="a"
 					><h3>{{ propr.nombre }}</h3></router-link
@@ -65,6 +65,16 @@
 	const change = (x) => {
 		isMemo.value = x
 	}
+
+	function AbrevName(): string {
+		let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu')
+
+		let initials = [...propr.nombre.matchAll(rgx)] || []
+
+		return (
+			(initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+		).toUpperCase()
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -83,10 +93,11 @@
 		grid-template-rows: auto 1fr auto;
 		grid-template-columns: 1fr;
 		width: min-content;
-		min-width: 25vh;
+		min-width: 20vh;
 		row-gap: 2vh;
+		height: min-content;
 		.cname {
-			padding: 5px 0 0 10px;
+			padding: 5px 10px 0 5px;
 			display: grid;
 			grid-template-columns: auto 1fr;
 			grid-template-rows: auto;
@@ -112,13 +123,14 @@
 				a {
 					text-decoration: none;
 					h3 {
-						font-weight: 600;
+						font-weight: 700;
 						font-size: 0.8rem;
+						color: $color-dark;
 					}
 				}
 
 				p {
-					font-size: 0.8rem;
+					font-size: 0.7rem;
 					font-weight: 500;
 				}
 			}
