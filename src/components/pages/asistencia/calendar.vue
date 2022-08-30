@@ -31,22 +31,15 @@
 
 <style lang="scss" scoped>
 	.calendario {
-		display: grid;
-		grid-template-columns: 1fr;
-		column-gap: 2vh;
+		display: flex;
+		flex-direction: column;
 		height: 100%;
-		padding: 1.4vh !important;
-		border-radius: 20px;
-		width: 100%;
-
-		justify-content: center;
-		align-items: center;
+		gap: 0.5vh;
+		padding: 0 2vh 5vh 2vh;
 		.d-semana {
 			border-radius: 20px 20px 0 0;
 			background-color: $color-primary;
 			color: $color-white;
-			height: 100%;
-			width: 100%;
 			display: grid;
 			grid-template-columns: repeat(7, 1fr);
 			align-items: center;
@@ -54,18 +47,17 @@
 			h6 {
 				text-align: center;
 			}
+			height: 5vh;
 		}
 		.d-dias {
-			border: 1px solid $color-info-light;
+			border: 1px solid $color-white;
 			border-top: none;
 			border-radius: 0 0 20px 20px;
-			padding: 0.5vh;
-			height: 100%;
 			display: grid;
 			grid-template-columns: repeat(7, 1fr);
 			column-gap: 2px;
 			row-gap: 3px;
-			background-color: $color-white;
+			height: 100%;
 		}
 		.lotie {
 			background-color: $color-white;
@@ -79,7 +71,7 @@
 
 	import { AsistenciaDetalle } from '@/models/asistencia'
 	import { Doc, Papeleta } from '@/models/documents'
-	import { ref, onMounted, watch } from 'vue'
+	import { ref, onMounted, watch, watchEffect } from 'vue'
 	import {
 		CalInfo,
 		DiasDelMes,
@@ -106,13 +98,14 @@
 	const pap = ref<Papeleta[]>([])
 	const dc = ref<Doc[]>([])
 
+	const e = defineEmits(['completed'])
+
 	const load = ref(true)
 
 	onMounted(async () => {
 		marc.value = await em.buscar_asistencia(prop.dni, prop.mes.toString())
 		pap.value = await ds.buscar_papeletas(prop.dni, prop.mes as number)
 		dc.value = await ds.buscar_docs(prop.dni, prop.mes as number)
-		console.log(dc.value)
 		load.value = !load.value
 	})
 
@@ -123,6 +116,10 @@
 		dc.value = await ds.buscar_docs(s.dni, s.mes as number)
 		minfo.value = DiasDelMes(s.mes as number, 2022)
 		load.value = !load.value
+	})
+
+	watchEffect(() => {
+		e('completed', load.value)
 	})
 
 	function DiasRegistros(dia: number): Array<any> {

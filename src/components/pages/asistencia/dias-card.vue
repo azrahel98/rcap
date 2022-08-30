@@ -118,11 +118,12 @@
 </script>
 <style lang="scss" scoped>
 	.d-card {
-		border: 0.01rem solid $color-info-dark;
 		border-radius: 10px;
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: auto auto 1fr;
+		grid-template-rows: 1fr auto-fill auto-fill;
+		height: 100%;
+		background-color: $color-white;
 		.d-day {
 			padding-top: 2px;
 			display: flex;
@@ -136,10 +137,12 @@
 		.d-reloj {
 			display: flex;
 			justify-content: space-around;
+			gap: 1vh;
 			flex-wrap: wrap;
 			color: gray;
+			height: min-content;
 			span {
-				font-weight: 600;
+				font-weight: 500;
 			}
 		}
 		.d-body {
@@ -148,6 +151,9 @@
 			justify-content: center;
 			align-items: center;
 			gap: 2px;
+			button {
+				padding: 0.5vh;
+			}
 			.d-pp {
 				display: flex;
 				flex-wrap: wrap;

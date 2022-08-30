@@ -22,7 +22,6 @@ export default class DocsImpl implements DocsRep {
 				}
 			  `
 			var data = await Client.query({ query, fetchPolicy: 'no-cache' })
-			console.log(data.data)
 			const result = [] as Doc[]
 			data.data.buscar_docs.forEach((e) => {
 				result.push({

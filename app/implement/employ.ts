@@ -41,7 +41,6 @@ export default class EmployImpl implements EmployRep {
 			})
 			return data
 		} catch (error) {
-			console.log(error)
 			return []
 		}
 	}

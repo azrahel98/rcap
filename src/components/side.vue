@@ -2,7 +2,7 @@
 	<aside>
 		<div class="top">
 			<div class="logo">
-				<h2>EGA<span class="danger">TOR</span></h2>
+				<h2>MVS<span class="danger">RCAP</span></h2>
 			</div>
 			<div class="close" id="close-btn">
 				<span class="material-icons" v-on:click="clicka">close</span>
@@ -31,6 +31,22 @@
 				<h3>Trabajadores</h3>
 			</router-link>
 
+			<br />
+			<br />
+			<br />
+
+			<router-link
+				v-on:click="clicka"
+				v-if="store.employs.length != 0"
+				v-for="x in store.employs"
+				:to="`/asistencia/${x.dni}`"
+				exact-active-class="active"
+				class="a-tag"
+				ref="a"
+			>
+				<span class="empl">{{ x.nombre }}</span>
+			</router-link>
+
 			<a>
 				<span class="material-icons">logout</span>
 				<h3>Logout</h3>
@@ -40,6 +56,10 @@
 </template>
 
 <script lang="ts" setup>
+	import { EmployStore } from '@store/employ'
+
+	const store = EmployStore()
+
 	const clicka = () => {
 		document.querySelector('aside').classList.toggle('open')
 	}
@@ -84,6 +104,11 @@
 				height: 3rem;
 				transition: all 300ms ease;
 				text-decoration: none;
+				.empl {
+					font-size: 0.5rem;
+					padding-right: 1vh;
+					margin: 0;
+				}
 				h3 {
 					font-size: 0.79rem;
 				}

@@ -67,13 +67,14 @@
 				}
 			}
 			.presult {
-				position: relative;
+				display: flex;
+				flex-wrap: wrap;
+				width: auto;
 				height: 100vh;
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(20vh, 1fr));
-				grid-template-rows: 29vh;
-				overflow-y: auto;
 				justify-content: center;
+				gap: 2vh;
+				padding-bottom: 13vh;
+				overflow-y: auto;
 				.car {
 					justify-self: center;
 				}

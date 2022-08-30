@@ -53,6 +53,7 @@
 				justify-content: space-between;
 				border-left: 0.1px solid $color-light;
 				margin-left: 2px;
+				padding-top: 4vh;
 			}
 			.rigth {
 				margin-top: 1.4rem;
@@ -96,6 +97,7 @@
 				grid-template-columns: 100%;
 				.main {
 					margin-top: 3.8rem;
+					padding: 0;
 				}
 				.rigth {
 					width: 100%;

@@ -3,7 +3,13 @@
 		<div class="cname">
 			<div class="avatar" :data-label="AbrevName()" />
 			<div class="ofname">
-				<router-link :to="`/asistencia/${propr.dni}`" class="link" tag="a"
+				<router-link
+					:to="`/asistencia/${propr.dni}`"
+					class="link"
+					tag="a"
+					@click="
+						() => emplostore.addEmploy({ dni: propr.dni, nombre: propr.nombre })
+					"
 					><h3>{{ propr.nombre }}</h3></router-link
 				>
 				<p>{{ propr.dni }}</p>
@@ -52,8 +58,10 @@
 	import Modal from './modal.vue'
 	import ModalM from './modal-m.vue'
 	import { ref } from 'vue'
+	import { EmployStore } from '@store/employ'
 
 	const isMemo = ref<any>(false)
+	const emplostore = EmployStore()
 
 	const propr = defineProps({
 		nombre: { required: true, type: String },
