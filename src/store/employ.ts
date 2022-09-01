@@ -8,7 +8,16 @@ export const EmployStore = defineStore('employ', {
 	},
 	actions: {
 		addEmploy(e: object) {
-			this.employs.push(e)
+			if (this.employs.length == 0) {
+				this.employs.push(e)
+				return
+			}
+			if (this.employs.length !== 0) {
+				if (this.employs.find((em) => em['dni'] == e['dni']) == undefined) {
+					this.employs.push(e)
+				}
+				return
+			}
 		},
 	},
 })

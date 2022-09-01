@@ -7,9 +7,7 @@
 					:to="`/asistencia/${propr.dni}`"
 					class="link"
 					tag="a"
-					@click="
-						() => emplostore.addEmploy({ dni: propr.dni, nombre: propr.nombre })
-					"
+					@click="addEmploySide"
 					><h3>{{ propr.nombre }}</h3></router-link
 				>
 				<p>{{ propr.dni }}</p>
@@ -82,6 +80,9 @@
 		return (
 			(initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
 		).toUpperCase()
+	}
+	function addEmploySide() {
+		emplostore.addEmploy({ nombre: propr.nombre, dni: propr.dni })
 	}
 </script>
 

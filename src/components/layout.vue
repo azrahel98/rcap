@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<div class="app">
 		<div class="menu-toggle" @click="click">
 			<div class="hamburger">
@@ -64,6 +64,7 @@
 		display: flex;
 		height: 100vh !important;
 		border-right: 0px solid gray;
+		background-color: red;
 	}
 	.menu-toggle {
 		display: none;
@@ -227,4 +228,4 @@
 			padding-bottom: 10vh;
 		}
 	}
-</style>
+</style> -->
