@@ -101,7 +101,7 @@
 				width: 100%;
 				align-items: center;
 				position: relative;
-				height: 3rem;
+				height: 2.3rem;
 				transition: all 300ms ease;
 				text-decoration: none;
 				.empl {

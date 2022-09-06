@@ -6,19 +6,21 @@
 				@completed="(e) => (prfl = e)"
 				:dni="router.currentRoute.value.params.dni.toString()"
 			/>
-			<div class="calaction">
-				<div class="mes">
-					<span class="material-icons" @click="before()"> arrow_back_ios </span>
-					<p>{{ getNameOfMonth(mesSeleccionado) }}</p>
-					<span class="material-icons" @click="next()">
-						arrow_forward_ios
-					</span>
-				</div>
-				<div class="year">
-					<h3>2022</h3>
-				</div>
-			</div>
 			<div class="cal">
+				<div class="calaction">
+					<div class="mes">
+						<span class="material-icons" @click="before()">
+							arrow_back_ios
+						</span>
+						<p>{{ getNameOfMonth(mesSeleccionado) }}</p>
+						<span class="material-icons" @click="next()">
+							arrow_forward_ios
+						</span>
+					</div>
+					<div class="year">
+						<h3>2022</h3>
+					</div>
+				</div>
 				<Calendar
 					:mes="mesSeleccionado"
 					:dni="router.currentRoute.value.params.dni.toString()"
@@ -39,66 +41,50 @@
 		align-items: center;
 		.body {
 			display: grid;
-			grid-template-rows: auto auto 1fr;
-			row-gap: 2vh;
+			grid-template-rows: 12vh auto;
+			row-gap: 4vh;
 			height: 100%;
 			width: 100%;
-			.calaction {
-				justify-self: center;
-				display: flex;
-				width: 100%;
-				max-width: 110vh;
-				align-items: center;
-				justify-content: space-around;
-				.mes {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					gap: 5vh;
+			align-items: flex-start;
 
-					p {
-						color: $color-dark;
-						font-weight: 600;
-						font-size: 1.2rem;
-					}
-					span {
-						color: $color-primary;
-						cursor: pointer;
-						font-size: 1.8rem;
-						font-weight: 600;
-					}
-				}
-				.year {
-					color: $color-dark;
-					h3 {
-						font-weight: 600;
-						font-size: 1.2em;
-						letter-spacing: 0.5vh;
-					}
-				}
-			}
 			.cal {
-				align-self: center;
+				align-self: flex-start;
 				justify-self: center;
 				width: 100%;
 				height: 100%;
-				max-width: 110vh;
+				max-width: 90vh;
 				padding-bottom: 5vh;
-			}
+				.calaction {
+					display: flex;
+					max-width: 90vh;
+					align-items: center;
+					justify-content: space-around;
+					padding-bottom: 1vh;
+					.mes {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						gap: 5vh;
 
-			.meses {
-				display: flex;
-				gap: 3vh;
-				justify-content: center;
-				flex-wrap: wrap;
-				.radiob {
-					input {
-						accent-color: $color-primary;
+						p {
+							color: $color-dark;
+							font-weight: 600;
+							font-size: 1.2rem;
+						}
+						span {
+							color: $color-primary;
+							cursor: pointer;
+							font-size: 1.8rem;
+							font-weight: 600;
+						}
 					}
-					label {
-						font-size: 0.8rem;
-						padding-left: 0.3vh;
-						font-weight: 500;
+					.year {
+						color: $color-dark;
+						h3 {
+							font-weight: 600;
+							font-size: 1.2em;
+							letter-spacing: 0.5vh;
+						}
 					}
 				}
 			}

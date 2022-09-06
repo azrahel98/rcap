@@ -47,7 +47,7 @@
 			h6 {
 				text-align: center;
 			}
-			height: 5vh;
+			height: 3.4vh;
 		}
 		.d-dias {
 			border: 1px solid $color-white;

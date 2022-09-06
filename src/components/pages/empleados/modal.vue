@@ -10,19 +10,11 @@
 			<div class="modal-content">
 				<div class="modal-header" v-if="prop.papeleta == undefined">
 					<div class="title">
-						<h5 class="modal-title">
+						<h5>
 							{{ prop.nombre }}
 						</h5>
 						<h6>{{ prop.cargo }}</h6>
 					</div>
-					<button
-						type="button"
-						class="btn close"
-						data-dismiss="modal"
-						aria-label="Close"
-					>
-						<span aria-hidden="true">&times;</span>
-					</button>
 				</div>
 				<div class="modal-body">
 					<div class="input-group mb-3">
@@ -178,7 +170,28 @@
 			grid-template-columns: 1fr;
 			background-color: white;
 			border-radius: 15px;
-			padding: 6px;
+			padding: 1vh;
+			row-gap: 2vh;
+
+			.modal-header {
+				border: none;
+				.title {
+					display: flex;
+					flex-wrap: wrap;
+					width: 100%;
+					gap: 2vh;
+					justify-content: space-around;
+					align-items: center;
+					h5 {
+						font-size: 1.4rem;
+						font-weight: 600;
+					}
+					h6 {
+						font-weight: 500;
+						color: $color-dark-variant;
+					}
+				}
+			}
 			.modal-body {
 				display: grid;
 				grid-template-columns: repeat(2, minmax(10vh, 1fr));

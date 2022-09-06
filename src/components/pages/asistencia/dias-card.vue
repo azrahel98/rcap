@@ -2,45 +2,47 @@
 	<div class="d-card">
 		<div class="d-day">
 			<h5>{{ prop.day }}</h5>
-		</div>
-		<div class="d-reloj">
-			<span v-for="x in asis">{{ x['marca'] }}</span>
+			<div class="d-reloj">
+				<span v-for="x in asis">{{ x['marca'] }}</span>
+			</div>
 		</div>
 		<div class="d-body">
-			<div class="d-pp">
-				<div v-for="p in prop.papeletas">
+			<div class="pp">
+				<div class="list-p" v-for="(d, e) in prop.papeletas">
 					<button
-						class="badge rounded-pill bg-primary"
-						:id="`popover-target-${p['nombre']}`"
+						class="badge rounded-pill"
+						:id="`ppver-pp-${d['nombre']}`"
 						:style="{
-							backgroundColor: AbrevPermisoP(p['tipoP'])[1] + '!important',
+							backgroundColor: AbrevPermisoP(d['tipoP'])[1] + '!important',
 						}"
 					>
-						{{ AbrevPermisoP(p['tipoP'])[0] }}
+						{{ AbrevPermisoP(d['tipoP'])[0] }}
 					</button>
 					<b-popover
-						:target="`popover-target-${p['nombre']}`"
+						:target="`ppver-pp-${d['nombre']}`"
 						triggers="focus"
 						placement="top"
-						class="poppover"
 					>
 						<div class="po-p">
-							<div class="p-top">
-								<h6>Papeleta #{{ p['nombre'] }}</h6>
-								<span> {{ p['detalle'] }}</span>
+							<div class="ppn">
+								<span>{{ d['nombre'] }}</span>
+								<p>{{ d['fecha'] }}</p>
 							</div>
-							<div class="p-bt">
-								<p>{{ p['descrip'] }}</p>
+							<div class="ppbdy">
+								<p>{{ d['descrip'] }}</p>
+							</div>
+							<div class="ppft">
+								<span>{{ d['detalle'] }}</span>
 							</div>
 						</div>
 					</b-popover>
 				</div>
 			</div>
-			<div class="d-dd">
-				<div v-for="d in prop.docs">
+			<div class="mm">
+				<div class="list-p" v-for="(d, e) in prop.docs">
 					<button
-						class="badge rounded-pill bg-primary"
-						:id="`popover-target-${d['id']}`"
+						class="badge rounded-pill"
+						:id="`ppver-dd-${d['id']}`"
 						:style="{
 							backgroundColor: AbrevPermisoP(d['permiso'])[1] + '!important',
 						}"
@@ -48,59 +50,63 @@
 						{{ AbrevPermisoP(d['permiso'])[0] }}
 					</button>
 					<b-popover
-						:target="`popover-target-${d['id']}`"
+						:target="`ppver-dd-${d['id']}`"
 						triggers="focus"
 						placement="top"
 					>
 						<div class="po-p">
-							<div class="p-top">
-								<h6>#{{ d['doc'] }}</h6>
-								<span> {{ d['permiso'] }}</span>
+							<div class="ppn">
+								<span>{{ d['doc'] }}</span>
+								<span>{{ d['tipo'] }}</span>
 							</div>
-							<div class="p-bt">
+							<div class="ppbdy">
 								<p>{{ d['descrip'] }}</p>
+							</div>
+							<div class="ppft">
+								<p>{{ d['fecha'] }}</p>
 							</div>
 						</div>
 					</b-popover>
 				</div>
-				<div v-if="prop.rangd.length > 0">
-					<div v-for="r in prop.rangd">
-						<button
-							class="badge rounded-pill bg-primary"
-							:id="`rpopover-${r['id']}${prop.day}`"
-							:style="{
-								backgroundColor: AbrevPermisoP(r['permiso'])[1] + '!important',
-							}"
-						>
-							{{ AbrevPermisoP(r['permiso'])[0] }}
-						</button>
-						<b-popover
-							:target="`rpopover-${r['id']}${prop.day}`"
-							triggers="focus"
-							placement="top"
-						>
-							<div class="po-p">
-								<div class="p-top">
-									<h6>#{{ r['doc'] }}</h6>
-									<span> {{ r['permiso'] }}</span>
-								</div>
-								<div class="p-bt">
-									<p>{{ r['descrip'] }}</p>
-									<p>{{ r['Inicio'] }} hasta {{ r['Fin'] }}</p>
-								</div>
+			</div>
+			<div class="rng">
+				<div class="list-p" v-for="(d, e) in prop.rangd">
+					<button
+						class="badge rounded-pill"
+						:id="`ppver-ddr-${d['id']}-${prop.day}`"
+						:style="{
+							backgroundColor: AbrevPermisoP(d['permiso'])[1] + '!important',
+						}"
+					>
+						{{ AbrevPermisoP(d['permiso'])[0] }}
+					</button>
+					<b-popover
+						:target="`ppver-ddr-${d['id']}-${prop.day}`"
+						triggers="focus"
+						placement="top"
+					>
+						<div class="po-p">
+							<div class="ppn">
+								<span>{{ d['doc'] }}</span>
+								<span>{{ d['tipo'] }}</span>
 							</div>
-						</b-popover>
-					</div>
+							<div class="ppbdy">
+								<p>{{ d['descrip'] }}</p>
+							</div>
+							<div class="ppft">
+								<p>{{ d['fecha'] }}</p>
+							</div>
+						</div>
+					</b-popover>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-	import { AbrevPermisoP } from '../../../tools/calendar'
-	import { BPopover } from 'bootstrap-vue-3'
 	import { ref } from 'vue'
-
+	import { BPopover } from 'bootstrap-vue-3'
+	import { AbrevPermisoP } from '../../../tools/calendar'
 	const prop = defineProps({
 		day: { type: Number, required: true },
 		list: { required: false },
@@ -125,55 +131,56 @@
 		height: 100%;
 		background-color: $color-white;
 		.d-day {
-			padding-top: 2px;
 			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-evenly;
-
-			h5 {
-				color: $color-dark;
-			}
-		}
-		.d-reloj {
-			display: flex;
-			justify-content: space-around;
-			gap: 1vh;
-			flex-wrap: wrap;
-			color: gray;
-			height: min-content;
-			span {
-				font-weight: 500;
-			}
-		}
-		.d-body {
-			display: flex;
-			flex-wrap: wrap;
 			justify-content: center;
 			align-items: center;
-			gap: 2px;
-			button {
-				padding: 0.5vh;
+			flex-wrap: wrap;
+			height: min-content;
+			h5 {
+				width: 60%;
+				color: $color-dark;
+				font-size: 1rem;
+				font-weight: 500;
+				text-align: center;
 			}
-			.d-pp {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 3px;
-				span {
-					height: max-content;
-					box-shadow: none;
-					cursor: pointer;
-				}
-			}
-			.d-dd {
+			.d-reloj {
+				width: min-content;
 				display: flex;
 				justify-content: space-around;
+				gap: 1vh;
 				flex-wrap: wrap;
-				gap: 2vh;
-				div {
-					span {
-						height: max-content;
-						box-shadow: none;
-						cursor: pointer;
+				color: gray;
+				height: min-content;
+				width: min-content-;
+				span {
+					font-weight: 500;
+				}
+			}
+		}
+
+		.d-body {
+			.list-p {
+				button {
+					padding: 0.5vh;
+					font-size: 0.7rem !important;
+					font-weight: 600;
+				}
+			}
+			.pp,
+			.mm,
+			.rng {
+				display: flex;
+				width: 100%;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 1vh;
+			}
+			.mm {
+				.list-p {
+					button {
+						color: $color-info-light;
+						font-weight: 700;
+						opacity: 0.6;
 					}
 				}
 			}
@@ -185,6 +192,13 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		.ppn {
+			display: flex;
+			gap: 2vh;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 </style>
 
@@ -193,7 +207,8 @@
 		display: none;
 	}
 	.popover {
-		background: rgba(255, 255, 255, 0.65);
-		backdrop-filter: blur(10px);
+		background: $color-info-light;
+		backdrop-filter: blur(05px);
+		border: none;
 	}
 </style>

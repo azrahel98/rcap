@@ -1,9 +1,11 @@
 <template>
 	<div class="profile">
-		<div class="avatar" :data-label="abrev" />
-		<div class="personal">
-			<h1>{{ employ.nombre }}</h1>
-			<span>{{ employ.dni }}</span>
+		<div class="prof">
+			<div class="avatar" :data-label="abrev" />
+			<div class="personal">
+				<h1>{{ employ.nombre }}</h1>
+				<span>{{ employ.dni }}</span>
+			</div>
 		</div>
 		<div class="cargo">
 			<span>{{ employ.area }}</span>
@@ -57,39 +59,58 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		gap: 2vh;
 		span {
 			color: $color-info-dark;
 			font-weight: 600;
 		}
-		.avatar {
-			width: 10vh;
-			height: 10vh;
-			border-radius: 50%;
-			background-color: $color-primary;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-		}
-		::after {
-			content: attr(data-label);
-			color: $color-white;
-			font-weight: 600;
-		}
-		.personal {
+		.prof {
 			display: flex;
-			flex-direction: column;
 			align-items: center;
-			h1 {
-				font-size: 1.8rem;
-				font-weight: 700;
-				color: $color-dark;
-			}
-		}
-		.cargo {
-			display: flex;
 			gap: 2vh;
 			flex-wrap: wrap;
-			color: $color-dark;
+			width: 100%;
+			justify-content: center;
+			.avatar {
+				width: 5vh;
+				height: 5vh;
+				border-radius: 50%;
+				background-color: $color-primary;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+			::after {
+				content: attr(data-label);
+				color: $color-white;
+				font-size: 1rem;
+				font-weight: 600;
+			}
+			.personal {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding-top: 2vh;
+				padding-right: 1vh;
+				h1 {
+					font-size: 1.2rem;
+					font-weight: 700;
+					color: $color-dark;
+				}
+			}
+		}
+
+		.cargo {
+			display: flex;
+			width: 100%;
+			justify-content: space-around;
+			align-items: center;
+			span {
+				width: auto;
+			}
 		}
 	}
 </style>

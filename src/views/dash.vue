@@ -51,7 +51,7 @@
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
-				border-left: 0.1px solid $color-light;
+				border-left: 5px solid $color-light;
 				margin-left: 2px;
 				padding-top: 4vh;
 			}
