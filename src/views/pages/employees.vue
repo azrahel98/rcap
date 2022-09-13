@@ -58,7 +58,6 @@
 		height: 100% !important;
 		grid-template-rows: auto 1fr;
 		width: 100%;
-		height: 100vh;
 		.pbody {
 			padding-top: 2vh;
 			.psearching {
