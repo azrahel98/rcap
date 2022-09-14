@@ -1,137 +1,122 @@
 <template>
 	<div class="appi">
-		<div class="asist" v-if="!isLoading">
-			<Infor :employ="employ" class="employ" />
-			<div class="dash">
-				<Meses class="mes" @change="(x) => (mesSeleccionado = x)" />
-				<div class="tablaas" v-if="mesSeleccionado != null">
-					<Vue3Lottie
-						class="nullable"
-						v-if="searching"
-						animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
-					/>
-					<Taback
-						v-else
-						:mes="mesSeleccionado"
-						class="back"
-						:papeletas="papeletas"
-						:marcaciones="marcaciones"
-						:docs="docss"
-					/>
+		<div class="body" v-show="prfl !== undefined">
+			<Profile
+				class="profile"
+				@completed="(e) => (prfl = e)"
+				:dni="router.currentRoute.value.params.dni.toString()"
+			/>
+			<div class="cal">
+				<div class="calaction">
+					<div class="mes">
+						<span class="material-icons" @click="before()">
+							arrow_back_ios
+						</span>
+						<p>{{ getNameOfMonth(mesSeleccionado) }}</p>
+						<span class="material-icons" @click="next()">
+							arrow_forward_ios
+						</span>
+					</div>
+					<div class="year">
+						<h3>2022</h3>
+					</div>
 				</div>
-				<Vue3Lottie
-					class="empty"
-					v-else
-					animationLink="https://assets3.lottiefiles.com/private_files/lf30_e3pteeho.json"
+				<Calendar
+					:mes="mesSeleccionado"
+					:dni="router.currentRoute.value.params.dni.toString()"
 				/>
 			</div>
 		</div>
-		<div class="loading" v-else><Loading /></div>
+		<Loadpure></Loadpure>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 	.appi {
-		.asist {
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		.body {
 			display: grid;
-			grid-template-rows: auto-fill 1fr;
-			gap: 4vh;
-			.employ {
-				max-height: min-content;
-			}
-			.dash {
-				display: grid;
-				grid-template-rows: auto-fill 1fr;
-				gap: 2vh;
-				.mes {
-					height: min-content;
-				}
-				.tablaas {
-					display: flex;
-					height: 100%;
-					flex-wrap: wrap;
-					align-items: flex-start;
-					gap: 2vh;
-					justify-content: center;
-					.nullable {
-						height: 30vh;
-					}
-					.back {
-						width: 100%;
-						height: 100%;
-					}
-				}
-				.empty {
-					height: 50%;
-				}
-			}
-		}
-		.loading {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			grid-template-rows: 12vh auto;
+			row-gap: 4vh;
 			height: 100%;
+			width: 100%;
+			align-items: flex-start;
+
+			.cal {
+				align-self: flex-start;
+				justify-self: center;
+				width: 100%;
+				height: 100%;
+				max-width: 90vh;
+				padding-bottom: 5vh;
+				.calaction {
+					display: flex;
+					max-width: 90vh;
+					align-items: center;
+					justify-content: space-around;
+					padding-bottom: 1vh;
+					.mes {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						gap: 5vh;
+
+						p {
+							color: $color-dark;
+							font-weight: 600;
+							font-size: 1.2rem;
+						}
+						span {
+							color: $color-primary;
+							cursor: pointer;
+							font-size: 1.8rem;
+							font-weight: 600;
+						}
+					}
+					.year {
+						color: $color-dark;
+						h3 {
+							font-weight: 600;
+							font-size: 1.2em;
+							letter-spacing: 0.5vh;
+						}
+					}
+				}
+			}
 		}
 	}
 </style>
 
 <script lang="ts" setup>
-	import { Vue3Lottie } from 'vue3-lottie'
-	import { onMounted, ref, watchEffect } from 'vue'
+	import Calendar from '@com/pages/asistencia/calendar.vue'
+	import { ref } from 'vue'
 	import router from '../../router/router'
+	import Profile from '@com/pages/asistencia/profile.vue'
+	import Loadpure from '@com/loading/loadpure.vue'
 
-	import EmployImpl from '@/implement/employ'
-	import DocsImpl from '@/implement/docs'
-	import { Employ } from '@/models/employ'
+	import { getNameOfMonth } from '../../tools/date'
 
-	import { AsistenciaDetalle } from '@/models/asistencia'
-	import { Doc, Papeleta } from '@/models/documents'
+	const mesACtu = () => {
+		var dt = new Date()
+		return dt.getMonth() + 1
+	}
+	const mesSeleccionado = ref(mesACtu())
+	const prfl = ref()
 
-	import Loading from '@com/loading/loading.vue'
-	import Meses from '@com/pages/asist/meses.vue'
-	import Taback from '@com/pages/asist/taback.vue'
-	import { EmployStore } from '@store/employ'
-	import Infor from '@com/pages/asist/name/infor.vue'
-
-	const impl = new EmployImpl()
-	const employImp = new EmployImpl()
-	const docs = new DocsImpl()
-	const storempl = EmployStore()
-
-	const employ = ref<Employ>({})
-	const marcaciones = ref<AsistenciaDetalle[]>([])
-	const papeletas = ref<Papeleta[]>([])
-	const docss = ref<Doc[]>([])
-
-	const mesSeleccionado = ref<number>()
-
-	const isLoading = ref(true)
-	const searching = ref(true)
-
-	onMounted(async () => {
-		employ.value = await impl.buscar_pordni(
-			router.currentRoute.value.params.dni.toString()
-		)
-		storempl.changeDni(router.currentRoute.value.params.dni.toString())
-		isLoading.value = !isLoading.value
-	})
-
-	watchEffect(async () => {
-		if (mesSeleccionado.value !== undefined) {
-			searching.value = true
-			marcaciones.value = await employImp.buscar_asistencia(
-				employ.value.dni,
-				mesSeleccionado.value.toString()
-			)
-			papeletas.value = await docs.buscar_papeletas(
-				employ.value.dni,
-				mesSeleccionado.value
-			)
-			docss.value = await docs.buscar_docs(
-				employ.value.dni,
-				mesSeleccionado.value
-			)
-			searching.value = false
+	function before() {
+		if (mesSeleccionado.value >= 2) {
+			--mesSeleccionado.value
 		}
-	})
+	}
+
+	function next() {
+		if (mesSeleccionado.value <= 11) {
+			++mesSeleccionado.value
+		}
+	}
 </script>

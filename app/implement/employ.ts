@@ -14,7 +14,7 @@ export default class EmployImpl implements EmployRep {
 			var query = gql`
 				query  {
 					buscar_asistencia(dni: "${dni}", mes: ${mes}) {
-						fecha
+						fecha 
 						hora
 					}
 				}
@@ -78,13 +78,21 @@ export default class EmployImpl implements EmployRep {
                     nombre
                     cargo
                     dni
+					area
+					ingreso
                 }
             }
               `
 			const result = await Client.query({ query })
 			const data = [] as Employ[]
 			result.data.empleados_search.forEach((e) => {
-				data.push({ cargo: e.cargo, dni: e.dni, nombre: e.nombre })
+				data.push({
+					cargo: e.cargo,
+					dni: e.dni,
+					nombre: e.nombre,
+					area: e.area,
+					ingreso: e.ingreso,
+				})
 			})
 			return data
 		} catch (error) {

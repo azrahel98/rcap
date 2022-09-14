@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
-const p = path.resolve(__dirname, '.')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,6 +16,10 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: [
+			{
+				find: '@boostrap',
+				replacement: path.resolve(__dirname, './node_modules/bootstrap'),
+			},
 			{ find: '@', replacement: path.resolve(__dirname, './app') },
 			{
 				find: '@com',

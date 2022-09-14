@@ -1,12 +1,23 @@
 import { defineStore } from 'pinia'
 
 export const EmployStore = defineStore('employ', {
-	state: (): any => ({
-		dni: '',
-	}),
+	state: () => {
+		return {
+			employs: [],
+		}
+	},
 	actions: {
-		changeDni(ndni: string) {
-			this.dni = ndni
+		addEmploy(e: object) {
+			if (this.employs.length == 0) {
+				this.employs.push(e)
+				return
+			}
+			if (this.employs.length !== 0) {
+				if (this.employs.find((em) => em['dni'] == e['dni']) == undefined) {
+					this.employs.push(e)
+				}
+				return
+			}
 		},
 	},
 })

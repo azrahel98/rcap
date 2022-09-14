@@ -1,97 +1,115 @@
 <template>
-	<div class="modal is-active">
-		<div class="modal-background"></div>
-		<div class="modal-content" v-click-outside="out">
-			<div class="empleado">
-				<div class="nombre">
-					<h4 class="name">{{ prop.nombre }}</h4>
-					<h4>{{ prop.cargo }}</h4>
-				</div>
-				<p class="subtitle is-6">PAPELETA</p>
-				<button class="delete" aria-label="close" @click="close"></button>
-			</div>
-			<div class="form">
-				<div class="left">
-					<div class="permisos">
-						<label class="select" for="slct"
-							><select id="slct" v-model="tipoper">
-								<option value="JUSTIFICADO">Justificado</option>
-								<option value="DF">Descanso Fisico</option>
-								<option value="AC">A cuenta</option>
-								<option value="DFXHEL">Por horas Extras</option>
-								<option value="OMISION">Omision</option>
-								<option value="ONOMASTICO">Onomastico</option>
-							</select></label
-						><svg class="sprites"></svg>
+	<div
+		class="modal fade"
+		:id="`p${prop.dni}`"
+		tabindex="-1"
+		role="dialog"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header" v-if="prop.papeleta == undefined">
+					<div class="title">
+						<h5>
+							{{ prop.nombre }}
+						</h5>
+						<h6>{{ prop.cargo }}</h6>
 					</div>
+<<<<<<< HEAD
 					<v-date-picker mode="date" v-model="date" class="calendario-picker">
 					</v-date-picker>
+=======
+>>>>>>> fa2f878648d5b3ded060d02560b06b8c8d32bacf
 				</div>
-				<div class="other">
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<select
+							class="custom-select"
+							id="inputGroupSelect04"
+							v-model="tipoper"
+						>
+							<option value="JUSTIFICADO">Justificado</option>
+							<option value="DF">Descanso Fisico</option>
+							<option value="AC">A cuenta</option>
+							<option value="DFXHEL">Por horas Extras</option>
+							<option value="OMISION">Omision</option>
+							<option value="ONOMASTICO">Onomastico</option>
+						</select>
+					</div>
 					<input
-						class="input is-small is-rounded papeleta"
+						class="input papeleta"
 						type="number"
 						min="4000"
 						v-model="papeleta"
 						placeholder="# PAPELETA"
 					/>
+					<v-date-picker mode="date" v-model="date" />
 					<div class="field">
 						<div class="control">
 							<textarea
+								spellcheck="false"
 								class="textarea"
 								placeholder="Descripcion"
 								v-model="descrip"
 							></textarea>
 						</div>
-					</div>
-					<div class="detalle">
-						<input
-							class="input is-small details"
-							type="text"
-							v-model="detalle"
-							placeholder="Detalle"
-						/>
-						<label class="checkbox">
+						<div class="detalle">
 							<input
-								type="checkbox"
-								v-model="conretorno"
-								@keyup.enter="clickRetorno"
+								class="input papeleta"
+								type="text"
+								v-model="detalle"
+								placeholder="Detalle"
 							/>
-							Regreso?
-						</label>
+							<label class="checkbox">
+								<input
+									type="checkbox"
+									v-model="conretorno"
+									@keyup.enter="clickRetorno"
+								/>
+								Regreso?
+							</label>
+						</div>
 					</div>
+
 					<div class="botones">
 						<button
-							class="button"
+							class="btn"
 							@click="guardar"
 							:class="isLoading ? 'is-loding' : ''"
+							v-if="prop.papeleta == undefined"
 						>
 							Guardar
 						</button>
-						<p class="help" :class="isError ? 'is-danger' : 'is-success'">
+						<button class="btn" :class="isLoading ? 'is-loding' : ''" v-else>
+							Update
+						</button>
+						<div class="alert alert-warning" role="alert" v-if="isError">
 							{{ message }}
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
+|
 <script lang="ts" setup>
 	import { isNumber } from 'lodash'
 	import 'v-calendar/dist/style.css'
-	import { ref, watchEffect } from 'vue'
+	import { ref } from 'vue'
 	import DocsImpl from '../../../../app/implement/docs'
 	import { ConverDateToString, CheckIsEmpty } from '../../../../app/tools/doc'
+	import { createToast, withProps } from 'xdf-vue-toastify'
+	import 'xdf-vue-toastify/dist/style.css'
 
 	const doc = new DocsImpl()
 	const prop = defineProps({
 		nombre: { required: true, type: String },
-		cargo: { required: true, type: String },
+		cargo: { type: String },
 		dni: { required: true, type: String },
+		papeleta: { required: false },
 	})
-	const outclick = ref(true)
+
 	const isLoading = ref(false)
 	const isError = ref(false)
 	const message = ref<string>('')
@@ -102,6 +120,8 @@
 	const descrip = ref<string>('')
 	const detalle = ref<string>('')
 	const conretorno = ref(false)
+
+	isUpdate()
 
 	const guardar = async () => {
 		if (CheckIsEmpty(descrip.value, detalle.value)) {
@@ -116,172 +136,144 @@
 				detalle: detalle.value,
 			})
 			isLoading.value = false
-			isError.value = false
+			isError.value = true
 			if (isNumber(id)) {
 				message.value = `El ultimo registro Guardado fue ${id}`
+				createToast(message.value)
 			}
 		} else {
 			isError.value = true
 			message.value = 'Campos vacios'
+			createToast(message.value)
 		}
 	}
-
-	watchEffect(() => {
-		if (descrip.value.length > 2) {
-			outclick.value = false
-		}
-	})
 
 	const clickRetorno = () => {
 		conretorno.value = !conretorno.value
 	}
 
-	var clickz: number = 0
-	const e = defineEmits(['change'])
-	const close = () => {
-		e('change', false)
-	}
-
-	const out = () => {
-		clickz++
-
-		if (clickz > 1 && outclick.value) {
-			close()
+	function isUpdate() {
+		if (prop.papeleta !== undefined) {
+			tipoper.value = prop.papeleta['tipoP']
+			date.value = new Date(
+				new Date(prop.papeleta['fecha']).getTime() + 86400000
+			)
+			descrip.value = prop.papeleta['descrip']
+			detalle.value = prop.papeleta['detalle']
+			papeleta.value = prop.papeleta['nombre']
 		}
 	}
 </script>
 <style lang="scss" scoped>
-	textarea,
-	input {
-		font-family: 'Ubuntu Mono', sans-serif;
-		font-weight: 600;
-	}
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
-	.modal-content {
-		background-color: white;
-		border-radius: 15px;
+	.modal-dialog {
+		max-width: auto;
+		margin-left: auto;
+		margin-right: auto;
+		.modal-content {
+			display: grid;
+			grid-template-rows: auto auto auto;
+			grid-template-columns: 1fr;
+			background-color: white;
+			border-radius: 15px;
+			padding: 1vh;
+			row-gap: 2vh;
 
-		.form {
-			display: flex;
-			align-items: center;
-			padding-bottom: 2vh;
-			padding-top: 1vh;
-			padding-right: 1vh;
-			height: 100%;
-			.left {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 3vh;
-				height: 100%;
-				width: 100%;
-			}
-			.other {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 3vh;
-				height: 100%;
-				width: 100%;
-				.detalle {
+			.modal-header {
+				border: none;
+				.title {
 					display: flex;
-					justify-content: space-around;
+					flex-wrap: wrap;
+					width: 100%;
 					gap: 2vh;
+					justify-content: space-around;
 					align-items: center;
+					h5 {
+						font-size: 1.4rem;
+						font-weight: 600;
+					}
+					h6 {
+						font-weight: 500;
+						color: $color-dark-variant;
+					}
 				}
-				.field {
-					width: 80%;
-				}
-				.details {
-					width: max-content;
+			}
+			.modal-body {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(10vh, 1fr));
+				row-gap: 0.5vh;
+				column-gap: 5vh;
+				font-size: 0.85rem;
+				label {
+					align-self: center;
+					justify-self: center;
+					border: none;
+					select,
+					option {
+						border: none;
+						outline: 0;
+					}
+					:active,
+					:focus,
+					:before,
+					:after,
+					:target {
+						border: none;
+						outline: 0;
+					}
 				}
 				.papeleta {
+					height: min-content;
+					outline: 0;
+					border: 1px solid $alternative;
+					border-radius: 25px;
 					text-align: center;
-					width: 40%;
+					font-family: 'Roboto';
+					font-weight: 400;
 				}
-			}
-			.select {
-				position: relative;
-				min-width: 200px;
-				svg {
-					position: absolute;
-					right: 12px;
-					top: calc(50% - 3px);
-					width: 10px;
-					height: 6px;
-					stroke-width: 2px;
-					stroke: #9098a9;
-					fill: none;
-					stroke-linecap: round;
-					stroke-linejoin: round;
-					pointer-events: none;
-				}
-				select {
-					-webkit-appearance: none;
-					padding: 7px 40px 7px 12px;
-					width: 100%;
-					border: 1px solid #e8eaed;
-					border-radius: 5px;
-					background: #fff;
-					box-shadow: 0 1px 3px -2px #9098a9;
-					cursor: pointer;
-					font-family: inherit;
-					font-size: 16px;
-					transition: all 150ms ease;
-					&:required {
-						&:invalid {
-							color: #5a667f;
-						}
-					}
-					option {
-						color: #223254;
-					}
-					option[value=''][disabled] {
-						display: none;
-					}
-					&:focus {
-						outline: none;
-						border-color: #07f;
-						box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
-					}
-					&:hover {
-						& + svg {
-							stroke: #07f;
+				.field {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					height: 100%;
+					gap: 3vh;
+					.control {
+						height: 80%;
+						.textarea {
+							width: 100%;
+							height: 100%;
+							border: 1px solid $alternative;
+							outline: 0;
+							font-weight: 500;
+							text-align: center;
 						}
 					}
 				}
-			}
-			.sprites {
-				position: absolute;
-				width: 0;
-				height: 0;
-				pointer-events: none;
-				user-select: none;
-			}
-		}
-		.empleado {
-			display: flex;
-			width: 100%;
-			padding: 1vh 2vh 0 2vh;
-			justify-content: space-between;
-			align-items: center;
-			.nombre {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				justify-content: center;
-				gap: 1vh;
-				.name {
-					font-size: 1rem;
-					font-weight: 600;
+
+				.detalle {
+					display: flex;
+					justify-content: center;
+					align-items: flex-start;
+					gap: 2vh;
+
+					input {
+						text-align: center;
+						outline: 0;
+					}
 				}
-				h4 {
-					font-size: 0.7rem;
-					font-weight: 500;
+
+				.botones {
+					grid-column: 3 /1;
+					align-self: center;
+					justify-self: center;
+					display: flex;
+					justify-content: center;
+					flex-direction: column;
+					align-items: center;
+					gap: 2vh;
+					padding-top: 2vh;
+					button {
+						width: max-content;
+					}
 				}
 			}
 		}
