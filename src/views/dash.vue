@@ -187,14 +187,6 @@
 		height: auto;
 	}
 
-	main {
-		height: 100%;
-		padding: 0;
-		margin: 0;
-		padding-top: 7vh;
-	}
-
-	/*========== HEADER ==========*/
 	.header {
 		position: fixed;
 		top: 0;
@@ -397,6 +389,9 @@
 	@media screen and (min-width: 768px) {
 		body {
 			padding: 1rem 3rem 0 6rem;
+		}
+		main {
+			margin-left: 5vh;
 		}
 		.header {
 			padding: 0 3rem 0 6rem;

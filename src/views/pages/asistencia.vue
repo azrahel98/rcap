@@ -1,6 +1,6 @@
 <template>
 	<div class="appi">
-		<div class="body" v-show="prfl !== undefined">
+		<div class="body">
 			<Profile
 				class="profile"
 				@completed="(e) => (prfl = e)"
@@ -22,70 +22,33 @@
 					</div>
 				</div>
 				<Calendar
+					class="calendario"
 					:mes="mesSeleccionado"
 					:dni="router.currentRoute.value.params.dni.toString()"
 				/>
 			</div>
 		</div>
-		<Loadpure></Loadpure>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 	.appi {
 		width: 100%;
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
 		.body {
-			display: grid;
-			grid-template-rows: 12vh auto;
-			row-gap: 4vh;
-			height: 100%;
-			width: 100%;
-			align-items: flex-start;
-
+			display: flex;
+			flex-direction: column;
+			gap: 4vh;
 			.cal {
-				align-self: flex-start;
-				justify-self: center;
-				width: 100%;
-				height: 100%;
-				max-width: 90vh;
-				padding-bottom: 5vh;
 				.calaction {
 					display: flex;
-					max-width: 90vh;
-					align-items: center;
 					justify-content: space-around;
-					padding-bottom: 1vh;
 					.mes {
 						display: flex;
-						align-items: center;
-						justify-content: center;
-						gap: 5vh;
-
-						p {
-							color: $color-dark;
-							font-weight: 600;
-							font-size: 1.2rem;
-						}
-						span {
-							color: $color-primary;
-							cursor: pointer;
-							font-size: 1.8rem;
-							font-weight: 600;
-						}
+						font-weight: 600;
 					}
-					.year {
-						color: $color-dark;
-						h3 {
-							font-weight: 600;
-							font-size: 1.2em;
-							letter-spacing: 0.5vh;
-						}
-					}
+				}
+				.calendario {
+					width: 100%;
 				}
 			}
 		}
