@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-
-import LoginImp from '../../app/implement/login'
+import { LoginImp } from '../../app/implement/loginImp'
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -8,7 +7,7 @@ const routes: RouteRecordRaw[] = [
 		name: 'login',
 		path: '/login',
 		beforeEnter: (to, from, next) => {
-			const loged = new LoginImp().ckeck()
+			const loged = new LoginImp().check()
 			if (loged) {
 				next('/')
 				return
@@ -17,11 +16,11 @@ const routes: RouteRecordRaw[] = [
 		},
 	},
 	{
-		component: () => import('../views/dash.vue'),
+		component: () => import('../views/root.vue'),
 		name: 'dash',
 		path: '/',
 		beforeEnter: (to, from, next) => {
-			const loged = new LoginImp().ckeck()
+			const loged = new LoginImp().check()
 			if (!loged) {
 				next('/login')
 				return
@@ -30,17 +29,17 @@ const routes: RouteRecordRaw[] = [
 		},
 		children: [
 			{
-				component: () => import('../views/pages/home.vue'),
+				component: () => import('../views/pages/search.vue'),
 				name: 'home',
 				path: '/',
 			},
 			{
-				component: () => import('../views/pages/employees.vue'),
-				name: 'employees',
-				path: '/employees',
+				component: () => import('../views/pages/employ.vue'),
+				name: 'employ',
+				path: '/employ',
 			},
 			{
-				component: () => import('../views/pages/asistencia.vue'),
+				component: () => import('../views/pages/detail.vue'),
 				name: 'asistencia',
 				path: '/asistencia/:dni',
 				props: true,

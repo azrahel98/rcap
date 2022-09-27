@@ -29,6 +29,10 @@ export default defineConfig({
 				find: '@store',
 				replacement: path.resolve(__dirname, './src/store'),
 			},
+			{
+				find: '@app/imp',
+				replacement: path.resolve(__dirname, './app/implement'),
+			},
 		],
 	},
 	plugins: [vue()],
