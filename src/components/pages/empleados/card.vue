@@ -49,6 +49,7 @@
 			</button>
 		</div>
 		<ModalP :dni="propr.dni" />
+		<Mm :dni="propr.dni" />
 	</div>
 </template>
 
@@ -58,6 +59,7 @@
 	import { Employ } from '@/model/employs'
 	import moment from 'moment'
 	import ModalP from '@com/modal/pp.vue'
+	import Mm from '@com/modal/mm.vue'
 
 	const isMemo = ref<any>(false)
 	const emplostore = EmployStore()
@@ -90,7 +92,6 @@
 	}
 	input::-webkit-outer-spin-button,
 	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
 		margin: 0;
 	}
 	.card {

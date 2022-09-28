@@ -4,7 +4,7 @@ class MainApi extends Axios {
 	private static classInstance?: MainApi
 	private constructor() {
 		super({
-			baseURL: 'http://backend.azr4el.com',
+			baseURL: 'https://backend.azr4el.com',
 			// baseURL: 'http://192.168.18.36:3000',
 			headers: {
 				'Access-Control-Allow-Origin': '*',

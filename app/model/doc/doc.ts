@@ -1,39 +1,15 @@
 interface Doc {
 	docId?: number
 	dni?: string
-	docName?: string
+	nombre?: string
 	fecha?: Date
-	tipoD?: DocTipe
-	tipoP?: TipoPer
-	descrip?: string
+	doct?: string
+	docpe?: string
+	descr?: string
 	ref?: string
-	inicio?: Date | null
-	fin?: Date | null
+	inicio?: string | null
+	fin?: string | null
 	activo?: boolean
-}
-
-enum DocTipe {
-	RESOLUCION,
-	CARTA,
-	INFORME,
-	RENUNCIA,
-	SOLICITUD,
-	MEMORANDO,
-	ADELANTO,
-}
-
-enum TipoPer {
-	DF,
-	AC,
-	JUSTIFICADO,
-	XHEL,
-	ONOMASTICO,
-	ADELANTO,
-	SANSION,
-	LICENCIA,
-	HORASEXTRAS,
-	OMISION,
-	OTROS,
 }
 
 export { Doc }

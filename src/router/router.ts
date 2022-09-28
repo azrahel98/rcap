@@ -29,12 +29,12 @@ const routes: RouteRecordRaw[] = [
 		},
 		children: [
 			{
-				component: () => import('../views/pages/search.vue'),
+				component: () => import('../views/pages/employ.vue'),
 				name: 'home',
 				path: '/',
 			},
 			{
-				component: () => import('../views/pages/employ.vue'),
+				component: () => import('../views/pages/search.vue'),
 				name: 'employ',
 				path: '/employ',
 			},

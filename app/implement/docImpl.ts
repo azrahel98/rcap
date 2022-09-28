@@ -14,7 +14,13 @@ export class DocImpl implements DocRepository {
 		throw new Error('ErrorbuscarPapeletas')
 	}
 	async create_doc(doc: Doc, range: boolean): Promise<Doc | null> {
-		throw new Error('ErrorbuscarPapeletas')
+		try {
+			const data = await MainApi.getInstance().post('/doc', JSON.stringify(doc))
+			if (data.status !== 200) throw new Error(JSON.parse(data.data)['message'])
+			return JSON.parse(data.data) as Doc
+		} catch (error) {
+			throw error
+		}
 	}
 
 	async edit_doc(doc: Doc): Promise<Doc> {
