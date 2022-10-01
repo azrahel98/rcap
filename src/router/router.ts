@@ -29,7 +29,7 @@ const routes: RouteRecordRaw[] = [
 		},
 		children: [
 			{
-				component: () => import('../views/pages/employ.vue'),
+				component: () => import('../views/pages/home.vue'),
 				name: 'home',
 				path: '/',
 			},
@@ -39,7 +39,7 @@ const routes: RouteRecordRaw[] = [
 				path: '/employ',
 			},
 			{
-				component: () => import('../views/pages/detail.vue'),
+				component: () => import('../views/pages/employ.vue'),
 				name: 'asistencia',
 				path: '/asistencia/:dni',
 				props: true,

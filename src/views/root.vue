@@ -306,7 +306,7 @@
 		color: $first-color;
 	}
 	main {
-		margin-top: 5.3vh;
+		margin-top: 3rem;
 	}
 	/* ========== MEDIA QUERIES ==========*/
 	/* For small devices reduce search*/
@@ -320,8 +320,8 @@
 			padding: 1rem 3rem 0 6rem;
 		}
 		main {
-			margin-top: 5.3vh;
-			margin-left: 5.38vh;
+			margin-left: 6rem;
+			margin-top: 5rem;
 		}
 		.header {
 			padding: 0 3rem 0 6rem;

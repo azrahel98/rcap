@@ -46,7 +46,7 @@
 					<div class="col-md-5 detalle">
 						<textarea
 							class="form-control"
-							placeholder="Leave a comment here"
+							placeholder="####"
 							id="floatingTextarea2"
 							style="height: 70%"
 							v-model="descr"

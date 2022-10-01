@@ -8,10 +8,28 @@ export class DocImpl implements DocRepository {
 	// 	throw new Error('ErrorbuscarPapeletas')
 	// }
 	async buscar_papeletas(dni: string, mes: number): Promise<PP[] | null> {
-		throw new Error('ErrorbuscarPapeletas')
+		try {
+			const data = await MainApi.getInstance().post(
+				'/doc/pps',
+				JSON.stringify({ dni, mes })
+			)
+			if (data.status !== 200) throw new Error(JSON.parse(data.data)['message'])
+			return JSON.parse(data.data) as PP[]
+		} catch (error) {
+			throw error
+		}
 	}
 	async buscar_documentos(dni: string, mes: number): Promise<Doc[] | null> {
-		throw new Error('ErrorbuscarPapeletas')
+		try {
+			const data = await MainApi.getInstance().post(
+				'/doc/docs',
+				JSON.stringify({ dni, mes })
+			)
+			if (data.status !== 200) throw new Error(JSON.parse(data.data)['message'])
+			return JSON.parse(data.data) as Doc[]
+		} catch (error) {
+			throw error
+		}
 	}
 	async create_doc(doc: Doc, range: boolean): Promise<Doc | null> {
 		try {

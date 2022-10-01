@@ -14,7 +14,7 @@
 					autocomplete="off"
 				>
 					<div class="col-md-6">
-						<label for="validationCustom01" class="form-label">Papeleta</label>
+						<label for="validationCustom01" class="form-label">##</label>
 						<input
 							type="text"
 							class="form-control"

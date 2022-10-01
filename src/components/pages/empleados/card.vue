@@ -132,7 +132,7 @@
 					h3 {
 						font-weight: 700;
 						font-size: 0.8rem;
-						color: gray;
+						color: black;
 					}
 				}
 				p {
@@ -168,7 +168,7 @@
 			display: flex;
 			align-items: center;
 			.p {
-				background-color: gray;
+				background-color: #0dcaf0;
 				border-bottom-left-radius: 10.9322px;
 			}
 			.m {
