@@ -8,14 +8,14 @@
 				}}</span>
 			</div>
 		</div>
-		<!-- <div class="d-body">
+		<div class="d-body">
 			<div class="pp">
 				<div class="list-p" v-for="(d, e) in prop.papeletas">
-					<button class="badge rounded-pill" :id="`ppver-pp-${d['nombre']}`">
-						{{ d['tipoP'] }}
+					<button class="badge rounded-pill" :id="`ppver-pp-${d['pp']}`">
+						{{ d['pp'] }}
 					</button>
 					<b-popover
-						:target="`ppver-pp-${d['nombre']}`"
+						:target="`ppver-pp-${d['pp']}`"
 						triggers="focus"
 						placement="top"
 					>
@@ -35,18 +35,12 @@
 				</div>
 			</div>
 			<div class="mm">
-				<div class="list-p" v-for="(d, e) in prop.docs">
-					<button
-						class="badge rounded-pill"
-						:id="`ppver-dd-${d['id']}`"
-						:style="{
-							backgroundColor: d['permiso'])[1] + '!important',
-						}"
-					>
-						{{ d['permiso'])[0] }}
+				<div class="list-p" v-for="(d, e) in prop.documentos">
+					<button class="badge rounded-pill" :id="`ppver-dd-${d['docId']}`">
+						{{ d['tipoD'] }}
 					</button>
 					<b-popover
-						:target="`ppver-dd-${d['id']}`"
+						:target="`ppver-dd-${d['docId']}`"
 						triggers="focus"
 						placement="top"
 					>
@@ -65,7 +59,7 @@
 					</b-popover>
 				</div>
 			</div>
-			<div class="rng">
+			<!-- <div class="rng">
 				<div class="list-p" v-for="(d, e) in prop.rangd">
 					<button
 						class="badge rounded-pill"
@@ -92,18 +86,18 @@
 						</div>
 					</b-popover>
 				</div>
-			</div>
-		</div> -->
+			</div> -->
+		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-	import { ref } from 'vue'
 	import { BPopover } from 'bootstrap-vue-3'
 	const prop = defineProps({
 		day: { type: Number, required: true },
 		list: { required: false, type: Array },
+		papeletas: { type: Array },
+		documentos: { type: Array },
 	})
-	const asis = ref<any>()
 </script>
 <style lang="scss" scoped>
 	.d-card {
@@ -113,6 +107,8 @@
 		grid-template-rows: 1fr auto-fill auto-fill;
 		height: 100%;
 		background-color: white;
+		border: 1px solid $text-color;
+
 		.d-day {
 			display: flex;
 			justify-content: center;

@@ -26,6 +26,7 @@ export class DocImpl implements DocRepository {
 				JSON.stringify({ dni, mes })
 			)
 			if (data.status !== 200) throw new Error(JSON.parse(data.data)['message'])
+
 			return JSON.parse(data.data) as Doc[]
 		} catch (error) {
 			throw error

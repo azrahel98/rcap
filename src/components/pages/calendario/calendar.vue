@@ -17,6 +17,8 @@
 					<Dias
 						:day="x"
 						:list="marc.filter((e) => moment(e.fecha).date() + 1 == x)"
+						:papeletas="pps.filter((e) => moment(e.fecha).date() + 1 == x)"
+						:documentos="docs.filter((e) => moment(e.fecha).date() + 1 == x)"
 					/>
 				</div>
 			</div>
@@ -43,18 +45,15 @@
 		mes: { type: Number },
 	})
 
-	const pps = reactive<PP[]>([])
-	const docs = reactive<Doc[]>([])
+	const pps = ref<PP[]>([])
+	const docs = ref<Doc[]>([])
 	const marc = ref<RelojB[]>([])
 
 	onMounted(async () => {
 		marc.value = await empimp.buscar_asistencia(prop.dni, 8)
 
-		docs.push(
-			(await docimp.buscar_documentos(prop.dni, 8)).map((e) => e) as Doc
-		)
-		// console.log(await docimp.buscar_papeletas(prop.dni, 8))
-		// console.log(await docimp.buscar_documentos(prop.dni, 8))
+		docs.value = await docimp.buscar_documentos(prop.dni, 8)
+		pps.value = await docimp.buscar_papeletas(prop.dni, 8)
 	})
 
 	const frisday = () => {
@@ -63,10 +62,12 @@
 </script>
 <style lang="scss" scoped>
 	.calendar {
+		margin: auto;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		gap: 0.5vh;
+		max-width: 1300px;
 
 		.d-semana {
 			border-radius: 20px 20px 0 0;
@@ -75,13 +76,13 @@
 			align-items: center;
 			justify-content: center;
 			background-color: rgb(223, 89, 89);
+
 			h6 {
 				text-align: center;
 			}
 			height: 3.4vh;
 		}
 		.d-dias {
-			border-top: none;
 			border-radius: 0 0 20px 20px;
 			display: grid;
 			grid-template-columns: repeat(7, 1fr);
