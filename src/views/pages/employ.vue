@@ -88,7 +88,9 @@
 					</button>
 				</div>
 			</div>
-			<div class="card calendar"></div>
+			<div class="card calendar">
+				<Calendar :dni="dni" :mes="8" />
+			</div>
 		</div>
 		<Pp :dni="dni"></Pp>
 		<Mm :dni="dni"></Mm>
@@ -135,16 +137,14 @@
 		grid-template-rows: auto auto;
 		row-gap: 1vh;
 		.card {
-			width: 190px;
-			height: 254px;
 			background: #f0f0f0;
 			border-radius: 10px;
 			text-align: center;
 			transition: all 0.5s;
 		}
 		.calendar {
-			height: 20vh;
 			width: 100%;
+			height: 100%;
 			border: none;
 		}
 		.profile {
@@ -168,7 +168,7 @@
 					min-width: 16vh;
 					max-width: 20vh;
 					height: max-content;
-					background: #3405a3;
+					background: #7c46f8;
 					border-radius: 15px;
 					box-shadow: 1px 5px 60px 0px #100a886b;
 
