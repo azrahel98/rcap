@@ -1,7 +1,14 @@
 <template>
 	<router-view />
 </template>
-<style lang="css"></style>
+
+<script lang="ts" setup>
+	import { userStore } from '@store/user'
+
+	const store = userStore()
+
+	store.InitAdmin()
+</script>
 
 <style lang="scss">
 	.toast_custom {

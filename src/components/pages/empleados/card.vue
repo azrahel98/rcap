@@ -30,7 +30,7 @@
 			</div>
 		</div>
 
-		<div class="icons-a">
+		<div class="icons-a" v-if="storeuser.admin">
 			<button
 				class="btn p"
 				data-bs-toggle="modal"
@@ -56,13 +56,16 @@
 <script lang="ts" setup>
 	import { ref } from 'vue'
 	import { EmployStore } from '@store/employ'
+
 	import { Employ } from '@/model/employs'
 	import moment from 'moment'
 	import ModalP from '@com/modal/pp.vue'
 	import Mm from '@com/modal/mm.vue'
+	import { userStore } from '@store/user'
 
 	const isMemo = ref<any>(false)
 	const emplostore = EmployStore()
+	const storeuser = userStore()
 	const propr = defineProps({
 		employ: { required: true, type: Object },
 		nombre: { required: true, type: String },

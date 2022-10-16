@@ -21,16 +21,16 @@
 						</div>
 
 						<div class="items">
-							<i class="bx bxs-buildings"></i>
+							<i class="bx bx-calendar-plus"></i>
 							<p>{{ moment(employ.ingreso).format('YYYY-MM-DD') }}</p>
 						</div>
 						<div class="items">
-							<i class="bx bxs-buildings"></i>
+							<i class="bx bxs-user-detail"></i>
 							<p>{{ employ.regimen }}</p>
 						</div>
 					</div>
 				</div>
-				<div class="actions">
+				<div class="actions" v-if="usertore.admin">
 					<button data-bs-toggle="modal" :data-bs-target="`#m${dni}`">
 						<div class="svg-wrapper-1">
 							<div class="svg-wrapper">
@@ -57,7 +57,6 @@
 								</svg>
 							</div>
 						</div>
-						<span>PP</span>
 					</button>
 					<button data-bs-toggle="modal" :data-bs-target="`#p${dni}`">
 						<div class="svg-wrapper-1">
@@ -84,7 +83,6 @@
 								</svg>
 							</div>
 						</div>
-						<span>Doc</span>
 					</button>
 				</div>
 			</div>
@@ -106,8 +104,10 @@
 	import Mm from '@com/modal/mm.vue'
 	import Pp from '@com/modal/pp.vue'
 	import Calendar from '@com/pages/calendario/calendar.vue'
+	import { userStore } from '@store/user'
 
 	const employ = reactive<Employ>({})
+	const usertore = userStore()
 	const impem = new EmployImp()
 
 	const dni = ref<string>(router.currentRoute.value.params.dni as string)
@@ -136,13 +136,19 @@
 		display: grid;
 		grid-template-rows: auto auto;
 		row-gap: 1vh;
+		margin: 0 !important;
+		padding: 0 !important;
+
 		.card {
-			background: #f0f0f0;
-			border-radius: 10px;
+			padding: 1vh;
+			border-radius: 20px;
 			text-align: center;
 			transition: all 0.5s;
 		}
 		.calendar {
+			margin: auto;
+			align-self: center;
+			max-width: 150vh;
 			width: 100%;
 			height: 100%;
 			border: none;
@@ -159,19 +165,19 @@
 			.card {
 				display: flex;
 				flex-direction: row;
-				gap: 2vh;
+				gap: 1vh;
 				width: auto;
 				height: max-content;
 				border: none;
-				padding: 1vh 2vh 1vh 0.5vh;
+				background-color: transparent;
 				.card-c {
-					min-width: 16vh;
-					max-width: 20vh;
+					min-width: 17vh;
+					max-width: 25vh;
 					height: max-content;
-					background: #7c46f8;
 					border-radius: 15px;
-					box-shadow: 1px 5px 60px 0px #100a886b;
-
+					box-shadow: 1px 5px 10px 0px #e8f0fd;
+					background-color: $card;
+					padding: 0 1vh 0 1vh;
 					.card-border-top {
 						width: 60%;
 						height: 3%;
@@ -180,8 +186,7 @@
 						border-radius: 0px 0px 15px 15px;
 					}
 					span {
-						font-weight: 600;
-						color: white;
+						font-weight: 500;
 						text-align: center;
 						display: block;
 						padding-top: 10px;
@@ -189,7 +194,6 @@
 					}
 					.job {
 						font-weight: 400;
-						color: white;
 						display: block;
 						text-align: center;
 						padding-top: 3px;
@@ -198,7 +202,7 @@
 					.img {
 						width: 70px;
 						height: 80px;
-						background: #6b64f3;
+						background: #e8f0fd;
 						border-radius: 15px;
 						margin: auto;
 						margin-top: 25px;
@@ -210,11 +214,11 @@
 						border-radius: 8px;
 						border: none;
 						margin-top: 30px;
-						background: #6b64f3;
+						background: #887ed6;
 						color: white;
 						font-weight: 600;
 						&:hover {
-							background: #534bf3;
+							background: #7f73c9;
 						}
 					}
 				}
@@ -228,14 +232,14 @@
 						align-items: flex-start;
 						gap: 1vh;
 						i {
-							color: royalblue;
+							color: #ab9ff7;
 							font-size: 1.2rem;
 						}
 						p {
 							text-align: start;
-							font-size: 0.7rem;
+							font-size: 0.7em;
 							font-weight: 500;
-							font-family: 'Roboto', sans-serif;
+							font-family: 'Poppins', sans-serif;
 						}
 					}
 				}
@@ -245,12 +249,9 @@
 				height: min-content;
 				gap: 2vh;
 				button {
-					font-family: inherit;
-					font-size: 0.8rem;
-					background: royalblue;
+					background: #ccd0da;
 					color: white;
-					padding: 0.7em 1em;
-					padding-left: 0.9em;
+					padding: 1vh;
 					display: flex;
 					align-items: center;
 					border: none;
@@ -260,6 +261,8 @@
 					span {
 						display: block;
 						margin-left: 0.3em;
+						font-size: 0.65rem;
+						font-weight: 500;
 						transition: all 0.3s ease-in-out;
 					}
 					svg {

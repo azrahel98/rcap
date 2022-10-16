@@ -3,6 +3,7 @@ import { Token } from '../model/token'
 import { LoginRepository } from '../repository/login'
 import { MainApi } from '../http/axios'
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
 
 class LoginImp implements LoginRepository {
 	signout(): void {
@@ -11,6 +12,7 @@ class LoginImp implements LoginRepository {
 	check(): boolean {
 		const token = localStorage.getItem('token')
 		if (token === null) return false
+		// if (moment(jwtDecode(token)['exp'] * 1000) < moment()) return false
 		return true
 	}
 	async login(username: string, password: string): Promise<Token> {

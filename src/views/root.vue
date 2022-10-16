@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="maincontainer">
 		<header class="header">
 			<div class="header__container">
 				<img src="../assets/icon.webp" alt="" class="header__img" />
@@ -171,12 +171,7 @@
 		font-weight: $font-medium;
 		display: none;
 	}
-	.header__search {
-		display: flex;
-		padding: 0.4rem 0.75rem;
-		background-color: $first-color-light;
-		border-radius: 0.25rem;
-	}
+
 	.header__input {
 		width: 100%;
 		border: none;
@@ -306,6 +301,7 @@
 		color: $first-color;
 	}
 	main {
+		margin: 0;
 		margin-top: 3rem;
 	}
 	/* ========== MEDIA QUERIES ==========*/

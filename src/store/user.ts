@@ -7,16 +7,10 @@ export const userStore = defineStore('user', {
 	}),
 	actions: {
 		InitAdmin() {
-			var token = localStorage.getItem('auth')
-			this.admin = jwtDecode(token)['admin']
-			console.log(jwtDecode(token))
-		},
-	},
-
-	getters: {
-		checkisAdmin: async () => {
-			var token = localStorage.getItem('auth')
-			return (await jwtDecode(token)['admin']) as boolean
+			var token = localStorage.getItem('token')
+			if (token) {
+				this.admin = jwtDecode(token)['admin'] == 'Y' ? true : false
+			}
 		},
 	},
 })

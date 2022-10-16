@@ -1,15 +1,59 @@
 <template>
 	<div class="calendario">
 		<div class="month">
-			<div class="mes">
-				<div class="c-name">{{ MesString(currentMonth) }}</div>
-				<div class="buttons">
-					<i class="bx bx-left-arrow-circle" v-on:click="currentMonth -= 1"></i>
-					<i
-						class="bx bx-right-arrow-circle"
-						v-on:click="currentMonth += 1"
-					></i>
-				</div>
+			<div class="c-name">{{ MesString(currentMonth) }}</div>
+			<div class="buttons">
+				<!-- <i class="bx bx-left-arrow-circle" v-on:click="currentMonth -= 1"></i> -->
+
+				<button v-on:click="currentMonth -= 1">
+					<div class="svg-wrapper-1">
+						<div class="svg-wrapper">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon-arrow"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+								<line x1="4" y1="12" x2="14" y2="12"></line>
+								<line x1="4" y1="12" x2="8" y2="16"></line>
+								<line x1="4" y1="12" x2="8" y2="8"></line>
+								<line x1="20" y1="4" x2="20" y2="20"></line>
+							</svg>
+						</div>
+					</div>
+				</button>
+				<button v-on:click="currentMonth += 1">
+					<div class="svg-wrapper-1">
+						<div class="svg-wrapper">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon-arrow"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+								<line x1="20" y1="12" x2="10" y2="12"></line>
+								<line x1="20" y1="12" x2="16" y2="16"></line>
+								<line x1="20" y1="12" x2="16" y2="8"></line>
+								<line x1="4" y1="4" x2="4" y2="20"></line>
+							</svg>
+						</div>
+					</div>
+				</button>
+				<!-- <i class="bx bx-right-arrow-circle" v-on:click="currentMonth += 1"></i> -->
 			</div>
 		</div>
 		<div class="body">
@@ -23,124 +67,44 @@
 				<p>Dom</p>
 			</div>
 			<div class="cal">
-				<div v-for="l in frisday() - 1"></div>
+				<div v-for="l in frisday()"></div>
 				<div
 					class="card-day"
-					:class="[
-						marc.filter((e) => moment(e.fecha, 'YYYY-MM-DD').add(1).date() == i)
-							.length == 0
-							? 'not-work'
-							: '',
-					]"
-					v-for="i in new Date(2022, prop.mes, 0).getDate()"
+					v-for="i in moment({
+						year: 2022,
+						month: currentMonth + 1,
+					}).daysInMonth()"
 				>
-					<h1>{{ i }}</h1>
-					<div class="clock">
-						<span
-							v-for="i in marc.filter(
-								(e) => moment(e.fecha, 'YYYY-MM-DD').add(1).date() == i
-							)"
-							>{{ i.hora.substring(0, 5) }}</span
-						>
-					</div>
-					<div class="content">
-						<div
-							v-show="
-								pps.filter(
-									(e) => moment(e.fecha, 'YYYY-MM-DD').add(1).date() == i
-								).length !== 0
-							"
-						>
-							<button type="button" class="btn pp" :id="`ppver-pp-${i + 1}`">
-								PP
-								<span class="badge bg-secondary">{{
-									pps.filter(
-										(e) => moment(e.fecha, 'YYYY-MM-DD').add(1).date() == i
-									).length
-								}}</span>
-							</button>
-							<b-popover
-								:target="`ppver-pp-${i + 1}`"
-								triggers="focus"
-								placement="top"
-								class="pppover"
-							>
-								<div
-									class="papeletas"
-									v-for="e in pps.filter(
-										(e) => moment(e.fecha, 'YYYY-MM-DD').add(1).date() == i
-									)"
-								>
-									<div class="ppv-card">
-										<div class="tools">
-											<div class="circle">
-												<span class="red box"></span>
-											</div>
-											<div class="circle">
-												<span class="yellow box"></span>
-											</div>
-											<div class="circle">
-												<span class="green box"></span>
-											</div>
-										</div>
-										<div class="card__content">
-											<span
-												><i class="bx bxs-file-doc"></i>
-												<h6>{{ e.pp }}</h6></span
-											>
-											<span
-												><i class="bx bxs-calendar-check"></i>
-												<h6>
-													{{
-														moment(e.fecha, 'YYYY-MM-DD').format('YYYY-MM-DD')
-													}}
-												</h6></span
-											>
-											<span
-												><i class="bx bx-briefcase-alt"></i>
-												<h6>{{ e.descrip }}</h6></span
-											>
-											<span
-												><i class="bx bx-check-square"></i>
-												<h6>{{ e.detalle }}</h6></span
-											>
-										</div>
-									</div>
-								</div>
-							</b-popover>
-						</div>
-
-						<button
-							type="button"
-							class="btn dd"
-							v-show="
-								docs.filter((e) => moment(e.fecha).date() + 1 == i).length !== 0
-							"
-						>
-							DC
-							<span class="badge bg-secondary">{{
-								docs.filter((e) => moment(e.fecha).date() + 1 == i).length
-							}}</span>
-						</button>
-						<button
-							type="button"
-							class="btn dd"
-							v-for="e in docs"
-							v-show="
-								moment({ day: i - 1, month: 7, years: 2022 }).isSameOrAfter(
-									moment(moment(e.inicio).format('YYYY-MM-DD'))
-								) &&
-								moment({ day: i - 1, month: 7, years: 2022 }).isSameOrBefore(
-									moment(moment(e.fin).format('YYYY-MM-DD'))
-								)
-							"
-						>
-							DC
-							<span class="badge bg-secondary">{{
-								docs.filter((e) => moment(e.fecha).date() + 1 == i).length
-							}}</span>
-						</button>
-					</div>
+					<days
+						:i="i"
+						:docs="
+							docs.filter(
+								(e) =>
+									moment(e['fecha'], 'YYYY-MM-DD').add(1).date() == i &&
+									moment(e['fecha']).month() + 1 == currentMonth
+							)
+						"
+						:pps="
+							pps.filter(
+								(e) => moment(e['fecha'], 'YYYY-MM-DD').add(1).date() == i
+							)
+						"
+						:current-month="currentMonth"
+						:marc="
+							marc.filter(
+								(e) => moment(e['fecha'], 'YYYY-MM-DD').add(1).date() == i
+							)
+						"
+						:docr="
+							docs.filter((e) =>
+								moment({
+									day: i,
+									month: currentMonth - 1,
+									years: 2022,
+								}).isBetween(moment(e.inicio), moment(e.fin).add({ day: 1 }))
+							)
+						"
+					></days>
 				</div>
 			</div>
 		</div>
@@ -154,8 +118,9 @@
 	import { Doc } from '@/model/doc/doc'
 	import { PP } from '@/model/doc/pp'
 	import moment from 'moment'
-	import { onMounted, ref, watchEffect } from 'vue'
+	import { onMounted, ref, watch } from 'vue'
 	import { MesString } from '../../../tools/calendar'
+	import Days from './days.vue'
 
 	const empimp = new EmployImp()
 	const docimp = new DocImpl()
@@ -170,68 +135,44 @@
 	const docs = ref<Doc[]>([])
 	const marc = ref<RelojB[]>([])
 
-	watchEffect(async () => {
+	onMounted(async () => {
+		marc.value = []
+		docs.value = []
+		pps.value = []
 		marc.value = await empimp.buscar_asistencia(prop.dni, currentMonth.value)
 		docs.value = await docimp.buscar_documentos(prop.dni, currentMonth.value)
 		pps.value = await docimp.buscar_papeletas(prop.dni, currentMonth.value)
 	})
 
+	watch(currentMonth, async (x, y) => {
+		marc.value = []
+		docs.value = []
+		pps.value = []
+		marc.value = await empimp.buscar_asistencia(prop.dni, x)
+		docs.value = await docimp.buscar_documentos(prop.dni, x)
+		pps.value = await docimp.buscar_papeletas(prop.dni, x)
+	})
+
 	const frisday = () => {
-		return new Date(`2022-${prop.mes}-01`).getDay()
+		const date = moment({
+			year: 2022,
+			month: currentMonth.value - 1,
+			day: 1,
+		}).day()
+		if (date == 0) return 6
+		return date - 1
 	}
 </script>
-<style lang="scss" scoped>
-	.papeletas {
-		display: grid;
-		.ppv-card {
-			width: auto;
-			height: max-content;
-			background-color: #f8fbfe;
-			border-radius: 8px;
-			margin-top: 2px;
-			.card__content {
-				display: flex;
-				flex-direction: column;
-				flex-wrap: wrap;
-				span {
-					display: flex;
-				}
-			}
-		}
-	}
-	.tools {
-		display: flex;
-		align-items: center;
-		padding: 9px;
-	}
-	.circle {
-		padding: 0 4px;
-	}
-	.box {
-		display: inline-block;
-		align-items: center;
-		width: 10px;
-		height: 10px;
-		padding: 1px;
-		border-radius: 50%;
-	}
-	.red {
-		background-color: #ff605c;
-	}
-	.yellow {
-		background-color: #ffbd44;
-	}
-	.green {
-		background-color: #00ca4e;
-	}
-</style>
+
 <style lang="scss" scoped>
 	.calendario {
 		display: grid;
 		grid-template-rows: auto 1fr;
+
 		.body {
-			padding: 1vh 0.1vh 2vh 0.1vh;
 			display: grid;
+			background-color: $bg;
+			border-radius: 25px;
 			.dias,
 			.cal {
 				display: grid;
@@ -240,7 +181,8 @@
 				justify-items: center;
 			}
 			.dias {
-				column-gap: 2px;
+				border-bottom: 25px;
+				margin-bottom: 1vh;
 				p {
 					width: 100%;
 					text-align: center;
@@ -248,80 +190,70 @@
 			}
 			.cal {
 				gap: 2px;
+				background-color: $bg;
+				border-radius: 20px;
+
 				.card-day {
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-					align-items: center;
-					padding-bottom: 1vh;
-					background-color: white;
 					height: 100%;
 					width: 100%;
 					border-radius: 10px;
-					gap: 1vh;
-					h1 {
-						font-size: 1rem;
-					}
-					.clock {
-						width: 100%;
-						display: flex;
-						flex-direction: row;
-						flex-wrap: wrap;
-						justify-content: space-around;
-						align-items: center;
-						span {
-							font-size: 0.75rem;
-						}
-					}
-					.content {
-						display: flex;
-						gap: 2px;
-						flex-wrap: wrap;
-						justify-content: center;
-						align-items: center;
-						width: 100%;
-
-						button {
-							font-size: 0.6rem;
-							padding: 0;
-							min-width: 5vh;
-						}
-						.pp {
-							background-color: bisque;
-						}
-						.dd {
-							background-color: aqua;
-						}
-					}
-				}
-				.not-work {
-					background: rgba(143, 127, 127, 0.75);
-					border-radius: 16px;
-					box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-					backdrop-filter: blur(9.5px);
-					-webkit-backdrop-filter: blur(9.5px);
-					border: 1px solid rgba(143, 127, 127, 0.34);
+					background-color: white;
 				}
 			}
 		}
 		.month {
-			padding: 1vh 0 1vh 5vh;
-			.mes {
+			display: flex;
+			font-family: 'Nunito', sans-serif;
+			align-items: center;
+			justify-content: space-between;
+			gap: 2vh;
+			.c-name {
+				font-size: 2rem;
+				font-weight: 500;
+				margin: auto;
+			}
+			.buttons {
 				display: flex;
-				font-family: 'Nunito', sans-serif;
-				align-items: center;
 				gap: 2vh;
-				.c-name {
-					font-size: 2rem;
-					font-weight: 500;
-				}
-				.buttons {
-					i {
-						font-size: 1.7rem;
-						cursor: pointer;
+				button {
+					background: #c8c4e6;
+					color: white;
+					padding: 0.5vh;
+					display: flex;
+					align-items: center;
+					border: none;
+					border-radius: 16px;
+					overflow: hidden;
+					transition: all 0.2s;
+					span {
+						display: block;
+						margin-left: 0.3em;
+						font-size: 0.65rem;
+						font-weight: 500;
+						transition: all 0.3s ease-in-out;
+					}
+					svg {
+						display: block;
+						transform-origin: center center;
+						transition: transform 0.3s ease-in-out;
+					}
+					&:hover {
+						.svg-wrapper {
+							animation: fly-1 0.6s ease-in-out infinite alternate;
+						}
+						svg {
+							transform: translateX(1.2em) rotate(1deg) scale(1.1);
+						}
+						span {
+							transform: translateX(5em);
+						}
+					}
+					&:active {
+						transform: scale(0.95);
 					}
 				}
 			}
+
 			.cal {
 				background-color: antiquewhite;
 				height: 100%;

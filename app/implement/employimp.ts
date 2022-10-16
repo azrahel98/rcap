@@ -18,8 +18,8 @@ class EmployImp implements EmployRepository {
 			)
 			if (result.status !== 200) throw new Error(result.data)
 			const marcaciones: Array<RelojB> = []
-			if ((JSON.parse(result.data) as Array<any>).length === 0)
-				throw new Error('sin resultados')
+			// if ((JSON.parse(result.data) as Array<any>).length === 0)
+			// 	throw new Error('sin resultados')
 			JSON.parse(result.data).forEach((e) => {
 				marcaciones.push({
 					dni: e.dni,
