@@ -2,33 +2,24 @@
 	<div
 		:class="[
 			prop.docr.length !== 0 ? 'card-day-r' : 'card-day',
-			prop.marc.length == 0 && prop.docr.length == 0 ? 'not-work' : '',
+			asitore.getAsisinDay(prop.i).length == 1 &&
+			asitore.getAsisinDay(prop.i)[0]['falta'] == 1
+				? 'not-work'
+				: '',
 		]"
 	>
-		<div>
-			<button
-				class="btn btn-primary"
-				data-bs-toggle="modal"
-				:data-bs-target="`#modal${i}`"
-			>
-				{{ prop.i }}
-			</button>
-			<div
-				class="modal fade"
-				role="dialog"
-				:id="`modal${i}`"
-				tabindex="-1"
-				aria-hidden="true"
-			>
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<h1>asdf</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="clock">
+		<ass :dni="prop.cdni" :i="prop.i" :mes="currentMonth" v-if="userSto.admin" />
+		<h3 v-else>{{prop.i}}</h3>
+		<div class="clock" v-if="asitore.$state.showClock">
 			<span v-for="i in prop.marc">{{ i['hora'].substring(0, 5) }}</span>
+		</div>
+		<div class="tardanza" v-if="asitore.$state.showAs">
+			<span
+				v-for="y in asitore.getAsisinDay(prop.i).length == 1
+					? asitore.getAsisinDay(prop.i)
+					: asitore.getAsisinDay(prop.i)[0]"
+				>{{ y['tardanza'] }}</span
+			>
 		</div>
 		<div class="content">
 			<div v-if="prop.pps.length !== 0">
@@ -113,6 +104,13 @@
 <script lang="ts" setup>
 	import { PP } from '../../../../app/model/doc/pp'
 	import moment from 'moment'
+	import Ass from '@com/modal/ass.vue'
+	import { AsistEstore } from '@store/asistencia'
+	import { onMounted } from 'vue'
+	import { userStore } from '@store/user'
+
+	const asitore = AsistEstore()
+	const userSto = userStore()
 
 	const prop = defineProps({
 		i: { type: Number, required: true },
@@ -121,6 +119,8 @@
 		docs: { type: Array, required: true },
 		docr: { type: Array, required: true },
 		currentMonth: { type: Number, required: true },
+		cdni: { type: String, required: true },
+		falta: { type: Boolean },
 	})
 </script>
 
@@ -137,8 +137,8 @@
 		width: 100%;
 	}
 	.not-work {
-		background: rgba(255, 255, 255, 0);
-		opacity: 0.6;
+		background-color: rgba(209, 75, 57, 0.651) !important;
+
 		border: 1.5px solid white;
 	}
 	.card-day-r {
@@ -152,8 +152,10 @@
 		border-radius: 10px;
 		gap: 1vh;
 		background-color: white;
-		h1 {
+
+		h3{
 			font-size: 1rem;
+			font-weight: 500;
 		}
 		.clock {
 			width: 100%;
@@ -164,6 +166,13 @@
 			align-items: center;
 			span {
 				font-size: 0.75rem;
+			}
+		}
+		.tardanza {
+			span {
+				font-size: 1.4rem;
+				font-weight: 700;
+				color: gray;
 			}
 		}
 		.content {

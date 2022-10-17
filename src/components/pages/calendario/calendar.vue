@@ -2,9 +2,11 @@
 	<div class="calendario">
 		<div class="month">
 			<div class="c-name">{{ MesString(currentMonth) }}</div>
+			<div class="tardanzat">
+				<span><p>Tardanza</p>{{asisStore.tardanzas}}</span>
+				<span><p>Faltas</p>{{asisStore.faltas}}</span>
+			</div>
 			<div class="buttons">
-				<!-- <i class="bx bx-left-arrow-circle" v-on:click="currentMonth -= 1"></i> -->
-
 				<button v-on:click="currentMonth -= 1">
 					<div class="svg-wrapper-1">
 						<div class="svg-wrapper">
@@ -53,7 +55,7 @@
 						</div>
 					</div>
 				</button>
-				<!-- <i class="bx bx-right-arrow-circle" v-on:click="currentMonth += 1"></i> -->
+		
 			</div>
 		</div>
 		<div class="body">
@@ -70,10 +72,7 @@
 				<div v-for="l in frisday()"></div>
 				<div
 					class="card-day"
-					v-for="i in moment({
-						year: 2022,
-						month: currentMonth + 1,
-					}).daysInMonth()"
+					v-for="i in new Date(2022, currentMonth, 0).getDate()"
 				>
 					<days
 						:i="i"
@@ -104,6 +103,7 @@
 								}).isBetween(moment(e.inicio), moment(e.fin).add({ day: 1 }))
 							)
 						"
+						:cdni="prop.dni"
 					></days>
 				</div>
 			</div>
@@ -112,23 +112,25 @@
 </template>
 
 <script lang="ts" setup>
+	import { AsistenciaImp } from '@/implement/asistencia'
 	import { DocImpl } from '@/implement/docImpl'
 	import { EmployImp } from '@/implement/employimp'
 	import { RelojB } from '@/model/asistencia'
 	import { Doc } from '@/model/doc/doc'
 	import { PP } from '@/model/doc/pp'
+	import { AsistEstore } from '@store/asistencia'
 	import moment from 'moment'
 	import { onMounted, ref, watch } from 'vue'
 	import { MesString } from '../../../tools/calendar'
 	import Days from './days.vue'
 
+	const asisStore = AsistEstore()
 	const empimp = new EmployImp()
 	const docimp = new DocImpl()
 	const currentMonth = ref<number>(new Date().getMonth() + 1)
 
 	const prop = defineProps({
 		dni: { required: true, type: String },
-		mes: { type: Number },
 	})
 
 	const pps = ref<PP[]>([])
@@ -139,18 +141,32 @@
 		marc.value = []
 		docs.value = []
 		pps.value = []
+		asisStore.$state.mes = currentMonth.value
+		asisStore.$state.asistencia = []
 		marc.value = await empimp.buscar_asistencia(prop.dni, currentMonth.value)
 		docs.value = await docimp.buscar_documentos(prop.dni, currentMonth.value)
 		pps.value = await docimp.buscar_papeletas(prop.dni, currentMonth.value)
+		asisStore.$state.asistencia = await new AsistenciaImp().search(
+			prop.dni,
+			currentMonth.value,
+			2022
+		)
 	})
 
 	watch(currentMonth, async (x, y) => {
 		marc.value = []
 		docs.value = []
 		pps.value = []
+		asisStore.$state.mes = currentMonth.value
+		asisStore.$state.asistencia = []
 		marc.value = await empimp.buscar_asistencia(prop.dni, x)
 		docs.value = await docimp.buscar_documentos(prop.dni, x)
 		pps.value = await docimp.buscar_papeletas(prop.dni, x)
+		asisStore.$state.asistencia = await new AsistenciaImp().search(
+			prop.dni,
+			x,
+			2022
+		)
 	})
 
 	const frisday = () => {
@@ -208,9 +224,27 @@
 			justify-content: space-between;
 			gap: 2vh;
 			.c-name {
-				font-size: 2rem;
+				font-size: 1.8rem;
 				font-weight: 500;
 				margin: auto;
+				text-align: center;
+			}
+			.tardanzat{
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5vh;
+				span{
+					display: flex;
+					font-size: 1rem;
+					gap: 0.5vh;
+					color: rgb(243, 23, 23);
+					font-weight: 700;
+					p{
+						font-size: 0.8rem;
+						font-weight: 600;
+						color: black;
+					}
+				}
 			}
 			.buttons {
 				display: flex;
@@ -252,6 +286,7 @@
 						transform: scale(0.95);
 					}
 				}
+			
 			}
 
 			.cal {

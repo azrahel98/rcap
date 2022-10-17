@@ -86,8 +86,34 @@
 					</button>
 				</div>
 			</div>
+			<div class="checkbox">
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="flexSwitchCheckDefault"
+						v-model="asisStore.$state.showClock"
+					/>
+					<label class="form-check-label" for="flexSwitchCheckDefault"
+						>Reloj</label
+					>
+				</div>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="flexSwitchCheckDefault"
+						v-model="asisStore.$state.showAs"
+					/>
+					<label class="form-check-label" for="flexSwitchCheckDefault"
+						>Asistencia</label
+					>
+				</div>
+
+				<!-- <input type="checkbox" v-model="asisStore.$state.showAs" /> -->
+			</div>
 			<div class="card calendar">
-				<Calendar :dni="dni" :mes="8" />
+				<Calendar :dni="dni" />
 			</div>
 		</div>
 		<Pp :dni="dni"></Pp>
@@ -105,7 +131,9 @@
 	import Pp from '@com/modal/pp.vue'
 	import Calendar from '@com/pages/calendario/calendar.vue'
 	import { userStore } from '@store/user'
+	import { AsistEstore } from '@store/asistencia'
 
+	const asisStore = AsistEstore()
 	const employ = reactive<Employ>({})
 	const usertore = userStore()
 	const impem = new EmployImp()
@@ -134,11 +162,23 @@
 	.container-fluid {
 		width: 100%;
 		display: grid;
-		grid-template-rows: auto auto;
+		grid-template-rows: auto auto auto;
 		row-gap: 1vh;
 		margin: 0 !important;
 		padding: 0 !important;
+		.checkbox {
+					display: flex;
+					flex-direction: row;
+					gap: 1vh;
 
+					justify-content: center;
+					align-items: center;
+					flex-wrap: wrap;
+					input {
+						accent-color: #c8c4e6;
+						color: white;
+					}
+				}
 		.card {
 			padding: 1vh;
 			border-radius: 20px;
