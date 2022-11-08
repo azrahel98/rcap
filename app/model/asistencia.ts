@@ -7,7 +7,7 @@ interface RelojB {
 }
 interface AsistenciaD {
 	dni?: string
-	fecha: Date,
+	fecha: Date | string,
 	tardanza: number
 	acuenta: number | null
 	df?: boolean

@@ -4,7 +4,7 @@ interface Employ {
 	regimen?: string
 	area?: string
 	cargo?: string
-	ingreso?: Date
+	ingreso?: Date | null
 	horario?: string
 }
 

@@ -10,7 +10,7 @@ function DiasDelMes(mes: number, año: number): CalInfo {
 }
 
 function DiasDocumentos(dia: number, list: Array<any>) {
-	var result = []
+	var result: Array<any> = []
 	list.forEach((e) => {
 		var d = new Date(new Date(e.fecha.toString()).getTime() + 86400000)
 		if (d.getDate() === dia) {

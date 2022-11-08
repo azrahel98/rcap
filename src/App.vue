@@ -17,7 +17,7 @@
 		padding-right: 2vh !important;
 		justify-content: center !important;
 		align-items: center !important;
-		span {
+		span {  
 			margin-right: 2vh !important;
 		}
 	}

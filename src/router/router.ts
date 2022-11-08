@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('../views/login.vue'),
 		name: 'login',
 		path: '/login',
-		beforeEnter: (to, from, next) => {
+		beforeEnter: (_to, _from, next) => {
 			const loged = new LoginImp().check()
 			if (loged) {
 				next('/')
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('../views/root.vue'),
 		name: 'dash',
 		path: '/',
-		beforeEnter: (to, from, next) => {
+		beforeEnter: (_to, _from, next) => {
 			const loged = new LoginImp().check()
 			if (!loged) {
 				next('/login')

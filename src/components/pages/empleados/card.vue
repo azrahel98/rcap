@@ -73,7 +73,7 @@
 		area: { required: true, type: String },
 		cargo: { required: true, type: String },
 	})
-	const change = (x) => {
+	const change = (x: any) => {
 		isMemo.value = x
 	}
 	function AbrevName(): string {

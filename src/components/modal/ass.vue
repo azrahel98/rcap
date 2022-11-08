@@ -78,7 +78,6 @@
 
 <script lang="ts" setup>
 	import { AsistEstore } from '@store/asistencia'
-	import moment from 'moment'
 	import { ref } from 'vue'
 	import { AsistenciaImp } from '../../../app/implement/asistencia'
 
@@ -95,18 +94,17 @@
 	const ac = ref<number>()
 	const detalle = ref<string>()
 	const falta = ref<boolean>()
-	const fecha = moment(`2022-${prop.mes - 1}-${prop.i}`)
 
 	const save = async () => {
 		try {
 			const result = await asimp.add({
 				dni: prop.dni,
-				fecha: fecha.toDate(),
+				fecha: `2022-${prop.mes}-${prop.i}`,
 				tardanza: tardanza.value == 0 ? null : tardanza.value,
 				acuenta: ac.value == 0 ? null : ac.value,
 				falta: falta.value,
 			})
-			console.log(result)
+
 			Asistore.addDay(result)
 		} catch (error) {
 			console.log('error')

@@ -3,7 +3,7 @@ import { Token } from '../model/token'
 import { LoginRepository } from '../repository/login'
 import { MainApi } from '../http/axios'
 import jwtDecode from 'jwt-decode'
-import moment from 'moment'
+
 
 class LoginImp implements LoginRepository {
 	signout(): void {
@@ -25,7 +25,7 @@ class LoginImp implements LoginRepository {
 				})
 			)
 			if (result.status !== 200) throw new Error(result.data)
-			const deco = jwtDecode(JSON.parse(result.data)['value'])
+			const deco: any = jwtDecode(JSON.parse(result.data)['value'])
 			return {
 				value: JSON.parse(result.data)['value'],
 				admin: deco['admin'] === 'Y' ? true : false,

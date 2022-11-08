@@ -32,7 +32,7 @@ export class DocImpl implements DocRepository {
 			throw error
 		}
 	}
-	async create_doc(doc: Doc, range: boolean): Promise<Doc | null> {
+	async create_doc(doc: Doc, _range: boolean): Promise<Doc | null> {
 		try {
 			const data = await MainApi.getInstance().post('/doc', JSON.stringify(doc))
 			if (data.status !== 200) throw new Error(JSON.parse(data.data)['message'])
@@ -42,10 +42,10 @@ export class DocImpl implements DocRepository {
 		}
 	}
 
-	async edit_doc(doc: Doc): Promise<Doc> {
+	async edit_doc(_doc: Doc): Promise<Doc> {
 		throw new Error('Method not implemented.')
 	}
-	async delete_doc(docId: number): Promise<number> {
+	async delete_doc(_docId: number): Promise<number> {
 		throw new Error('Method not implemented.')
 	}
 	async create_pp(pp: PP): Promise<PP | null> {
@@ -62,10 +62,10 @@ export class DocImpl implements DocRepository {
 			throw error
 		}
 	}
-	async edit_pp(pp: PP): Promise<Doc> {
+	async edit_pp(_pp: PP): Promise<Doc> {
 		throw new Error('Method not implemented.')
 	}
-	async delete_pp(ppId: number): Promise<number> {
+	async delete_pp(_ppId: number): Promise<number> {
 		throw new Error('Method not implemented.')
 	}
 

@@ -7,7 +7,7 @@ export const EmployStore = defineStore('employ', {
 		}
 	},
 	actions: {
-		addEmploy(e: object) {
+		addEmploy(e: any) {
 			if (this.employs.length == 0) {
 				this.employs.push(e)
 				return

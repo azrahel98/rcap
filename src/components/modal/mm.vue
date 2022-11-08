@@ -142,7 +142,7 @@
 	const tipoDoc = ref<string>('MEMORANDO') //tipodoc
 	const descr = ref<string>() // descrip
 	const refe = ref<string>() // referencia
-	const docrange = ref(false)
+	const docrange = ref<any>(false)
 
 	const save = async () => {
 		try {

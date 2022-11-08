@@ -30,7 +30,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="actions" v-if="usertore.admin">
+				<!-- <div class="actions" v-if="usertore.admin">
 					<button data-bs-toggle="modal" :data-bs-target="`#m${dni}`">
 						<div class="svg-wrapper-1">
 							<div class="svg-wrapper">
@@ -84,9 +84,9 @@
 							</div>
 						</div>
 					</button>
-				</div>
+				</div> -->
 			</div>
-			<div class="checkbox">
+			<!-- <div class="checkbox">
 				<div class="form-check form-switch">
 					<input
 						class="form-check-input"
@@ -109,9 +109,7 @@
 						>Asistencia</label
 					>
 				</div>
-
-				<!-- <input type="checkbox" v-model="asisStore.$state.showAs" /> -->
-			</div>
+			</div> -->
 			<div class="card calendar">
 				<Calendar :dni="dni" />
 			</div>
@@ -130,12 +128,12 @@
 	import Mm from '@com/modal/mm.vue'
 	import Pp from '@com/modal/pp.vue'
 	import Calendar from '@com/pages/calendario/calendar.vue'
-	import { userStore } from '@store/user'
-	import { AsistEstore } from '@store/asistencia'
+	//import { userStore } from '@store/user'
+	//import { AsistEstore } from '@store/asistencia'
 
-	const asisStore = AsistEstore()
+	//const asisStore = AsistEstore()
 	const employ = reactive<Employ>({})
-	const usertore = userStore()
+	//const usertore = userStore()
 	const impem = new EmployImp()
 
 	const dni = ref<string>(router.currentRoute.value.params.dni as string)
@@ -162,23 +160,11 @@
 	.container-fluid {
 		width: 100%;
 		display: grid;
-		grid-template-rows: auto auto auto;
+		grid-template-rows: min-content auto auto;
 		row-gap: 1vh;
 		margin: 0 !important;
 		padding: 0 !important;
-		.checkbox {
-					display: flex;
-					flex-direction: row;
-					gap: 1vh;
 
-					justify-content: center;
-					align-items: center;
-					flex-wrap: wrap;
-					input {
-						accent-color: #c8c4e6;
-						color: white;
-					}
-				}
 		.card {
 			padding: 1vh;
 			border-radius: 20px;
@@ -245,15 +231,15 @@
 						background: #e8f0fd;
 						border-radius: 15px;
 						margin: auto;
-						margin-top: 25px;
+						margin-top: 1vh;
 					}
 					button {
-						padding: 8px 25px;
+						padding: 1vh 2vh;
 						display: block;
 						margin: auto;
-						border-radius: 8px;
+						border-radius: 50px;
 						border: none;
-						margin-top: 30px;
+						margin-top: 2vh;
 						background: #887ed6;
 						color: white;
 						font-weight: 600;

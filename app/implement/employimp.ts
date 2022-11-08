@@ -1,8 +1,8 @@
 import { EmployRepository } from '../repository/employ'
 import { MainApi } from '../http/axios'
 import { Employ } from '../model/employs'
-import moment from 'moment'
 import { RelojB } from '../model/asistencia'
+import moment from 'moment'
 
 class EmployImp implements EmployRepository {
 	async buscar_asistencia(dni: string, mes: number): Promise<RelojB[]> {
@@ -20,7 +20,7 @@ class EmployImp implements EmployRepository {
 			const marcaciones: Array<RelojB> = []
 			// if ((JSON.parse(result.data) as Array<any>).length === 0)
 			// 	throw new Error('sin resultados')
-			JSON.parse(result.data).forEach((e) => {
+			JSON.parse(result.data).forEach((e: any) => {
 				marcaciones.push({
 					dni: e.dni,
 					hora: e.hora,
@@ -49,7 +49,7 @@ class EmployImp implements EmployRepository {
 			const employs: Array<Employ> = []
 			if ((JSON.parse(result.data)['data'] as Array<any>).length === 0)
 				throw new Error('sin resultados')
-			JSON.parse(result.data)['data'].forEach((e) => {
+			JSON.parse(result.data)['data'].forEach((e: any) => {
 				employs.push({
 					area: e.area,
 					cargo: e.cargo,
@@ -81,7 +81,7 @@ class EmployImp implements EmployRepository {
 			const employs: Array<Employ> = []
 			if ((JSON.parse(result.data)['data'] as Array<any>).length === 0)
 				throw new Error('sin resultados')
-			JSON.parse(result.data)['data'].forEach((e) => {
+			JSON.parse(result.data)['data'].forEach((e: any) => {
 				employs.push({
 					area: e.area,
 					cargo: e.cargo,
@@ -104,6 +104,7 @@ class EmployImp implements EmployRepository {
 			if (result.status !== 200) throw new Error(result.data)
 			return JSON.parse(result.data)['cantidad']
 		} catch (error) {
+			if (JSON.parse((error as Error).message).error === "token no es válido") localStorage.clear()
 			throw error
 		}
 	}

@@ -1,61 +1,93 @@
 <template>
 	<div class="calendario">
 		<div class="month">
+			<button v-on:click="currentMonth -= 1">
+				<div class="svg-wrapper-1">
+					<div class="svg-wrapper">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon-arrow"
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<line x1="4" y1="12" x2="14" y2="12"></line>
+							<line x1="4" y1="12" x2="8" y2="16"></line>
+							<line x1="4" y1="12" x2="8" y2="8"></line>
+							<line x1="20" y1="4" x2="20" y2="20"></line>
+						</svg>
+					</div>
+				</div>
+			</button>
 			<div class="c-name">{{ MesString(currentMonth) }}</div>
+
+			<button v-on:click="currentMonth += 1">
+				<div class="svg-wrapper-1">
+					<div class="svg-wrapper">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon-arrow"
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<line x1="20" y1="12" x2="10" y2="12"></line>
+							<line x1="20" y1="12" x2="16" y2="16"></line>
+							<line x1="20" y1="12" x2="16" y2="8"></line>
+							<line x1="4" y1="4" x2="4" y2="20"></line>
+						</svg>
+					</div>
+				</div>
+			</button>
+		</div>
+		<div class="actions">
 			<div class="tardanzat">
-				<span><p>Tardanza</p>{{asisStore.tardanzas}}</span>
-				<span><p>Faltas</p>{{asisStore.faltas}}</span>
+				<span
+					><p>Tardanza</p>
+					{{ asisStore.tardanzas }}</span
+				>
+				<span
+					><p>Faltas</p>
+					{{ asisStore.faltas }}</span
+				>
 			</div>
-			<div class="buttons">
-				<button v-on:click="currentMonth -= 1">
-					<div class="svg-wrapper-1">
-						<div class="svg-wrapper">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="icon-arrow"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								stroke-width="2"
-								stroke="currentColor"
-								fill="none"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<line x1="4" y1="12" x2="14" y2="12"></line>
-								<line x1="4" y1="12" x2="8" y2="16"></line>
-								<line x1="4" y1="12" x2="8" y2="8"></line>
-								<line x1="20" y1="4" x2="20" y2="20"></line>
-							</svg>
-						</div>
-					</div>
-				</button>
-				<button v-on:click="currentMonth += 1">
-					<div class="svg-wrapper-1">
-						<div class="svg-wrapper">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="icon-arrow"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								stroke-width="2"
-								stroke="currentColor"
-								fill="none"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<line x1="20" y1="12" x2="10" y2="12"></line>
-								<line x1="20" y1="12" x2="16" y2="16"></line>
-								<line x1="20" y1="12" x2="16" y2="8"></line>
-								<line x1="4" y1="4" x2="4" y2="20"></line>
-							</svg>
-						</div>
-					</div>
-				</button>
-		
+			<div class="checks">
+				<div class="form-check">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						value=""
+						id="flexCheckDefault"
+						v-model="asisStore.$state.showClock"
+					/>
+					<label class="form-check-label" for="flexCheckDefault">
+						<i class="bx bx-time"></i>
+					</label>
+				</div>
+				<div class="form-check">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						value=""
+						id="flexCheckChecked"
+						v-model="asisStore.$state.showAs"
+					/>
+					<label class="form-check-label" for="flexCheckChecked">
+						<i class="bx bx-exit"></i>
+					</label>
+				</div>
 			</div>
 		</div>
 		<div class="body">
@@ -69,7 +101,7 @@
 				<p>Dom</p>
 			</div>
 			<div class="cal">
-				<div v-for="l in frisday()"></div>
+				<div v-for="_l in frisday()"></div>
 				<div
 					class="card-day"
 					v-for="i in new Date(2022, currentMonth, 0).getDate()"
@@ -153,7 +185,7 @@
 		)
 	})
 
-	watch(currentMonth, async (x, y) => {
+	watch(currentMonth, async (x, _y) => {
 		marc.value = []
 		docs.value = []
 		pps.value = []
@@ -182,13 +214,14 @@
 
 <style lang="scss" scoped>
 	.calendario {
+		height: 100%;
 		display: grid;
-		grid-template-rows: auto 1fr;
-
+		grid-template-rows: auto auto 1fr;
+		row-gap: 1vh;
 		.body {
 			display: grid;
 			background-color: $bg;
-			border-radius: 25px;
+			border-radius: 10px 10px 50px 50px;
 			.dias,
 			.cal {
 				display: grid;
@@ -197,10 +230,15 @@
 				justify-items: center;
 			}
 			.dias {
-				border-bottom: 25px;
-				margin-bottom: 1vh;
+				gap: 2px;
+				background-color: transparent;
+				padding-top: 1vh;
 				p {
 					width: 100%;
+					font-family: 'Fira Sans';
+					color: gray;
+					font-size: 0.8rem;
+					font-weight: 500;
 					text-align: center;
 				}
 			}
@@ -212,8 +250,9 @@
 				.card-day {
 					height: 100%;
 					width: 100%;
+					min-height: 5vh;
+					width: 100%;
 					border-radius: 10px;
-					background-color: white;
 				}
 			}
 		}
@@ -221,77 +260,112 @@
 			display: flex;
 			font-family: 'Nunito', sans-serif;
 			align-items: center;
-			justify-content: space-between;
-			gap: 2vh;
+			justify-content: space-around;
+			width: 100%;
 			.c-name {
-				font-size: 1.8rem;
-				font-weight: 500;
-				margin: auto;
+				font-size: 2rem;
+				font-weight: 600;
 				text-align: center;
 			}
-			.tardanzat{
+
+			button {
+				background: #c8c4e6;
+				color: white;
+				padding: 0.5vh;
 				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5vh;
-				span{
-					display: flex;
-					font-size: 1rem;
-					gap: 0.5vh;
-					color: rgb(243, 23, 23);
-					font-weight: 700;
-					p{
-						font-size: 0.8rem;
-						font-weight: 600;
-						color: black;
-					}
+				align-items: center;
+				border: none;
+				border-radius: 16px;
+				overflow: hidden;
+				transition: all 0.2s;
+				span {
+					display: block;
+					margin-left: 0.3em;
+					font-size: 0.65rem;
+					font-weight: 500;
+					transition: all 0.3s ease-in-out;
 				}
-			}
-			.buttons {
-				display: flex;
-				gap: 2vh;
-				button {
-					background: #c8c4e6;
-					color: white;
-					padding: 0.5vh;
-					display: flex;
-					align-items: center;
-					border: none;
-					border-radius: 16px;
-					overflow: hidden;
-					transition: all 0.2s;
-					span {
-						display: block;
-						margin-left: 0.3em;
-						font-size: 0.65rem;
-						font-weight: 500;
-						transition: all 0.3s ease-in-out;
+				svg {
+					display: block;
+					transform-origin: center center;
+					transition: transform 0.3s ease-in-out;
+				}
+				&:hover {
+					.svg-wrapper {
+						animation: fly-1 0.6s ease-in-out infinite alternate;
 					}
 					svg {
-						display: block;
-						transform-origin: center center;
-						transition: transform 0.3s ease-in-out;
+						transform: translateX(1.2em) rotate(1deg) scale(1.1);
 					}
-					&:hover {
-						.svg-wrapper {
-							animation: fly-1 0.6s ease-in-out infinite alternate;
-						}
-						svg {
-							transform: translateX(1.2em) rotate(1deg) scale(1.1);
-						}
-						span {
-							transform: translateX(5em);
-						}
-					}
-					&:active {
-						transform: scale(0.95);
+					span {
+						transform: translateX(5em);
 					}
 				}
-			
+				&:active {
+					transform: scale(0.95);
+				}
 			}
 
 			.cal {
 				background-color: antiquewhite;
 				height: 100%;
+			}
+		}
+		.actions {
+			display: flex;
+			width: 100%;
+			justify-content: space-around;
+			gap: 2vh;
+			align-items: center;
+			.checks {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 3vh;
+				.form-check {
+					display: flex;
+					gap: 1vh;
+					justify-content: center;
+					align-items: center;
+					flex-wrap: wrap;
+					label {
+						font-size: 1.3rem;
+					}
+					input {
+						text-align: center;
+						background-color: #887ed6;
+						border: none;
+					}
+					:focus {
+						box-shadow: none;
+						background-color: #887ed6;
+					}
+					:active {
+						background-color: #887ed6;
+					}
+				}
+			}
+			.tardanzat {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				text-align: center;
+				gap: 6vh;
+				padding-top: 2vh;
+				span {
+					display: flex;
+					font-size: 0.9rem;
+					gap: 1vh;
+					color: $text-color-light;
+					font-weight: 700;
+					text-align: center;
+					p {
+						font-size: 0.8rem;
+						font-weight: 600;
+						text-align: center;
+						color: $text-color;
+					}
+				}
 			}
 		}
 	}

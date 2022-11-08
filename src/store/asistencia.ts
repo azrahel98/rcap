@@ -28,7 +28,7 @@ export const AsistEstore = defineStore('asist', {
         }
     },
     actions: {
-        addDay(x: object): void {
+        addDay(x: any): void {
             if (this.asistencia.find((e) => e['fecha'] === x['fecha']) === undefined) {
                 this.asistencia.push(x)
             }

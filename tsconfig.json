@@ -1,28 +1,32 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": false,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": false,
-    "esModuleInterop": true,
-    "allowJs": true,
-    "strictNullChecks": false,
-    "lib": ["esnext", "dom"],
-    "skipLibCheck": true,
-    "paths": {
-      "@/*":["./app/*"],
-      "@com/*":["./src/components/*"],
-      "@store/*":["./src/store/*"],
-      "@app/imp/*":["./app/implement/*"]
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-  ]
+	"compilerOptions": {
+		"target": "esnext",
+		"useDefineForClassFields": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"strict": true,
+		"jsx": "preserve",
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"isolatedModules": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+
+		"allowJs": true,
+		"strictNullChecks": false,
+		"lib": ["esnext", "dom"],
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["./app/*"],
+			"@com/*": ["./src/components/*"],
+			"@store/*": ["./src/store/*"],
+			"@app/imp/*": ["./app/implement/*"]
+		}
+	},
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+	"references": [{ "path": "./tsconfig.node.json" }]
 }

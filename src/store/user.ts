@@ -9,7 +9,7 @@ export const userStore = defineStore('user', {
 		InitAdmin() {
 			var token = localStorage.getItem('token')
 			if (token) {
-				this.admin = jwtDecode(token)['admin'] == 'Y' ? true : false
+				this.admin = (jwtDecode(token) as any)['admin'] == 'Y' ? true : false
 			}
 		},
 	},
