@@ -4,6 +4,7 @@ export const EmployStore = defineStore('employ', {
 	state: () => {
 		return {
 			employs: [],
+			cantidad: 0
 		}
 	},
 	actions: {

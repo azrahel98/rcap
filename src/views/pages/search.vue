@@ -28,15 +28,19 @@
 	import { onMounted, reactive, ref } from 'vue'
 	import { useToast } from 'vue-toastification'
 	import Card from '@com/pages/empleados/card.vue'
+	import { EmployStore } from '@store/employ'
 
 	const imp = new EmployImp()
 	const toast = useToast()
 
+	const storemp = EmployStore()
 	const activos = ref<number>()
 	const employs = reactive<Employ[]>([])
 	const nombre = ref<string>('')
 
-	onMounted(async () => (activos.value = await imp.empleadosActivos()))
+	onMounted(async () => {
+		if (storemp.cantidad == 0) activos.value = await imp.empleadosActivos()
+	})
 
 	const search = async () => {
 		try {
