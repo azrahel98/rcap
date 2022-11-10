@@ -179,25 +179,19 @@
 </script>
 <style lang="scss" scoped>
 	.not-work {
-		background: repeating-linear-gradient(
-			45deg,
-			rgba(253, 125, 108, 0.651),
-			rgba(253, 125, 108, 0.651) 10px,
-			white 10px,
-			white 20px
-		) !important;
+		background: -webkit-linear-gradient(
+			to right,
+			#eb3349,
+			#f45c43
+		) !important; /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #eb3349, #f45c43) !important;
 	}
 	.df {
 		background-color: rgb(202, 195, 182) !important;
 	}
 	.tardanzas {
-		background: repeating-linear-gradient(
-			45deg,
-			rgba(245, 243, 243, 0.651),
-			rgba(245, 243, 243, 0.651) 10px,
-			white 10px,
-			white 20px
-		);
+		background: transparent;
+		border: 2px solid white;
 	}
 	.card-day,
 	.card-day-r {
@@ -242,7 +236,7 @@
 			padding-top: 1vh;
 			padding-bottom: 1vh;
 			span {
-				color: $text-color-light;
+				color: rgba(224, 20, 20, 0.637);
 				font-weight: 600;
 				font-size: 1.2rem;
 			}
